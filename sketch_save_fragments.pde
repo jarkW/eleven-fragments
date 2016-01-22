@@ -16,8 +16,6 @@ int streetBeingProcessed;
 
 boolean failNow = false;
 PImage qaSnap;
-
-PrintWriter output;
  
 public void setup() {
     
@@ -33,48 +31,6 @@ public void setup() {
         return;
     }
     
-    // Set up for printing to file
-    // But bomb out now if file already exists so user can overwrite
-    // Create new class - which when created, reads in existing file to
-    // array, and if start of string matches passed one, then uses new
-    // one (searching on class_tsid:info or class_tsid match)
-    // Then write it all back to output file.
-    // Means the file always contains the latest version of the
-    // image offsets
-    File file = new File(sketchPath(configInfo.readOutputFilename()));
-
-/*
-    if (file.exists())
-    {
-        println("Output file (", configInfo.readOutputFilename(), ") already exists.");
-        failNow = true;
-        return;
-    } 
-*/
-    output = createWriter(configInfo.readOutputFilename());
-    
-    // Loop through list of street TSIDs, reading in the street info
-    // and all the items on that street.
-    for (int i = 0; i < configInfo.readTotalStreetCount(); i++)
-    {
-        println("Read street data for TSID ", configInfo.readStreetTSID(i)); 
-         
-        // Now read in data for each street
-        streetInfoArray.add(new StreetInfo(configInfo.readStreetTSID(i)));
-            
-        // Now read the error flag for the last street array added
-        int total = streetInfoArray.size();
-        println("Total is ", total);
-        StreetInfo streetData = streetInfoArray.get(total-1);
-                       
-        if (streetData.readErrFlag())
-        {
-            println ("Error parsing street information");
-            failNow = true;
-            return;
-        }
-    }
-    
     if (configInfo.readTotalStreetCount() < 1)
     {
         // No streets to process - exit
@@ -83,6 +39,42 @@ public void setup() {
         return;
     }
     
+    // Loop through list of street TSIDs, reading in the street info
+    for (int i = 0; i < configInfo.readTotalStreetCount(); i++)
+    {
+        println("Read street data for TSID ", configInfo.readStreetTSID(i)); 
+         
+        // Now read in basic data for each street
+        streetInfoArray.add(new StreetInfo(configInfo.readStreetTSID(i)));
+            
+        // Now read the error flag for the last street array added
+        println("Total is ", streetInfoArray.size());
+        StreetInfo streetData = streetInfoArray.get(streetInfoArray.size()-1);
+                       
+        if (streetData.readErrFlag())
+        {
+            println ("Error parsing street information for ", configInfo.readStreetTSID(i));
+            failNow = true;
+            return;
+        }
+    }
+   
+    // Now loop through all streets again, loading up the items structures for each street
+    for (int i = 0; i < configInfo.readTotalStreetCount(); i++)
+    {
+        println("Read street item data for TSID ", configInfo.readStreetTSID(i)); 
+        
+        streetInfoArray.get(i).readStreetItemData();
+                     
+        // Now read the error flag for the last street array added                      
+        if (streetInfoArray.get(i).readErrFlag())
+        {
+            println ("Error parsing street item information for ", configInfo.readStreetTSID(i));
+            failNow = true;
+            return;
+        }
+    }
+       
     // Load the first street snap
     streetBeingProcessed = 0;
            
@@ -125,6 +117,23 @@ void keyPressed() {
     {
         streetInfoArray.get(streetBeingProcessed).increaseItemOffsetY(true);
     }
+    if (key == '<')
+    {
+        streetInfoArray.get(streetBeingProcessed).increaseSampleWidth(false);
+    }
+    if (key == '>')
+    {
+        streetInfoArray.get(streetBeingProcessed).increaseSampleWidth(true);
+    }
+    if (key == '-')
+    {
+        streetInfoArray.get(streetBeingProcessed).increaseSampleHeight(false);
+    }
+    if (key == '^')
+    {
+        streetInfoArray.get(streetBeingProcessed).increaseSampleHeight(true);
+    }
+    
     
     if (key == 's') 
     {

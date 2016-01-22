@@ -37,7 +37,7 @@ class ConfigInfo {
         catch(Exception e)
         {
             println(e);
-            return (true);
+            return true;
         }
    
         // Now read in the different fields
@@ -45,7 +45,7 @@ class ConfigInfo {
         snapPath = readJSONString(json, "snap_path");
         pngPath = readJSONString(json, "png_path");
         outputFile = readJSONString(json, "output_file");
-            
+        
         // Read in array of street TSID
         try
         {
@@ -60,7 +60,7 @@ class ConfigInfo {
                 if (tsid.length() == 0)
                 {
                     println("Missing value for street tsid");
-                    return (true);
+                    return true;
                 }
                 streetTSIDArray.add(new String(tsid));        
             }
@@ -69,13 +69,14 @@ class ConfigInfo {
         catch(Exception e)
         {
             println(e);
-            return (true);
-        }
-    
+           return true;
+        }  
+        
+            
         // Everything OK
-        return (false);
+        return false;
     }
-    
+       
     String readJSONString(JSONObject jsonFile, String key)
     {
         String readString = "";
@@ -85,7 +86,7 @@ class ConfigInfo {
             {
                 println("Missing key ", key, " in json file");
                 errFlag = true;
-                return("");
+                return "";
             }
             readString = jsonFile.getString(key, "");
         }
@@ -93,57 +94,57 @@ class ConfigInfo {
         {
             println(e);
             errFlag = true;
-            return("");
+            return "";
         }
         if (readString.length() == 0)
         {
             println("Null field returned for key", key);
             errFlag = true;
-            return("");
+            return "";
         }
-        return(readString);
+        return readString;
     }
     
     public boolean readErrFlag()
     {
-        return (errFlag);
+        return errFlag;
     }
     
     public String readJSONPath()
     {
-        return (jsonPath);
+        return jsonPath;
     }
     
     public String readSnapPath()
     {
-        return (snapPath);
+        return snapPath;
     }
      
     public String readPngPath()
     {
-        return (pngPath);
+        return pngPath;
     }
     
     public String readStreetTSID(int n)
     {
         if (n < totalStreetCount)
         {
-            return(streetTSIDArray.get(n));
+            return streetTSIDArray.get(n);
         }
         else
         {
             // error condition
-            return ("");
+            return "";
         }
     }
     
     public int readTotalStreetCount()
     {
-        return(totalStreetCount);
+        return totalStreetCount;
     }
     
     public String readOutputFilename()
     {
-        return (outputFile);
+        return outputFile;
     } 
 }

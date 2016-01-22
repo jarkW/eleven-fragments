@@ -11,6 +11,7 @@
   "snap_path": "C:/Glitch/Work/ItemCompareTool/Snaps",
   "png_path": "C:/Glitch/Work/ItemCompareTool/GeneratedItems",
   "output_file": "save_fragments.txt",
+  "check_unique": false,
   "all_streets": [
     {"tsid": "LHVT4C9KSIA2UMG"},
     {"tsid": "LHV1HO45PQA2QJS"},

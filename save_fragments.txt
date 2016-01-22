@@ -1,0 +1,8 @@
+Saving to marker_qurazy_full.png IXXXCWIBTFVPCVJZ6W (marker_qurazy) x,y=301,-400 has offset 0,-5 for sample width=15 for sample height=15
+Saving to quoin_currants_full.png IHVF3462LNA26GU (quoin (currants) ) x,y=423,-400 has offset -4,-11 for sample width=10 for sample height=10
+Saving to quoin_mood_full.png IHVEUM61LNA2MP3 (quoin (mood) ) x,y=537,-400 has offset -4,-13 for sample width=10 for sample height=10
+Saving to quoin_xp_full.png IHVEU631LNA2SJQ (quoin (xp) ) x,y=646,-400 has offset -4,-20 for sample width=10 for sample height=13
+Saving to quoin_time_full.png IHV8TGKPJNA2584 (quoin (time) ) x,y=929,-400 has offset -3,-16 for sample width=10 for sample height=10
+Saving to quoin_mystery_full.png IHV93BOQJNA2GRU (quoin (mystery) ) x,y=1014,-400 has offset -4,-21 for sample width=10 for sample height=10
+Saving to quoin_energy_full.png IHVEBL7TKNA20A4 (quoin (energy) ) x,y=744,-400 has offset -3,-13 for sample width=10 for sample height=10
+Saving to quoin_favor_full.png IHV9Q320KNA29F9 (quoin (favor) ) x,y=835,-400 has offset -4,-16 for sample width=10 for sample height=10

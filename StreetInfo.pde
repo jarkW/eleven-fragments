@@ -34,7 +34,7 @@ class StreetInfo {
         if (!file.exists())
         {
             println("Missing file - ", locFileName);
-            return(true);
+            return true;
         } 
         
         JSONObject json;
@@ -46,7 +46,7 @@ class StreetInfo {
         catch(Exception e)
         {
             System.out.println(e);
-            return(true);
+            return true;
         } 
         println("Reading location file ", locFileName);
     
@@ -60,7 +60,7 @@ class StreetInfo {
         catch(Exception e)
         {
             System.out.println(e);
-            return(true);
+            return true;
         } 
         println("Street name is ", streetName);
     
@@ -73,14 +73,21 @@ class StreetInfo {
         catch(Exception e)
         {
             System.out.println(e);
-            return(true);
+            return true;
         } 
  
+         // Everything OK   
+        return false;
+    }
+    
+    
+    public void  readStreetItemData()
+    {
         println("Read item TSID from street L file");   
         // Now read in data for each item
         for (int i = 0; i < streetItems.size(); i++) 
         {
-            streetItemInfoArray.add(new ItemInfo(streetItems.getJSONObject(i), streetTSID));
+            streetItemInfoArray.add(new ItemInfo(streetItems.getJSONObject(i)));
             
             // Now read the error flag for the last street item array added
             int total = streetItemInfoArray.size();
@@ -89,13 +96,12 @@ class StreetInfo {
             if (itemData.readErrFlag())
             {
                 println ("Error parsing item information");
-                return(true);
+                errFlag = true;
             }
         }
  
         // Everything OK
         println(" Initialised street: errFlag = ", errFlag, " streetName=", streetName, " street TSID = ", streetTSID, "with item count ", streetItemInfoArray.size());     
-        return(false);
     }
 
 
@@ -118,6 +124,21 @@ class StreetInfo {
         itemData.increaseOffsetY(increase);
     }
     
+        public void increaseSampleWidth(boolean increase)
+    {
+        ItemInfo itemData = streetItemInfoArray.get(itemBeingProcessed);
+        itemData.increaseSampleWidth(increase);
+    }
+    
+    public void increaseSampleHeight(boolean increase)
+    {
+        ItemInfo itemData = streetItemInfoArray.get(itemBeingProcessed);
+        itemData.increaseSampleHeight(increase);
+    }
+    
+    
+    
+    
     public boolean saveItemImage()
     {
         ItemInfo itemData = streetItemInfoArray.get(itemBeingProcessed);
@@ -129,11 +150,11 @@ class StreetInfo {
         {
             // Done all items on street
             // Move on to next street
-            return(true);
+            return true;
         }
         else
         {
-            return(false);
+            return false;
         }
     }
     
@@ -148,28 +169,27 @@ class StreetInfo {
         {
             // Done all items on street
             // Move on to next street
-            return(true);
+            return true;
         }
         else
         {
-            return(false);
+            return false;
         }
     }
 
     public boolean readErrFlag()
     {
-        return (errFlag);
+        return errFlag;
     }
     
     public String readStreetName()
     {
-        return (streetName);
+        return  streetName;
     }
     
     public String readStreetTSID()
     {
-        println("XXXXXReturning street TSID ", streetTSID);
-        return (streetTSID);
+        return streetTSID;
     }
  
 }

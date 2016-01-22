@@ -18,7 +18,7 @@ class ItemInfo {
    
     // constructor/initialise fields
     //public ItemInfo(JSONObject item)
-    public ItemInfo(JSONObject item, String streetTSID)
+    public ItemInfo(JSONObject item)
     {
         // initialise values
         errFlag = false;
@@ -30,18 +30,7 @@ class ItemInfo {
         println("item tsid is ", itemTSID, "(", item.getString("label"), ")"); //<>//
 
         // Now open the relevant I* file from the same directory
-        
-        // This one causes a null problem
-        //println("1", "streetBeingProcessed is ", streetBeingProcessed, "size array is ", streetInfoArray.size());
-        //StreetInfo xx = streetInfoArray.get(streetBeingProcessed);
-        //println("2");
-        //println(" Reading street TSID from itemInfo constructor = <", streetInfoArray.get(streetBeingProcessed).readStreetTSID(), ">");
-        //String itemFileName = configInfo.readJSONPath() + "/" + streetInfoArray.get(streetBeingProcessed).readStreetTSID() + "/" + itemTSID + ".json";
-        
-        
-        
-        String itemFileName = configInfo.readJSONPath() + "/" + streetTSID + "/" + itemTSID + ".json";
-       
+        String itemFileName = configInfo.readJSONPath() + "/" + streetInfoArray.get(streetBeingProcessed).readStreetTSID() + "/" + itemTSID + ".json";      
         println("Item file name is ", itemFileName);       
    
         // First check it exists        
@@ -145,13 +134,16 @@ class ItemInfo {
         qaSnapFragment = qaSnap.get(start_x, start_y, sampleWidth, sampleHeight); 
 
         image(qaSnapFragment, 50, 50); 
-        String s = "Offset is " + str(offsetX) + ", " + str(offsetY); 
+        String s = "Offset is " + str(offsetX) + ", " + str(offsetY) + " width " + str(sampleWidth) + " height " + str(sampleHeight); 
         fill(50);
         text(s, 50, 350, 200, 150);  // Text wraps within text box
         s = "Arrow keys to move fragment";
         text(s, 50, 380, 200, 150);  // Text wraps within text box
-        s = "Change size: < narrower, > wider, ^ higher, -lower";
-        text(s, 50, 400, 200, 150);  // Text wraps within text box
+        //s = "Change size: < narrower, > wider, ^ higher, -lower";
+        //text(s, 50, 400, 200, 150);  // Text wraps within text box
+        text("Change size:", 50, 400, 200, 150); 
+        text("< narrower, > wider", 50, 420, 200, 150);
+        text("^ higher, -lower", 50, 440, 200, 150);
         
         // Also display a larger area of the snap - just for reference purposes
         int displacement = (sampleWidth + 100) / 2;      
@@ -177,7 +169,7 @@ class ItemInfo {
        // Save image of screen to Data directory under Processing
        save(dataPath(save_fname));
        // Save the actual png file to be used later in Work directory
-       qaSnapFragment.save(dataPath(configInfo.readPngPath() + "/" + sample_fname));
+       qaSnapFragment.save(configInfo.readPngPath() + "/" + sample_fname);
 
         // Now need to search this fragment against the full images which 
         // have been manually generated.
@@ -196,7 +188,7 @@ class ItemInfo {
         // else returns to handling that item
             
 
-       println("Saving ", save_fname, " at offsetX=", offsetX, ", offsetY=", offsetY);
+       //println("Saving ", save_fname, " at offsetX=", offsetX, ", offsetY=", offsetY);
       
        String outputStr = "Saving to " + save_fname + " " + itemTSID + " (" + itemClassTSID;
        if (itemInfo.length() > 0)
@@ -207,21 +199,31 @@ class ItemInfo {
        outputStr = outputStr + str(offsetX) + "," + str(offsetY) + " for sample width=";
        outputStr = outputStr + str(sampleWidth) + " for sample height=" + str(sampleHeight);
        println(outputStr);
-       output.println(outputStr);
-       output.flush();
+       
+       // Now print to file - create print object first
+       PrintToFile printToFile = new PrintToFile();
+       // Read in existing output file to an array 
+       if (!printToFile.ReadExistingOutputFile())
+       {
+            failNow = true;
+            return;
+       }
+       // print line to file
+       printToFile.printLine(outputStr);
+       
+       // close stream
+       printToFile.closeOutputFile();
     }
     
     void skipImage()
     {
-        println("Skipping ", itemTSID, " (", itemClassTSID, ")");
-        String outputStr = "Skipping " + itemTSID + " (" + itemClassTSID;
+        String outputStr = "Skipping " + itemTSID + " (" + itemClassTSID; //<>//
         if (itemInfo.length() > 0)
         {
             outputStr = outputStr + " (" + itemInfo + ") ";
         }
         outputStr = outputStr + ") x,y=" + str(itemX) + "," + str(itemY);
-        output.println(outputStr);
-        output.flush();
+        println(outputStr);
     }
       
     // public functions for reading stuff in from outside this class
@@ -252,6 +254,31 @@ class ItemInfo {
         else
         {
             offsetY--;
+        }
+        return;
+    }
+    
+    public void increaseSampleWidth(boolean increase)
+    {
+        if (increase)
+        {
+            sampleWidth++;
+        }
+        else
+        {
+            sampleWidth--;
+        }
+        return;
+    }
+    public void increaseSampleHeight(boolean increase)
+    {
+        if (increase)
+        {
+            sampleHeight++;
+        }
+        else
+        {
+            sampleHeight--;
         }
         return;
     }
