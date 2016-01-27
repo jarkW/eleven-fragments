@@ -10,25 +10,40 @@ class ItemInfo {
     int    offsetY; 
     int    sampleWidth; // contains the default size
     int    sampleHeight; // contains the default size
-    boolean errFlag;
+    boolean okFlag;
     
     PImage qaSnapFragment;
     PImage qaSnapLargeFragment;
+    boolean fragmentIsUnique;
+    String uniqueTestResultMsg;
+    String uniqueReferenceFile;
+    int uniqueReferenceX;
+    int uniqueReferenceY;
+    PImage savedFragment;
 
    
     // constructor/initialise fields
-    //public ItemInfo(JSONObject item)
     public ItemInfo(JSONObject item)
     {
         // initialise values
-        errFlag = false;
+        okFlag = true;
         itemInfo = "";
         offsetX = 0;
         offsetY = 0;
+        sampleWidth = 10;
+        sampleHeight = 10;
+        fragmentIsUnique = false;
+        uniqueTestResultMsg = "";
+        uniqueReferenceFile = "";
+        uniqueReferenceX = 0;
+        uniqueReferenceY = 0;
         
         itemTSID = item.getString("tsid"); //<>//
-        println("item tsid is ", itemTSID, "(", item.getString("label"), ")"); //<>//
-
+        println("item tsid is ", itemTSID, "(", item.getString("label"), ")");        //<>//
+    }
+    
+    public boolean initialiseItemInfo()
+    {
         // Now open the relevant I* file from the same directory
         String itemFileName = configInfo.readJSONPath() + "/" + streetInfoArray.get(streetBeingProcessed).readStreetTSID() + "/" + itemTSID + ".json";      
         println("Item file name is ", itemFileName);       
@@ -38,20 +53,20 @@ class ItemInfo {
         if (!file.exists())
         {
             println("Missing Item file ", itemFileName);
-            errFlag = true;
-            return;
+            return false;
         }
 
         // Now read the item JSON file
         JSONObject itemJson = null;
-        try{
+        try
+        {
             itemJson = loadJSONObject(itemFileName);
         }
         catch(Exception e)
         {
             println(e);
-            errFlag = true;
-            return;
+            println("Failed load the item json file ", itemFileName);
+            return false;
         }
         
         println("Loaded item JSON OK");
@@ -60,30 +75,27 @@ class ItemInfo {
         itemY = itemJson.getInt("y");
         itemClassTSID = itemJson.getString("class_tsid");
         println("class_tsid ", itemClassTSID," with x,y ", itemX, ",", itemY);              
-                 
+              
+        // Populate the info field for some items e.g. quoins, dirt etc
+        if (!extractItemInfoFromJson(itemJson))
+        {
+            // Error populating info field
+            return false;
+        }
+        
+        return true;
+    }
+    
+    boolean extractItemInfoFromJson(JSONObject itemJson)
+    {
+        
         switch (itemClassTSID)
         {
-            case "rock_metal_1":
-                sampleWidth = 50;
-                sampleHeight = 50;
-                break;
-                
-            case "rock_sparkly_1":
-                sampleWidth = 50;
-                sampleHeight = 50;
-                break;
-                
-            case "trant_bubble":
-                sampleWidth = 12;
-                sampleHeight = 60;
-                break;
-                
-            case "marker_qurazy":      
-                sampleWidth = 15;
-                sampleHeight = 15;
-                break;
-              
+            //case "quoin":
             case "quoin":
+            case "wood_tree":
+            case "npc_mailbox":
+            case "dirt_pile":
                 // Read in the instanceProps array to get the quoin type
                 JSONObject instanceProps = null;
                 try
@@ -92,28 +104,97 @@ class ItemInfo {
                 }
                 catch(Exception e)
                 {
-                    System.out.println(e);
-                    errFlag = true;
-                    return;
+                    println(e);
+                    println("Failed to get instanceProps from item JSON file ", itemTSID);
+                    return false;
                 } 
-                itemInfo = instanceProps.getString("type");
-                sampleWidth = 10;
-                sampleHeight = 10;
+                if (itemClassTSID.equals("quoin"))
+                {
+                    itemInfo = readJSONString(instanceProps, "type");
+                }
+                else if ((itemClassTSID.equals("wood_tree")) || (itemClassTSID.equals("npc_mailbox")) || (itemClassTSID.equals("dirt_pile")))
+                {
+                    itemInfo = readJSONString(instanceProps, "variant");
+                }
+                else if ((itemClassTSID.equals("mortar_barnacle")) || (itemClassTSID.equals("jellisac")))
+                {
+                    itemInfo = readJSONString(instanceProps, "blister");
+                }
+                else if (itemClassTSID.equals("ice_knob"))
+                {
+                    itemInfo = readJSONString(instanceProps, "knob");
+                }
+                else if (itemClassTSID.equals("dust_trap"))
+                {
+                    itemInfo = readJSONString(instanceProps, "trap_class");
+                }               
+                else
+                {
+                    println("Trying to read unexpected field from instanceProps for item class ", itemClassTSID);
+                    return false;
+                }
+                if (itemInfo.length() == 0)
+                {
+                    return false;
+                }
                 break;
                 
+            case "npc_shrine_*":
+            case "wall_button":
+                // Read in the dir field 
+                JSONObject dir = null;
+                try
+                {
+                    itemInfo = itemJson.getString("dir");
+                }
+                catch(Exception e)
+                {
+                    println(e);
+                    println("Failed to read dir field from item JSON file ", itemTSID);
+                    return false;
+                } 
+                break;
+                             
+            case "npc_sloth":
+                println("Not sure about sloth - check to see if both dir and instanceProps.dir are set to be the same ", itemTSID);
+                return false;
+                
+            case "visiting_stone":
+                println("not sure about stone - not set by def - cam check if 'state' = 1 and 'dir' = left/right. Can default these depending on end of street RHS=left, LHS=right ", itemTSID);
+                return false;
+                
             default:
-                println("Unexpected class_tsid ", itemClassTSID);
-                errFlag = true;
-                return;
+                // Nothing to extract
+                break;
         }
         
-        // Double check got the sampleWidth/height set
-        if ((sampleHeight == 0) || (sampleWidth == 0))
+        return true;
+    }
+    
+    String readJSONString(JSONObject jsonObj, String key)
+    {
+        String readString = "";
+        try
         {
-            println("Check sampleHeight/Width set in ItemInfo");
-            errFlag = true;
-            return;
+            if (jsonObj.isNull(key) == true) 
+            {
+                println("Missing key ", key, " in json object", " TSID file is ", itemTSID);
+                return "";
+            }
+            readString = jsonObj.getString(key, "");
         }
+        catch(Exception e)
+        {
+            println(e);
+            println("Failed to read string from item JSON file for key ", key, " TSID file is ", itemTSID);
+            return "";
+        }
+        if (readString.length() == 0)
+        {
+            println("Null field returned for key", key, " TSID file is ", itemTSID);
+            return "";
+        }
+        return readString;
     }
     
     void showFragment()
@@ -145,15 +226,38 @@ class ItemInfo {
         text("< narrower, > wider", 50, 420, 200, 150);
         text("^ higher, -lower", 50, 440, 200, 150);
         
+        // Display any error messages that might have come from the image validation
+        text(uniqueTestResultMsg, 50, 500, 300, 150);
+        
         // Also display a larger area of the snap - just for reference purposes
         int displacement = (sampleWidth + 100) / 2;      
         qaSnapLargeFragment = qaSnap.get(start_x-displacement , start_y-displacement, sampleWidth+100, sampleHeight+100); 
         image(qaSnapLargeFragment, 400 + displacement, 0 + displacement); 
+        
+        // Display the last save results
+        // Show the saved and reference images
+
+        if (uniqueReferenceFile.length() > 0)
+        {
+            image(savedFragment, 400, 300); 
+            text("Fragment", 400, 400, 100, 100);  // Text wraps within text box
+            PImage referenceFile = loadImage(uniqueReferenceFile, "png");
+            referenceFile.loadPixels(); 
+            PImage referenceFragment = referenceFile.get(uniqueReferenceX, uniqueReferenceY, sampleWidth, sampleHeight);
+            image(referenceFragment, 400, 350);
+            text("Unique Reference fragment", 400, 550, 100, 100);  // Text wraps within text box
+
+        }
     }
     
     void saveImage()
     {
-            
+        // Clear error message
+        uniqueTestResultMsg = "";
+        
+        // Save this so can be displayed next time around the draw loop
+        savedFragment = qaSnapFragment;
+        
        // build file name manually
        
        // Change this to use configInfo.readPngPath instead of Datapath?  
@@ -164,6 +268,12 @@ class ItemInfo {
        }
        String sample_fname = save_fname + ".png";
        save_fname = save_fname + "_full.png";
+       
+       // Before saving, need to check that this fragment is indeed a unique fragment
+       
+       
+       
+       
 
        // write to file
        // Save image of screen to Data directory under Processing
@@ -212,11 +322,15 @@ class ItemInfo {
        printToFile.printLine(outputStr);
        
        // close stream
+       printToFile.flushOutputFile();
        printToFile.closeOutputFile();
     }
     
     void skipImage()
     {
+        // Clear error message
+        uniqueTestResultMsg = "";
+        
         String outputStr = "Skipping " + itemTSID + " (" + itemClassTSID; //<>//
         if (itemInfo.length() > 0)
         {
@@ -227,14 +341,16 @@ class ItemInfo {
     }
       
     // public functions for reading stuff in from outside this class
-    public boolean readErrFlag()
+    public boolean readOkFlag()
     {
-        return (errFlag);
+        return (okFlag);
     }
     
     // Functions to set variables called from outside this class
     public void increaseOffsetX(boolean increase)
     {
+        // Clear error message
+        uniqueTestResultMsg = "";
         if (increase)
         {
             offsetX++;
@@ -247,6 +363,8 @@ class ItemInfo {
     }
     public void increaseOffsetY(boolean increase)
     {
+        // Clear error message
+        uniqueTestResultMsg = "";
         if (increase)
         {
             offsetY++;
@@ -260,6 +378,8 @@ class ItemInfo {
     
     public void increaseSampleWidth(boolean increase)
     {
+        // Clear error message
+        uniqueTestResultMsg = "";
         if (increase)
         {
             sampleWidth++;
@@ -272,6 +392,8 @@ class ItemInfo {
     }
     public void increaseSampleHeight(boolean increase)
     {
+        // Clear error message
+        uniqueTestResultMsg = "";
         if (increase)
         {
             sampleHeight++;
@@ -281,6 +403,20 @@ class ItemInfo {
             sampleHeight--;
         }
         return;
+    }
+    
+    public void setUniqueTestResultMsg(String msgToUser)
+    {       
+        uniqueTestResultMsg = msgToUser;
+    }
+    public void setUniqueReferenceFile(String fileName)
+    {       
+        uniqueReferenceFile = fileName;
+    }
+    public void setUniqueReferenceXY(int x, int y)
+    {       
+        uniqueReferenceX = x;
+        uniqueReferenceY = y;
     }
         
 }

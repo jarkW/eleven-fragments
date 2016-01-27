@@ -1,5 +1,5 @@
 class StreetInfo {
-    boolean errFlag;
+    boolean okFlag;
     JSONArray streetItems;
     String streetName;
     String streetTSID;
@@ -9,15 +9,15 @@ class StreetInfo {
     // constructor/initialise fields
     public StreetInfo(String tsid)
     {
-        errFlag = false;
+        okFlag = true;
         streetTSID = tsid;
         itemBeingProcessed = 0;
        
         // Read in street data - list of item TSID and then read in item data
-        if (readStreetData())
+        if (!readStreetData())
         {
             println("Error in readStreetData");
-            errFlag = true;
+            okFlag = false;
             return;
         }
     }
@@ -34,7 +34,7 @@ class StreetInfo {
         if (!file.exists())
         {
             println("Missing file - ", locFileName);
-            return true;
+            return false;
         } 
         
         JSONObject json;
@@ -45,8 +45,9 @@ class StreetInfo {
         }
         catch(Exception e)
         {
-            System.out.println(e);
-            return true;
+            println(e);
+            println("Fail to load street JSON file ", locFileName);
+            return false;
         } 
         println("Reading location file ", locFileName);
     
@@ -59,8 +60,9 @@ class StreetInfo {
         }
         catch(Exception e)
         {
-            System.out.println(e);
-            return true;
+            println(e);
+            println("Fail to read in street name from street JSON file ", locFileName);
+            return false;
         } 
         println("Street name is ", streetName);
     
@@ -72,19 +74,20 @@ class StreetInfo {
         }
         catch(Exception e)
         {
-            System.out.println(e);
-            return true;
+            println(e);
+            println("Fail to read in item array in street JSON file ", locFileName);
+            return false;
         } 
  
          // Everything OK   
-        return false;
+        return true;
     }
     
     
-    public void  readStreetItemData()
+    public boolean  readStreetItemData()
     {
         println("Read item TSID from street L file");   
-        // Now read in data for each item
+        // First set up basic information for each street
         for (int i = 0; i < streetItems.size(); i++) 
         {
             streetItemInfoArray.add(new ItemInfo(streetItems.getJSONObject(i)));
@@ -93,15 +96,27 @@ class StreetInfo {
             int total = streetItemInfoArray.size();
             ItemInfo itemData = streetItemInfoArray.get(total-1);
                        
-            if (itemData.readErrFlag())
+            if (!itemData.readOkFlag())
             {
-                println ("Error parsing item information");
-                errFlag = true;
+                println ("Error parsing item basic information");
+               return false;
+            }
+            
+        }
+        
+        // Now fill in the all the rest of the item information on this street
+        for (int i = 0; i < streetItems.size(); i++) 
+        {                                  
+            if (!streetItemInfoArray.get(i).initialiseItemInfo())
+            {
+                println ("Error reading in additional information for item");
+                return false;
             }
         }
  
         // Everything OK
-        println(" Initialised street: errFlag = ", errFlag, " streetName=", streetName, " street TSID = ", streetTSID, "with item count ", streetItemInfoArray.size());     
+        println(" Initialised street: okFlag = ", okFlag, " streetName=", streetName, " street TSID = ", streetTSID, "with item count ", streetItemInfoArray.size());  
+        return true;
     }
 
 
@@ -142,18 +157,52 @@ class StreetInfo {
     public boolean saveItemImage()
     {
         ItemInfo itemData = streetItemInfoArray.get(itemBeingProcessed);
-        itemData.saveImage();
         
-        // move to next item
-        itemBeingProcessed++;
-        if (itemBeingProcessed >= streetItemInfoArray.size())
+        // Confirm that this is a unique fragment before we save it
+        UniqueFragmentCheck uniqueFragmentCheck = new UniqueFragmentCheck(itemData.itemClassTSID, itemData.itemInfo);       
+        if (!uniqueFragmentCheck.readOkFlag())
         {
-            // Done all items on street
-            // Move on to next street
-            return true;
+            println("Failed to create uniqueFragmentCheck object");
+            failNow = true;
+            return false;
+        }
+        
+        // Now populate the fields in this object
+        if (!uniqueFragmentCheck.loadFragmentAndComparisonFiles())
+        {
+            println("Failed to populate fields in uniqueFragmentCheck object");
+            failNow = true;
+            return false;
+        }
+        
+        // Now check the fragment image against all the saved reference image.
+        // Only save the image if this check passes
+        // if the check fails, then continue processing this street item e.g. change the size, move fragment
+        if (uniqueFragmentCheck.fragmentIsUnique())
+        {
+             // print out the saved fragment - as have the file name and x,y
+             itemData.setUniqueReferenceFile(uniqueFragmentCheck.uniqueReferenceFile);
+             itemData.setUniqueReferenceXY(uniqueFragmentCheck.uniqueReferenceX, uniqueFragmentCheck.uniqueReferenceY);
+       
+            itemData.saveImage();
+        
+            // move to next item
+            itemBeingProcessed++;
+            if (itemBeingProcessed >= streetItemInfoArray.size())
+            {
+                // Done all items on street
+                // Move on to next street
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         else
         {
+            // Show warning message to user
+            itemData.setUniqueTestResultMsg("Fragment is NOT unique - move it or resize it before re-saving");
             return false;
         }
     }
@@ -177,9 +226,9 @@ class StreetInfo {
         }
     }
 
-    public boolean readErrFlag()
+    public boolean readOkFlag()
     {
-        return errFlag;
+        return okFlag;
     }
     
     public String readStreetName()

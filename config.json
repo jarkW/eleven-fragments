@@ -10,6 +10,7 @@
   "json_path": "C:/Glitch/Work/ItemCompareTool/JSONs",
   "snap_path": "C:/Glitch/Work/ItemCompareTool/Snaps",
   "png_path": "C:/Glitch/Work/ItemCompareTool/GeneratedItems",
+  "complete_item_png_path": "C:/Glitch/Work/ItemCompareTool/Items",
   "output_file": "save_fragments.txt",
   "check_unique": false,
   "all_streets": [

@@ -1,26 +1,27 @@
 class ConfigInfo {
     
-    boolean errFlag;
+    boolean okFlag;
     
     String jsonPath;
     String snapPath;
     String pngPath;
+    String completeItemPngPath;
     String streetTSID;
-    int totalStreetCount;
-    ArrayList<String> streetTSIDArray = new ArrayList<String>();
+    int totalStreetCount;  
+    StringList streetTSIDArray = new StringList();
     String outputFile;
     
     // constructor/initialise fields
     public ConfigInfo()
     {
-        errFlag = false;
+        okFlag = true;
         totalStreetCount = 0;
     
         // Read in config info from JSON file
-        if (readConfigData())
+        if (!readConfigData())
         {
             println("Error in readConfigData");
-            errFlag = true;
+            okFlag = false;
             return;
         }
     }
@@ -37,14 +38,17 @@ class ConfigInfo {
         catch(Exception e)
         {
             println(e);
-            return true;
+            println("Failed to load config.json file");
+            return false;
         }
    
         // Now read in the different fields
         jsonPath = readJSONString(json, "json_path");   
         snapPath = readJSONString(json, "snap_path");
         pngPath = readJSONString(json, "png_path");
+        completeItemPngPath = readJSONString(json, "complete_item_png_path");
         outputFile = readJSONString(json, "output_file");
+        
         
         // Read in array of street TSID
         try
@@ -60,21 +64,23 @@ class ConfigInfo {
                 if (tsid.length() == 0)
                 {
                     println("Missing value for street tsid");
-                    return true;
+                    return false;
                 }
-                streetTSIDArray.add(new String(tsid));        
+                //streetTSIDArray.add(new String(tsid)); 
+                streetTSIDArray.append(tsid);
             }
             totalStreetCount = streetTSIDArray.size();
         }
         catch(Exception e)
         {
             println(e);
-           return true;
+            println("Failed to read in street array from config.json");
+            return false;
         }  
         
             
         // Everything OK
-        return false;
+        return true;
     }
        
     String readJSONString(JSONObject jsonFile, String key)
@@ -85,7 +91,7 @@ class ConfigInfo {
             if (jsonFile.isNull(key) == true) 
             {
                 println("Missing key ", key, " in json file");
-                errFlag = true;
+                okFlag = false;
                 return "";
             }
             readString = jsonFile.getString(key, "");
@@ -93,21 +99,22 @@ class ConfigInfo {
         catch(Exception e)
         {
             println(e);
-            errFlag = true;
+            println("Failed to read string from json file with key ", key);
+            okFlag = false;
             return "";
         }
         if (readString.length() == 0)
         {
             println("Null field returned for key", key);
-            errFlag = true;
+            okFlag = false;
             return "";
         }
         return readString;
     }
     
-    public boolean readErrFlag()
+    public boolean readOkFlag()
     {
-        return errFlag;
+        return okFlag;
     }
     
     public String readJSONPath()
@@ -123,6 +130,11 @@ class ConfigInfo {
     public String readPngPath()
     {
         return pngPath;
+    }
+    
+    public String readCompleteItemPngPath()
+    {
+        return completeItemPngPath;
     }
     
     public String readStreetTSID(int n)

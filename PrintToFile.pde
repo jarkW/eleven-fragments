@@ -1,19 +1,20 @@
 class PrintToFile {
-    
+   
+   // Used for saving output (rather than debug info which uses a global
+   // output printfile which is reset each time the programme is run.
    PrintWriter output;
    StringList existingOutputText;
-   boolean errFlag;
+   boolean okFlag;
     
      // constructor/initialise fields
     public PrintToFile()
     {
-        errFlag = false;
-        existingOutputText = new StringList();
+        okFlag = true;
+        existingOutputText = new StringList();       
     }
     
     public boolean ReadExistingOutputFile()
     {
-
         // Cannot append to files easily in Processing
         // So if the file exists, open, and read into an array
         File file = new File(sketchPath(configInfo.readOutputFilename()));
@@ -34,17 +35,20 @@ class PrintToFile {
                 catch (IOException e) 
                 {
                     e.printStackTrace();
+                    println("IO exception when reading in existing output file ", configInfo.readOutputFilename());
                     line = null;
                 }
                 catch(Exception e)
                 {
-                    System.out.println(e);
+                    println(e);
+                    println("General exception when reading in existing output file ", configInfo.readOutputFilename());
                     return false;
                 } 
 
                 if (line == null) 
                 {
                     // Stop reading because of an error or file is empty
+                    println("outputfile is empty");
                     eof = true;  
                 } 
                 else 
@@ -54,8 +58,14 @@ class PrintToFile {
             }           
         } 
         
+        // Is now safe to create the printer output
+        output = createWriter(configInfo.readOutputFilename()); 
+        
         return true;
     }
+    
+    // NEW DIRECT PRINT LINE???
+    // debug vs final output
     
     public void printLine(String lineToWrite)
     {
@@ -69,17 +79,27 @@ class PrintToFile {
         // Copy back the output file array contents, overwriting the entry for
         // this item with the new values
         // This means we never lose any information, always keeps up today with the latest images saved
-        for (int i = 0; i < existingOutputText.size(); i++)
+        if (existingOutputText.size() == 0)
         {
-            if (existingOutputText.get(i).indexOf(strToFind, 0) == -1)
+            // empty file - so just write our line
+            println("Debug info written to empty file");
+            lineWrittenFlag = true;
+            output.println(lineToWrite);
+        }
+        else
+        {
+            for (int i = 0; i < existingOutputText.size(); i++)
             {
-                // Does not match the line being written, so use the original one read in earlier
-                output.println(existingOutputText.get(i));
-            }
-            else
-            {
-                lineWrittenFlag = true;
-                output.println(lineToWrite);
+                if (existingOutputText.get(i).indexOf(strToFind, 0) == -1)
+                {
+                    // Does not match the line being written, so use the original one read in earlier
+                    output.println(existingOutputText.get(i));
+                }
+                else
+                {
+                    lineWrittenFlag = true;
+                    output.println(lineToWrite);
+                }
             }
         }
         
@@ -88,9 +108,12 @@ class PrintToFile {
         {
             output.println(lineToWrite);
         }
-        
-        // now flush
-       output.flush(); 
+         
+    }
+    
+    public void flushOutputFile()
+    {
+        output.flush();
     }
     
     public void closeOutputFile()
@@ -98,8 +121,8 @@ class PrintToFile {
         output.close();
     }
     
-    public boolean readErrFlag()
+    public boolean readOkFlag()
     {
-        return (errFlag);
+        return (okFlag);
     }
 }

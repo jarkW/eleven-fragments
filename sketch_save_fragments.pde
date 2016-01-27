@@ -25,7 +25,7 @@ public void setup() {
     
     // Set up config data
     configInfo = new ConfigInfo();
-    if (configInfo.readErrFlag())
+    if (!configInfo.readOkFlag())
     {
         failNow = true;
         return;
@@ -51,7 +51,7 @@ public void setup() {
         println("Total is ", streetInfoArray.size());
         StreetInfo streetData = streetInfoArray.get(streetInfoArray.size()-1);
                        
-        if (streetData.readErrFlag())
+        if (!streetData.readOkFlag())
         {
             println ("Error parsing street information for ", configInfo.readStreetTSID(i));
             failNow = true;
@@ -63,11 +63,8 @@ public void setup() {
     for (int i = 0; i < configInfo.readTotalStreetCount(); i++)
     {
         println("Read street item data for TSID ", configInfo.readStreetTSID(i)); 
-        
-        streetInfoArray.get(i).readStreetItemData();
-                     
-        // Now read the error flag for the last street array added                      
-        if (streetInfoArray.get(i).readErrFlag())
+                           
+        if (!streetInfoArray.get(i).readStreetItemData())
         {
             println ("Error parsing street item information for ", configInfo.readStreetTSID(i));
             failNow = true;
@@ -100,6 +97,9 @@ public void draw() {
 }
 
 void keyPressed() {
+    
+    // Clear the warning message
+    
 
     if (key == CODED && keyCode == LEFT)
     {
