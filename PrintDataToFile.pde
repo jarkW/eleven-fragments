@@ -1,29 +1,31 @@
-class PrintToFile {
+class PrintDataToFile {
    
    // Used for saving output (rather than debug info which uses a global
    // output printfile which is reset each time the programme is run.
+   
+   
    PrintWriter output;
    StringList existingOutputText;
    boolean okFlag;
     
      // constructor/initialise fields
-    public PrintToFile()
+    public PrintDataToFile()
     {
         okFlag = true;
         existingOutputText = new StringList();       
     }
     
-    public boolean ReadExistingOutputFile()
+    public boolean openFileToAppend()
     {
         // Cannot append to files easily in Processing
         // So if the file exists, open, and read into an array
-        File file = new File(sketchPath(configInfo.readOutputFilename()));
+        File file = new File(sketchPath(configInfo.readDataOutputFilename()));
         if (file.exists())
         {            
             // Read in contents of the file
             BufferedReader reader;
             String line;
-            reader = createReader(configInfo.readOutputFilename());
+            reader = createReader(configInfo.readDataOutputFilename());
 
             boolean eof = false;
             while (!eof)
@@ -35,20 +37,20 @@ class PrintToFile {
                 catch (IOException e) 
                 {
                     e.printStackTrace();
-                    println("IO exception when reading in existing output file ", configInfo.readOutputFilename());
+                    printDebugToFile.printLine("IO exception when reading in existing output file " + configInfo.readDataOutputFilename(), 3);
                     line = null;
                 }
                 catch(Exception e)
                 {
                     println(e);
-                    println("General exception when reading in existing output file ", configInfo.readOutputFilename());
+                    printDebugToFile.printLine("General exception when reading in existing output file " + configInfo.readDataOutputFilename(), 3);
                     return false;
                 } 
 
                 if (line == null) 
                 {
                     // Stop reading because of an error or file is empty
-                    println("outputfile is empty");
+                    printDebugToFile.printLine("outputfile is empty", 1);
                     eof = true;  
                 } 
                 else 
@@ -59,14 +61,20 @@ class PrintToFile {
         } 
         
         // Is now safe to create the printer output
-        output = createWriter(configInfo.readOutputFilename()); 
-        
+        try
+        {
+            output = createWriter(configInfo.readDataOutputFilename());
+        }
+        catch(Exception e)
+        {
+            println(e);
+            printDebugToFile.printLine("Failed to open empty data file", 3);
+            return false;
+        }
+
         return true;
     }
-    
-    // NEW DIRECT PRINT LINE???
-    // debug vs final output
-    
+       
     public void printLine(String lineToWrite)
     {
         boolean lineWrittenFlag = false;
@@ -111,12 +119,12 @@ class PrintToFile {
          
     }
     
-    public void flushOutputFile()
+    public void flushFile()
     {
         output.flush();
     }
     
-    public void closeOutputFile()
+    public void closeFile()
     {
         output.close();
     }

@@ -17,12 +17,21 @@ int streetBeingProcessed;
 boolean failNow = false;
 PImage qaSnap;
  
+ 
+
+PrintDebugToFile printDebugToFile;
+// 0 = no debug info 1=all debug info (useful for detailed stuff, rarely used), 
+// 2= general tracing info 3= error debug info only
+int debugLevel = 2;
+boolean debugToConsole = true;
+
 public void setup() {
     
     // Set size of Processing window
     //size(250,250);
-    size(750,550);
-    
+    //size(750,550);
+    size(950,950);
+        
     // Set up config data
     configInfo = new ConfigInfo();
     if (!configInfo.readOkFlag())
@@ -31,29 +40,38 @@ public void setup() {
         return;
     }
     
-    if (configInfo.readTotalStreetCount() < 1)
+    // Set up debug info dump file
+    printDebugToFile = new PrintDebugToFile();
+    if (!printDebugToFile.readOkFlag())
     {
-        // No streets to process - exit
-        println("No streets to process - exiting");
+        println("Error opening file to print debug info to");
         failNow = true;
         return;
     }
     
+    if (configInfo.readTotalStreetCount() < 1)
+    {
+        // No streets to process - exit
+        printDebugToFile.printLine("No streets to process - exiting", 3);
+        failNow = true;
+        return;
+    }
+        
     // Loop through list of street TSIDs, reading in the street info
     for (int i = 0; i < configInfo.readTotalStreetCount(); i++)
     {
-        println("Read street data for TSID ", configInfo.readStreetTSID(i)); 
+        printDebugToFile.printLine("Read street data for TSID " + configInfo.readStreetTSID(i), 2); 
          
         // Now read in basic data for each street
         streetInfoArray.add(new StreetInfo(configInfo.readStreetTSID(i)));
             
         // Now read the error flag for the last street array added
-        println("Total is ", streetInfoArray.size());
+        printDebugToFile.printLine("Total number items on street is " + str(streetInfoArray.size()), 2);
         StreetInfo streetData = streetInfoArray.get(streetInfoArray.size()-1);
                        
         if (!streetData.readOkFlag())
         {
-            println ("Error parsing street information for ", configInfo.readStreetTSID(i));
+            printDebugToFile.printLine("Error parsing street information for " + configInfo.readStreetTSID(i), 3);
             failNow = true;
             return;
         }
@@ -62,11 +80,11 @@ public void setup() {
     // Now loop through all streets again, loading up the items structures for each street
     for (int i = 0; i < configInfo.readTotalStreetCount(); i++)
     {
-        println("Read street item data for TSID ", configInfo.readStreetTSID(i)); 
+        printDebugToFile.printLine("Read street item data for TSID " + configInfo.readStreetTSID(i), 2); 
                            
         if (!streetInfoArray.get(i).readStreetItemData())
         {
-            println ("Error parsing street item information for ", configInfo.readStreetTSID(i));
+            printDebugToFile.printLine("Error parsing street item information for " + configInfo.readStreetTSID(i), 3);
             failNow = true;
             return;
         }
@@ -78,7 +96,7 @@ public void setup() {
     //and use street name to load snap image
     String imageFileName = configInfo.readSnapPath() + "/" + streetInfoArray.get(streetBeingProcessed).readStreetName() + ".png";
     qaSnap = loadImage(imageFileName, "png");
-    println("Loading QA snap from ", imageFileName);
+    printDebugToFile.printLine("Loading QA snap from " + imageFileName, 2);
 
 }
  
@@ -98,8 +116,8 @@ public void draw() {
 
 void keyPressed() {
     
-    // Clear the warning message
-    
+    // Clear the duplicates shown previously so can carry on
+    streetInfoArray.get(streetBeingProcessed).resetShowDupes();
 
     if (key == CODED && keyCode == LEFT)
     {

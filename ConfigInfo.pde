@@ -9,7 +9,8 @@ class ConfigInfo {
     String streetTSID;
     int totalStreetCount;  
     StringList streetTSIDArray = new StringList();
-    String outputFile;
+    String dataOutputFile;
+    String debugOutputFile;
     
     // constructor/initialise fields
     public ConfigInfo()
@@ -47,8 +48,9 @@ class ConfigInfo {
         snapPath = readJSONString(json, "snap_path");
         pngPath = readJSONString(json, "png_path");
         completeItemPngPath = readJSONString(json, "complete_item_png_path");
-        outputFile = readJSONString(json, "output_file");
-        
+        dataOutputFile = readJSONString(json, "data_output_file");
+        debugOutputFile = readJSONString(json, "debug_output_file");
+               
         
         // Read in array of street TSID
         try
@@ -155,8 +157,13 @@ class ConfigInfo {
         return totalStreetCount;
     }
     
-    public String readOutputFilename()
+    public String readDataOutputFilename()
     {
-        return outputFile;
+        return dataOutputFile;
+    } 
+    
+    public String readDebugOutputFilename()
+    {
+        return debugOutputFile;
     } 
 }

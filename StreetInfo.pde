@@ -5,6 +5,7 @@ class StreetInfo {
     String streetTSID;
     int itemBeingProcessed;
     ArrayList<ItemInfo> streetItemInfoArray = new ArrayList<ItemInfo>();
+    boolean showDupes;
     
     // constructor/initialise fields
     public StreetInfo(String tsid)
@@ -12,11 +13,12 @@ class StreetInfo {
         okFlag = true;
         streetTSID = tsid;
         itemBeingProcessed = 0;
+        showDupes = false;
        
         // Read in street data - list of item TSID and then read in item data
         if (!readStreetData())
         {
-            println("Error in readStreetData");
+            printDebugToFile.printLine("Error in readStreetData", 3);
             okFlag = false;
             return;
         }
@@ -33,7 +35,7 @@ class StreetInfo {
         File file = new File(locFileName);
         if (!file.exists())
         {
-            println("Missing file - ", locFileName);
+            printDebugToFile.printLine("Missing file - " + locFileName, 3);
             return false;
         } 
         
@@ -46,10 +48,10 @@ class StreetInfo {
         catch(Exception e)
         {
             println(e);
-            println("Fail to load street JSON file ", locFileName);
+            printDebugToFile.printLine("Fail to load street JSON file " + locFileName, 3);
             return false;
         } 
-        println("Reading location file ", locFileName);
+        printDebugToFile.printLine("Reading location file " + locFileName, 2);
     
             
         // Read in street name
@@ -61,10 +63,10 @@ class StreetInfo {
         catch(Exception e)
         {
             println(e);
-            println("Fail to read in street name from street JSON file ", locFileName);
+            printDebugToFile.printLine("Fail to read in street name from street JSON file " + locFileName, 3);
             return false;
         } 
-        println("Street name is ", streetName);
+        printDebugToFile.printLine("Street name is " + streetName, 2);
     
         // Read in the list of street items
         streetItems = null;
@@ -75,7 +77,7 @@ class StreetInfo {
         catch(Exception e)
         {
             println(e);
-            println("Fail to read in item array in street JSON file ", locFileName);
+            printDebugToFile.printLine("Fail to read in item array in street JSON file " + locFileName, 3);
             return false;
         } 
  
@@ -98,7 +100,7 @@ class StreetInfo {
                        
             if (!itemData.readOkFlag())
             {
-                println ("Error parsing item basic information");
+               printDebugToFile.printLine("Error parsing item basic information", 3);
                return false;
             }
             
@@ -109,22 +111,25 @@ class StreetInfo {
         {                                  
             if (!streetItemInfoArray.get(i).initialiseItemInfo())
             {
-                println ("Error reading in additional information for item");
+                printDebugToFile.printLine("Error reading in additional information for item", 3);
                 return false;
             }
         }
  
         // Everything OK
-        println(" Initialised street: okFlag = ", okFlag, " streetName=", streetName, " street TSID = ", streetTSID, "with item count ", streetItemInfoArray.size());  
+        printDebugToFile.printLine(" Initialised street = " + streetName + " street TSID = " + streetTSID + " with item count " + str(streetItemInfoArray.size()), 2);  
         return true;
     }
 
 
     public void processFragment()
     {
-        // Pass control onto the item level funtion
-        ItemInfo itemData = streetItemInfoArray.get(itemBeingProcessed);
-        itemData.showFragment();
+        if (!showDupes)
+        {
+            // Pass control onto the item level funtion
+            ItemInfo itemData = streetItemInfoArray.get(itemBeingProcessed);
+            itemData.showFragment();
+        }
     }
     
     public void increaseItemOffsetX(boolean increase)
@@ -159,18 +164,18 @@ class StreetInfo {
         ItemInfo itemData = streetItemInfoArray.get(itemBeingProcessed);
         
         // Confirm that this is a unique fragment before we save it
-        UniqueFragmentCheck uniqueFragmentCheck = new UniqueFragmentCheck(itemData.itemClassTSID, itemData.itemInfo);       
+        UniqueFragmentCheck uniqueFragmentCheck = new UniqueFragmentCheck(itemData.itemClassTSID, itemData.itemInfo, itemData.qaSnapFragment);       
         if (!uniqueFragmentCheck.readOkFlag())
         {
-            println("Failed to create uniqueFragmentCheck object");
+            printDebugToFile.printLine("Failed to create uniqueFragmentCheck object", 3);
             failNow = true;
             return false;
         }
         
         // Now populate the fields in this object
-        if (!uniqueFragmentCheck.loadFragmentAndComparisonFiles())
+        if (!uniqueFragmentCheck.loadComparisonFiles())
         {
-            println("Failed to populate fields in uniqueFragmentCheck object");
+            printDebugToFile.printLine("Failed to populate fields in uniqueFragmentCheck object", 2);
             failNow = true;
             return false;
         }
@@ -180,11 +185,16 @@ class StreetInfo {
         // if the check fails, then continue processing this street item e.g. change the size, move fragment
         if (uniqueFragmentCheck.fragmentIsUnique())
         {
+             showDupes = false;
              // print out the saved fragment - as have the file name and x,y
              itemData.setUniqueReferenceFile(uniqueFragmentCheck.uniqueReferenceFile);
              itemData.setUniqueReferenceXY(uniqueFragmentCheck.uniqueReferenceX, uniqueFragmentCheck.uniqueReferenceY);
        
-            itemData.saveImage();
+            if (!itemData.saveImage())
+            {
+                failNow = true;
+                return false;
+            }
         
             // move to next item
             itemBeingProcessed++;
@@ -203,6 +213,7 @@ class StreetInfo {
         {
             // Show warning message to user
             itemData.setUniqueTestResultMsg("Fragment is NOT unique - move it or resize it before re-saving");
+            showDupes = true;
             return false;
         }
     }
@@ -239,6 +250,16 @@ class StreetInfo {
     public String readStreetTSID()
     {
         return streetTSID;
+    }
+    
+    public boolean readShowDupes()
+    {
+        return showDupes;
+    }
+    
+    public void resetShowDupes()
+    {
+        showDupes = false;
     }
  
 }

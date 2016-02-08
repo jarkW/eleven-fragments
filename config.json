@@ -1,23 +1,18 @@
 {
   "streets": [
-    {"tsid": "LHVT4C9KSIA2UMG"}
-  ],
-  "things_to_do": [
-    {"show_progression": "boolean in final snap search - either do all loop in 1 go, or just one iteration (so can show the image changing)"},
-    {"thing": "???"},
-    {"thing": "???"}
+    {"tsid": "LHV1HO45PQA2QJS"}
   ],
   "json_path": "C:/Glitch/Work/ItemCompareTool/JSONs",
   "snap_path": "C:/Glitch/Work/ItemCompareTool/Snaps",
   "png_path": "C:/Glitch/Work/ItemCompareTool/GeneratedItems",
   "complete_item_png_path": "C:/Glitch/Work/ItemCompareTool/Items",
-  "output_file": "save_fragments.txt",
-  "check_unique": false,
+  "data_output_file": "save_fragments.txt",
+  "debug_output_file": "debug_info.txt",
   "all_streets": [
     {"tsid": "LHVT4C9KSIA2UMG"},
     {"tsid": "LHV1HO45PQA2QJS"},
 	{"tsid": "LHV2547JP9B2AG0"},
     {"tsid": "LHV4U509S9B2MRV"}
   ],
-  "use_Tii": false
+  "use_vagrant": false
 }

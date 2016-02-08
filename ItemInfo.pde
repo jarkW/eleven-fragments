@@ -39,20 +39,20 @@ class ItemInfo {
         uniqueReferenceY = 0;
         
         itemTSID = item.getString("tsid"); //<>//
-        println("item tsid is ", itemTSID, "(", item.getString("label"), ")");        //<>//
+        printDebugToFile.printLine("item tsid is " + itemTSID + "(" + item.getString("label") + ")", 2);        //<>//
     }
     
     public boolean initialiseItemInfo()
     {
         // Now open the relevant I* file from the same directory
         String itemFileName = configInfo.readJSONPath() + "/" + streetInfoArray.get(streetBeingProcessed).readStreetTSID() + "/" + itemTSID + ".json";      
-        println("Item file name is ", itemFileName);       
+        printDebugToFile.printLine("Item file name is " + itemFileName, 2);       
    
         // First check it exists        
         File file=new File(itemFileName);
         if (!file.exists())
         {
-            println("Missing Item file ", itemFileName);
+            printDebugToFile.printLine("Missing Item file " + itemFileName, 3);
             return false;
         }
 
@@ -65,16 +65,16 @@ class ItemInfo {
         catch(Exception e)
         {
             println(e);
-            println("Failed load the item json file ", itemFileName);
+            printDebugToFile.printLine("Failed load the item json file " + itemFileName, 3);
             return false;
         }
         
-        println("Loaded item JSON OK");
+        printDebugToFile.printLine("Loaded item JSON OK", 1);
         
         itemX = itemJson.getInt("x");
         itemY = itemJson.getInt("y");
         itemClassTSID = itemJson.getString("class_tsid");
-        println("class_tsid ", itemClassTSID," with x,y ", itemX, ",", itemY);              
+        printDebugToFile.printLine("class_tsid " + itemClassTSID +" with x,y " + str(itemX) + "," + str(itemY), 2);              
               
         // Populate the info field for some items e.g. quoins, dirt etc
         if (!extractItemInfoFromJson(itemJson))
@@ -88,84 +88,115 @@ class ItemInfo {
     
     boolean extractItemInfoFromJson(JSONObject itemJson)
     {
+        JSONObject dir;
+        JSONObject instanceProps;
         
-        switch (itemClassTSID)
+        // Avoids entering all the shrine TSIDs separately
+        if (itemClassTSID.startsWith("npc_shrine_"))
         {
-            //case "quoin":
-            case "quoin":
-            case "wood_tree":
-            case "npc_mailbox":
-            case "dirt_pile":
-                // Read in the instanceProps array to get the quoin type
-                JSONObject instanceProps = null;
-                try
-                {
-                    instanceProps = itemJson.getJSONObject("instanceProps");
-                }
-                catch(Exception e)
-                {
-                    println(e);
-                    println("Failed to get instanceProps from item JSON file ", itemTSID);
-                    return false;
-                } 
-                if (itemClassTSID.equals("quoin"))
-                {
-                    itemInfo = readJSONString(instanceProps, "type");
-                }
-                else if ((itemClassTSID.equals("wood_tree")) || (itemClassTSID.equals("npc_mailbox")) || (itemClassTSID.equals("dirt_pile")))
-                {
-                    itemInfo = readJSONString(instanceProps, "variant");
-                }
-                else if ((itemClassTSID.equals("mortar_barnacle")) || (itemClassTSID.equals("jellisac")))
-                {
-                    itemInfo = readJSONString(instanceProps, "blister");
-                }
-                else if (itemClassTSID.equals("ice_knob"))
-                {
-                    itemInfo = readJSONString(instanceProps, "knob");
-                }
-                else if (itemClassTSID.equals("dust_trap"))
-                {
-                    itemInfo = readJSONString(instanceProps, "trap_class");
-                }               
-                else
-                {
-                    println("Trying to read unexpected field from instanceProps for item class ", itemClassTSID);
-                    return false;
-                }
-                if (itemInfo.length() == 0)
-                {
-                    return false;
-                }
-                break;
-                
-            case "npc_shrine_*":
-            case "wall_button":
-                // Read in the dir field 
-                JSONObject dir = null;
-                try
-                {
-                    itemInfo = itemJson.getString("dir");
-                }
-                catch(Exception e)
-                {
-                    println(e);
-                    println("Failed to read dir field from item JSON file ", itemTSID);
-                    return false;
-                } 
-                break;
+      
+            // Read in the dir field 
+            dir = null;
+            try
+            {
+               itemInfo = itemJson.getString("dir");
+            }
+            catch(Exception e)
+            {
+                println(e);
+                printDebugToFile.printLine("Failed to read dir field from item JSON file " + itemTSID, 3);
+                return false;
+             } 
+        }
+        else
+        {
+             switch (itemClassTSID)
+            {
+                case "quoin":
+                case "wood_tree":
+                case "npc_mailbox":
+                case "dirt_pile":
+                    // Read in the instanceProps array to get the quoin type
+                    instanceProps = null;
+                    try
+                    {
+                        instanceProps = itemJson.getJSONObject("instanceProps");
+                    }
+                    catch(Exception e)
+                    {
+                        println(e);
+                        printDebugToFile.printLine("Failed to get instanceProps from item JSON file " + itemTSID, 3);
+                        return false;
+                    } 
+                    if (itemClassTSID.equals("quoin"))
+                    {
+                        itemInfo = readJSONString(instanceProps, "type");
+                    }
+                    else if ((itemClassTSID.equals("wood_tree")) || (itemClassTSID.equals("npc_mailbox")) || (itemClassTSID.equals("dirt_pile")))
+                    {
+                        itemInfo = readJSONString(instanceProps, "variant");
+                    }
+                    else if ((itemClassTSID.equals("mortar_barnacle")) || (itemClassTSID.equals("jellisac")))
+                    {
+                        itemInfo = readJSONString(instanceProps, "blister");
+                    }
+                    else if (itemClassTSID.equals("ice_knob"))
+                    {
+                        itemInfo = readJSONString(instanceProps, "knob");
+                    }
+                    else if (itemClassTSID.equals("dust_trap"))
+                    {
+                        itemInfo = readJSONString(instanceProps, "trap_class");
+                    }               
+                    else
+                    {
+                        printDebugToFile.printLine("Trying to read unexpected field from instanceProps for item class " + itemClassTSID, 3);
+                        return false;
+                    }
+                    if (itemInfo.length() == 0)
+                    {
+                        return false;
+                    }
+                    break;
+   
+                case "wall_button":
+                    // Read in the dir field 
+                    dir = null;
+                    try
+                    {
+                        itemInfo = itemJson.getString("dir");
+                    }
+                    catch(Exception e)
+                    {
+                        println(e);
+                        printDebugToFile.printLine("Failed to read dir field from item JSON file " + itemTSID, 3);
+                        return false;
+                    } 
+                    break;
                              
-            case "npc_sloth":
-                println("Not sure about sloth - check to see if both dir and instanceProps.dir are set to be the same ", itemTSID);
-                return false;
+                case "npc_sloth":
+                    printDebugToFile.printLine("Not sure about sloth - check to see if both dir and instanceProps.dir are set to be the same " + itemTSID, 3);
+                    return false;
                 
-            case "visiting_stone":
-                println("not sure about stone - not set by def - cam check if 'state' = 1 and 'dir' = left/right. Can default these depending on end of street RHS=left, LHS=right ", itemTSID);
-                return false;
-                
-            default:
-                // Nothing to extract
-                break;
+                case "visiting_stone":
+                    // Read in the dir field 
+                    dir = null;
+                    try
+                    {
+                        itemInfo = itemJson.getString("dir");
+                    }
+                    catch(Exception e)
+                    {
+                        println(e);
+                        printDebugToFile.printLine("Failed to read dir field from item JSON file " + itemTSID, 3);
+                        return false;
+                    } 
+                    break;
+                                    
+                default:
+                    // Nothing to extract
+                    break;
+             }
         }
         
         return true;
@@ -178,7 +209,7 @@ class ItemInfo {
         {
             if (jsonObj.isNull(key) == true) 
             {
-                println("Missing key ", key, " in json object", " TSID file is ", itemTSID);
+                printDebugToFile.printLine("Missing key " + key + " in json object; TSID file is " + itemTSID, 3);
                 return "";
             }
             readString = jsonObj.getString(key, "");
@@ -186,12 +217,12 @@ class ItemInfo {
         catch(Exception e)
         {
             println(e);
-            println("Failed to read string from item JSON file for key ", key, " TSID file is ", itemTSID);
+            printDebugToFile.printLine("Failed to read string from item JSON file for key " + key + " TSID file is " + itemTSID, 3);
             return "";
         }
         if (readString.length() == 0)
         {
-            println("Null field returned for key", key, " TSID file is ", itemTSID);
+            printDebugToFile.printLine("Null field returned for key" + key + " TSID file is " + itemTSID, 3);
             return "";
         }
         return readString;
@@ -250,8 +281,11 @@ class ItemInfo {
         }
     }
     
-    void saveImage()
+    boolean saveImage()
     {
+        
+        // Only enter this function if the item image is indeed unique to the complete/sister images
+        
         // Clear error message
         uniqueTestResultMsg = "";
         
@@ -269,38 +303,30 @@ class ItemInfo {
        String sample_fname = save_fname + ".png";
        save_fname = save_fname + "_full.png";
        
-       // Before saving, need to check that this fragment is indeed a unique fragment
-       
-       
-       
-       
-
        // write to file
        // Save image of screen to Data directory under Processing
        save(dataPath(save_fname));
        // Save the actual png file to be used later in Work directory
        qaSnapFragment.save(configInfo.readPngPath() + "/" + sample_fname);
 
-        // Now need to search this fragment against the full images which 
-        // have been manually generated.
-        // For trees - check all trees, including 4 wood trees, check all variants
-        // of items
-        // If this check shows 1 unique match, then log to file
-        // otherwise start again
-        
-        // Create new class
-        // when created loads up all the images, and displays the first.
-        // Then on next loop iteration, does the search, and displays the next image
-        // if present. (Set flag somewhere to show this is the action we're doing?
-        // Once done all the searches, checks match_count = 1. Sets flag in itemInfo
-        // to show if unique or not, and clears the flag set above.
-        // If ItemInfo.is_unique is true, then can go ahead and save the file
-        // else returns to handling that item
-            
+        // As want to update existing/append new data, just open/close print object here
+       PrintDataToFile printDataToFile = new PrintDataToFile(); 
+       if (!printDataToFile.readOkFlag())
+       {
+           printDebugToFile.printLine("Error opening PrintDataToFile object", 3);
+           failNow = true;
+           return false;
+       }
+    
+       // Now open output file to append
+       if (!printDataToFile.openFileToAppend())
+       {
+           printDebugToFile.printLine("Error opening file to save data to", 3);
+           failNow = true;
+           return false;
+       }
 
-       //println("Saving ", save_fname, " at offsetX=", offsetX, ", offsetY=", offsetY);
-      
-       String outputStr = "Saving to " + save_fname + " " + itemTSID + " (" + itemClassTSID;
+       String outputStr = "Saving to " + sample_fname + " " + itemTSID + " (" + itemClassTSID;
        if (itemInfo.length() > 0)
        {
            outputStr = outputStr + " (" + itemInfo + ") ";
@@ -308,22 +334,17 @@ class ItemInfo {
        outputStr = outputStr + ") x,y=" + str(itemX) + "," + str(itemY) + " has offset ";
        outputStr = outputStr + str(offsetX) + "," + str(offsetY) + " for sample width=";
        outputStr = outputStr + str(sampleWidth) + " for sample height=" + str(sampleHeight);
-       println(outputStr);
+       printDataToFile.printLine(outputStr);
        
-       // Now print to file - create print object first
-       PrintToFile printToFile = new PrintToFile();
-       // Read in existing output file to an array 
-       if (!printToFile.ReadExistingOutputFile())
-       {
-            failNow = true;
-            return;
-       }
-       // print line to file
-       printToFile.printLine(outputStr);
+       // flush/close stream
+       printDataToFile.flushFile();
+       printDataToFile.closeFile();
        
-       // close stream
-       printToFile.flushOutputFile();
-       printToFile.closeOutputFile();
+       // Also log
+       printDebugToFile.printLine(outputStr, 2);
+       
+       return true;
+
     }
     
     void skipImage()
@@ -337,7 +358,7 @@ class ItemInfo {
             outputStr = outputStr + " (" + itemInfo + ") ";
         }
         outputStr = outputStr + ") x,y=" + str(itemX) + "," + str(itemY);
-        println(outputStr);
+        printDebugToFile.printLine(outputStr, 2);
     }
       
     // public functions for reading stuff in from outside this class
@@ -386,7 +407,10 @@ class ItemInfo {
         }
         else
         {
-            sampleWidth--;
+            if (sampleWidth > 0)
+            {
+                sampleWidth--;
+            }
         }
         return;
     }
@@ -400,7 +424,10 @@ class ItemInfo {
         }
         else
         {
-            sampleHeight--;
+            if (sampleHeight > 0)
+            {
+                sampleHeight--;
+            }
         }
         return;
     }
