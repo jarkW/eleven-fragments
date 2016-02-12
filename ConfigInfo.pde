@@ -6,6 +6,7 @@ class ConfigInfo {
     String snapPath;
     String pngPath;
     String completeItemPngPath;
+    String QAToolPath;
     String streetTSID;
     int totalStreetCount;  
     StringList streetTSIDArray = new StringList();
@@ -50,6 +51,15 @@ class ConfigInfo {
         completeItemPngPath = readJSONString(json, "complete_item_png_path");
         dataOutputFile = readJSONString(json, "data_output_file");
         debugOutputFile = readJSONString(json, "debug_output_file");
+        QAToolPath = readJSONString(json, "QA_tool_path");
+        
+        // Check still got right path for QA tool
+        File dir = new File(QAToolPath);
+        if (!dir.exists())
+        {
+            println("QA tool path does not exist - ", QAToolPath);
+            return false;
+        }
                
         
         // Read in array of street TSID
@@ -166,4 +176,9 @@ class ConfigInfo {
     {
         return debugOutputFile;
     } 
+    
+    public String readQAToolPath()
+    {
+        return QAToolPath;
+    }
 }

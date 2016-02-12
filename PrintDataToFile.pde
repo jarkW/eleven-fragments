@@ -2,7 +2,7 @@ class PrintDataToFile {
    
    // Used for saving output (rather than debug info which uses a global
    // output printfile which is reset each time the programme is run.
-   
+      
    
    PrintWriter output;
    StringList existingOutputText;

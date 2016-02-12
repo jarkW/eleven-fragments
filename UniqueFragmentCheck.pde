@@ -41,9 +41,7 @@ class UniqueFragmentCheck
         uniqueReferenceFile = "";
         QAFragment = QASnapFragment;
         QAFragment.loadPixels();
-        allFoundMatches = new ArrayList<FoundMatch>();
-        println("Restarting allFoundMatches array");
-    
+        allFoundMatches = new ArrayList<FoundMatch>();    
     }
     
     boolean loadComparisonFiles()

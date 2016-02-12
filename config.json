@@ -1,18 +1,19 @@
 {
   "streets": [
-    {"tsid": "LHV1HO45PQA2QJS"}
+    {"tsid": "LHVT4C9KSIA2UMG"}
   ],
   "json_path": "C:/Glitch/Work/ItemCompareTool/JSONs",
   "snap_path": "C:/Glitch/Work/ItemCompareTool/Snaps",
   "png_path": "C:/Glitch/Work/ItemCompareTool/GeneratedItems",
   "complete_item_png_path": "C:/Glitch/Work/ItemCompareTool/Items",
+  "QA_tool_path": "C:/Users/Donna/My Documents/Processing3/My Stuff/sketch_QA_tool/data",
   "data_output_file": "save_fragments.txt",
   "debug_output_file": "debug_info.txt",
   "all_streets": [
-    {"tsid": "LHVT4C9KSIA2UMG"},
-    {"tsid": "LHV1HO45PQA2QJS"},
-	{"tsid": "LHV2547JP9B2AG0"},
-    {"tsid": "LHV4U509S9B2MRV"}
+    {"tsid": "LHVT4C9KSIA2UMG = quoins"},
+    {"tsid": "LHV1HO45PQA2QJS = rocks"},
+	{"tsid": "LHV2547JP9B2AG0 = basic shrines"},
+    {"tsid": "LHV4U509S9B2MRV = trees"}
   ],
   "use_vagrant": false
 }

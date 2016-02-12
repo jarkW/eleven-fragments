@@ -45,7 +45,7 @@ class ItemInfo {
     public boolean initialiseItemInfo()
     {
         // Now open the relevant I* file from the same directory
-        String itemFileName = configInfo.readJSONPath() + "/" + streetInfoArray.get(streetBeingProcessed).readStreetTSID() + "/" + itemTSID + ".json";      
+        String itemFileName = configInfo.readJSONPath() + "/" + streetInfoArray.get(streetBeingProcessed).readStreetTSID() + "/" + itemTSID + ".json";   
         printDebugToFile.printLine("Item file name is " + itemFileName, 2);       
    
         // First check it exists        
@@ -306,8 +306,9 @@ class ItemInfo {
        // write to file
        // Save image of screen to Data directory under Processing
        save(dataPath(save_fname));
-       // Save the actual png file to be used later in Work directory
+       // Save the actual png file to be used later in Work directory and QA tool directory
        qaSnapFragment.save(configInfo.readPngPath() + "/" + sample_fname);
+       qaSnapFragment.save(configInfo.readQAToolPath() + "/" + sample_fname);
 
         // As want to update existing/append new data, just open/close print object here
        PrintDataToFile printDataToFile = new PrintDataToFile(); 
@@ -339,6 +340,16 @@ class ItemInfo {
        // flush/close stream
        printDataToFile.flushFile();
        printDataToFile.closeFile();
+       
+       // Also want to write to JSON file saving relevant info for QA tool to use
+       SampleJSON sampleJSON = new SampleJSON();
+       if (!sampleJSON.readOkFlag())
+       {
+           printDebugToFile.printLine("Error opening sampleJSON object", 3);
+           failNow = true;
+           return false;
+       }
+       sampleJSON.saveFragmentInfo(itemClassTSID, itemInfo, offsetX, offsetY, sampleHeight, sampleWidth);
        
        // Also log
        printDebugToFile.printLine(outputStr, 2);

@@ -22,7 +22,7 @@ PImage qaSnap;
 PrintDebugToFile printDebugToFile;
 // 0 = no debug info 1=all debug info (useful for detailed stuff, rarely used), 
 // 2= general tracing info 3= error debug info only
-int debugLevel = 2;
+int debugLevel = 3;
 boolean debugToConsole = true;
 
 public void setup() {
@@ -60,6 +60,7 @@ public void setup() {
     // Loop through list of street TSIDs, reading in the street info
     for (int i = 0; i < configInfo.readTotalStreetCount(); i++)
     {
+        streetBeingProcessed = i;
         printDebugToFile.printLine("Read street data for TSID " + configInfo.readStreetTSID(i), 2); 
          
         // Now read in basic data for each street
@@ -80,6 +81,7 @@ public void setup() {
     // Now loop through all streets again, loading up the items structures for each street
     for (int i = 0; i < configInfo.readTotalStreetCount(); i++)
     {
+        streetBeingProcessed = i;
         printDebugToFile.printLine("Read street item data for TSID " + configInfo.readStreetTSID(i), 2); 
                            
         if (!streetInfoArray.get(i).readStreetItemData())
