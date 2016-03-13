@@ -249,8 +249,12 @@ class ItemInfo {
         String s = "Offset is " + str(offsetX) + ", " + str(offsetY) + " width " + str(sampleWidth) + " height " + str(sampleHeight); 
         fill(50);
         text(s, 50, 350, 200, 150);  // Text wraps within text box
-        s = "Arrow keys to move fragment";
-        text(s, 50, 380, 200, 150);  // Text wraps within text box
+        s = "Arrow keys to move fragment " + itemClassTSID;
+        if (itemInfo.length() > 0)
+        {
+            s = s + " (" + itemInfo + ")";
+        }
+        text(s, 50, 380, 400, 150);  // Text wraps within text box
         //s = "Change size: < narrower, > wider, ^ higher, -lower";
         //text(s, 50, 400, 200, 150);  // Text wraps within text box
         text("Change size:", 50, 400, 200, 150); 
@@ -349,7 +353,8 @@ class ItemInfo {
            failNow = true;
            return false;
        }
-       sampleJSON.saveFragmentInfo(itemClassTSID, itemInfo, offsetX, offsetY, sampleHeight, sampleWidth);
+       //sampleJSON.saveFragmentInfo(itemClassTSID, itemInfo, offsetX, offsetY, sampleHeight, sampleWidth);
+       sampleJSON.saveFragmentInfo(itemClassTSID, itemInfo, offsetX, offsetY);
        
        // Also log
        printDebugToFile.printLine(outputStr, 2);

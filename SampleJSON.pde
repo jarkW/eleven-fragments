@@ -50,7 +50,8 @@ class SampleJSON
         }
     }
     
-    public void saveFragmentInfo(String classTSID, String info, int offsetX, int offsetY, int fragHeight, int fragWidth)
+    //public void saveFragmentInfo(String classTSID, String info, int offsetX, int offsetY, int fragHeight, int fragWidth)
+    public void saveFragmentInfo(String classTSID, String info, int offsetX, int offsetY)
     {
         // Need to see if the item already exists - if so overwrite the value
         boolean itemFound = false;
@@ -66,8 +67,8 @@ class SampleJSON
                 // Found sample item - so overwrite
                 sample.setInt("offset_x", offsetX);
                 sample.setInt("offset_y", offsetY);
-                sample.setInt("width", fragWidth);
-                sample.setInt("height", fragHeight);
+                //sample.setInt("width", fragWidth);
+                //sample.setInt("height", fragHeight);
                 values.setJSONObject(i, sample);
                 // Now need to write the file back to both places
                 json.setJSONArray("fragments", values);
@@ -85,8 +86,8 @@ class SampleJSON
             sample.setString("info", info);
             sample.setInt("offset_x", offsetX);
             sample.setInt("offset_y", offsetY);
-            sample.setInt("width", fragWidth);
-            sample.setInt("height", fragHeight);
+            //sample.setInt("width", fragWidth);
+            //sample.setInt("height", fragHeight);
             values.setJSONObject(values.size(), sample);
         }
         

@@ -10,6 +10,9 @@
 // The results for an entire street are also recorded in an output file with the name
 // specified in the config.json.  
 
+// NB MAKE SURE THAT G* FILE HAS ALL CONTRAST/TINT ETC SET TO 0 FOR THE MIDDLEGROUND LAYER
+// BEFORE SAVE ANY IMAGES
+
 ConfigInfo configInfo;
 ArrayList<StreetInfo> streetInfoArray = new ArrayList<StreetInfo>();
 int streetBeingProcessed;
@@ -153,7 +156,7 @@ void keyPressed() {
     {
         streetInfoArray.get(streetBeingProcessed).increaseSampleHeight(true);
     }
-    
+   
     
     if (key == 's') 
     {
