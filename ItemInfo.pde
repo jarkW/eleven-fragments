@@ -88,7 +88,6 @@ class ItemInfo {
     
     boolean extractItemInfoFromJson(JSONObject itemJson)
     {
-        JSONObject dir;
         JSONObject instanceProps;
         
         // Avoids entering all the shrine TSIDs separately
@@ -96,7 +95,6 @@ class ItemInfo {
         {
       
             // Read in the dir field 
-            dir = null;
             try
             {
                itemInfo = itemJson.getString("dir");
@@ -116,6 +114,11 @@ class ItemInfo {
                 case "wood_tree":
                 case "npc_mailbox":
                 case "dirt_pile":
+                case "mortar_barnacle":
+                case "jellisac":
+                case "ice_knob":
+                case "dust_trap":
+                
                     // Read in the instanceProps array to get the quoin type
                     instanceProps = null;
                     try
@@ -159,9 +162,8 @@ class ItemInfo {
                     }
                     break;
    
-                case "wall_button":
+                case "subway_gate":
                     // Read in the dir field 
-                    dir = null;
                     try
                     {
                         itemInfo = itemJson.getString("dir");
@@ -175,8 +177,38 @@ class ItemInfo {
                     break;
                              
                 case "npc_sloth":
-                    printDebugToFile.printLine("Not sure about sloth - check to see if both dir and instanceProps.dir are set to be the same " + itemTSID, 3);
-                    return false;
+                    // Read in the dir field 
+                    String dir;
+                    try
+                    {
+                        dir = itemJson.getString("dir");
+                    }
+                    catch(Exception e)
+                    {
+                        println(e);
+                        printDebugToFile.printLine("Failed to read dir field from item JSON file " + itemTSID, 3);
+                        return false;
+                    } 
+                    // Now read the second dir field from instanceProps - should be the same
+                    instanceProps = null;
+                    try
+                    {
+                        instanceProps = itemJson.getJSONObject("instanceProps");
+                    }
+                    catch(Exception e)
+                    {
+                        println(e);
+                        printDebugToFile.printLine("Failed to get instanceProps from item JSON file " + itemTSID, 3);
+                        return false;
+                    } 
+                    itemInfo = readJSONString(instanceProps, "dir");
+                    
+                    if (!dir.equals(itemInfo))
+                    {
+                        // should not happen
+                        printDebugToFile.printLine("Sloth - inconsistent dir fields in " + itemTSID, 3);
+                    }
+                    break;
                 
                 case "visiting_stone":
                     // Read in the dir field 

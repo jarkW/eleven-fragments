@@ -185,6 +185,19 @@ class UniqueFragmentCheck
                 completeItemImagePaths.append("trant_gas_complete.png");
                 break;
                 
+            case "npc_sloth":
+                completeItemImagePaths.append("sloth_tree1_complete.png");
+                completeItemImagePaths.append("sloth_tree2_complete.png");
+                completeItemImagePaths.append("sloth_tree3_complete.png");
+                break;
+                
+            case "sloth_knocker":
+                completeItemImagePaths.append("sloth_tree1_complete.png");
+                completeItemImagePaths.append("sloth_tree2_complete.png");
+                completeItemImagePaths.append("sloth_tree3_complete.png");
+                break;
+            
+                
             default:
                 break;
         }

@@ -25,7 +25,7 @@ PImage qaSnap;
 PrintDebugToFile printDebugToFile;
 // 0 = no debug info 1=all debug info (useful for detailed stuff, rarely used), 
 // 2= general tracing info 3= error debug info only
-int debugLevel = 3;
+int debugLevel = 1;
 boolean debugToConsole = true;
 
 public void setup() {

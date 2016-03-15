@@ -7,6 +7,7 @@ class ConfigInfo {
     String pngPath;
     String completeItemPngPath;
     String QAToolPath;
+    String elevenPath;
     String streetTSID;
     int totalStreetCount;  
     StringList streetTSIDArray = new StringList();
@@ -48,6 +49,7 @@ class ConfigInfo {
         jsonPath = readJSONString(json, "json_path");   
         snapPath = readJSONString(json, "snap_path");
         pngPath = readJSONString(json, "png_path");
+        elevenPath = readJSONString(json, "eleven_path");
         completeItemPngPath = readJSONString(json, "complete_item_png_path");
         dataOutputFile = readJSONString(json, "data_output_file");
         debugOutputFile = readJSONString(json, "debug_output_file");
@@ -180,5 +182,10 @@ class ConfigInfo {
     public String readQAToolPath()
     {
         return QAToolPath;
+    }
+    
+    public String readElevenPath()
+    {
+        return elevenPath;
     }
 }
