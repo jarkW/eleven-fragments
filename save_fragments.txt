@@ -8,7 +8,7 @@ Saving to quoin_time.png IHV8TGKPJNA2584 (quoin (time) ) x,y=929,-400 has offset
 Saving to quoin_mystery.png IHV93BOQJNA2GRU (quoin (mystery) ) x,y=1014,-400 has offset -3,-17 for sample width=10 for sample height=12
 Saving to trant_bean.png IXXXB5AXM0HFP34EIP (trant_bean) x,y=1100,-300 has offset -27,-103 for sample width=32 for sample height=27
 Saving to trant_egg.png IXXXAXFXELNNGU7Q4C (trant_egg) x,y=1500,-300 has offset -34,-121 for sample width=30 for sample height=40
-Saving to trant_bubble.png IXXXYTHRDV78SOEWB3 (trant_bubble) x,y=1900,-300 has offset -6,-111 for sample width=15 for sample height=36
+Saving to trant_bubble.png IXXXYTHRDV78SOEWB3 (trant_bubble) x,y=1900,-300 has offset -9,-85 for sample width=10 for sample height=21
 Saving to wood_tree_1.png IXXXB0A0CF4S34CDTE (wood_tree (1) ) x,y=-1204,-300 has offset -10,-98 for sample width=16 for sample height=41
 Saving to wood_tree_2.png IXXXJNYH1NN2OFTRO1 (wood_tree (2) ) x,y=-1078,-300 has offset -11,-72 for sample width=14 for sample height=34
 Saving to wood_tree_3.png IXXX3QK2X0ZVE19EJY (wood_tree (3) ) x,y=-953,-300 has offset -9,-93 for sample width=9 for sample height=54
@@ -29,8 +29,8 @@ Saving to rock_sparkly_3.png IXXXS0783O2V5X758K (rock_sparkly_3) x,y=840,-300 ha
 Saving to rock_metal_1.png IXXXQ45PC0VWNU8CWH (rock_metal_1) x,y=-248,-300 has offset 0,-50 for sample width=20 for sample height=20
 Saving to rock_metal_2.png IXXXG104R20AC2B21E (rock_metal_2) x,y=-20,-300 has offset -30,-67 for sample width=21 for sample height=18
 Saving to rock_metal_3.png IXXXUI3NJNPBKIV8TO (rock_metal_3) x,y=180,-300 has offset 14,-65 for sample width=22 for sample height=12
-Saving to visiting_stone_right.png IXXXF0JHW0PB1E3A0P (visiting_stone (right) ) x,y=-992,-300 has offset 14,-134 for sample width=28 for sample height=20
-Saving to visiting_stone_left.png IXXXXT7KF0HBC3Y58K (visiting_stone (left) ) x,y=2911,-300 has offset -35,-133 for sample width=25 for sample height=20
+Saving to visiting_stone_right.png IXXXF0JHW0PB1E3A0P (visiting_stone (right) ) x,y=-992,-300 has offset 6,-140 for sample width=35 for sample height=41
+Saving to visiting_stone_left.png IXXXXT7KF0HBC3Y58K (visiting_stone (left) ) x,y=2911,-300 has offset -42,-140 for sample width=31 for sample height=35
 Saving to npc_mailbox_mailboxRight.png IXXX1L6QYGRWOCKAWC (npc_mailbox (mailboxRight) ) x,y=-1100,-300 has offset -11,-120 for sample width=17 for sample height=11
 Saving to npc_mailbox_mailboxLeft.png IXXX7A2UMIEBKXN1M7 (npc_mailbox (mailboxLeft) ) x,y=-1268,-300 has offset -6,-120 for sample width=18 for sample height=10
 Saving to npc_shrine_alph_right.png IHV42IAS2AB2R4V (npc_shrine_alph (right) ) x,y=-521,-430 has offset -10,-41 for sample width=21 for sample height=18
@@ -44,8 +44,8 @@ Saving to npc_shrine_pot_right.png IXXXEXAFLIXVGBB4VX (npc_shrine_pot (right) ) 
 Saving to npc_shrine_spriggan_right.png IXXXB7LWODEMXHFFLX (npc_shrine_spriggan (right) ) x,y=1462,-430 has offset -9,-44 for sample width=24 for sample height=22
 Saving to npc_shrine_ti_right.png IXXXAIZV2RSXVWJYVI (npc_shrine_ti (right) ) x,y=1691,-430 has offset -9,-38 for sample width=29 for sample height=15
 Saving to npc_shrine_zille_right.png IXXXNQQEDJLRCFFRMS (npc_shrine_zille (right) ) x,y=1939,-430 has offset -10,-38 for sample width=29 for sample height=17
-Saving to npc_sloth_left.png IXXX93G7LD1ZCL3DI (npc_sloth (left) ) x,y=-1127,-296 has offset -55,-102 for sample width=106 for sample height=6
-Saving to npc_sloth_right.png IDO9AJ38P3S2RDC (npc_sloth (right) ) x,y=-930,-291 has offset -43,-106 for sample width=110 for sample height=7
+Saving to npc_sloth_left.png IXXX93G7LD1ZCL3DI (npc_sloth (left) ) x,y=-1127,-296 has offset -24,-106 for sample width=21 for sample height=8
+Saving to npc_sloth_right.png IDO9AJ38P3S2RDC (npc_sloth (right) ) x,y=-930,-291 has offset 9,-103 for sample width=23 for sample height=7
 Saving to sloth_knocker.png IDO99QO7P3S296O (sloth_knocker) x,y=-1011,-532 has offset -9,-37 for sample width=14 for sample height=13
 Saving to npc_shrine_firebog_alph_right.png IXXXST4M6S8OIIESIF (npc_shrine_firebog_alph (right) ) x,y=-520,-600 has offset -14,-183 for sample width=24 for sample height=26
 Saving to npc_shrine_ix_alph_right.png IXXXZOEKFRZI8P8PVI (npc_shrine_ix_alph (right) ) x,y=-520,-800 has offset -11,-171 for sample width=19 for sample height=26
