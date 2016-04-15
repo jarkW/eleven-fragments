@@ -185,6 +185,13 @@ class UniqueFragmentCheck
                 completeItemImagePaths.append("trant_gas_complete.png");
                 break;
                 
+            case "wood_tree_enchanted":
+                completeItemImagePaths.append("wood_tree_enchanted_1_complete.png");
+                completeItemImagePaths.append("wood_tree_enchanted_2_complete.png");
+                completeItemImagePaths.append("wood_tree_enchanted_3_complete.png");
+                completeItemImagePaths.append("wood_tree_enchanted_4_complete.png");
+                break;
+                
             case "npc_sloth":
                 completeItemImagePaths.append("sloth_tree1_complete.png");
                 completeItemImagePaths.append("sloth_tree2_complete.png");

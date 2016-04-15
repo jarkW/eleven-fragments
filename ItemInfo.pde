@@ -112,6 +112,7 @@ class ItemInfo {
             {
                 case "quoin":
                 case "wood_tree":
+                case "wood_tree_enchanted":
                 case "npc_mailbox":
                 case "dirt_pile":
                 case "mortar_barnacle":
@@ -135,7 +136,7 @@ class ItemInfo {
                     {
                         itemInfo = readJSONString(instanceProps, "type");
                     }
-                    else if ((itemClassTSID.equals("wood_tree")) || (itemClassTSID.equals("npc_mailbox")) || (itemClassTSID.equals("dirt_pile")))
+                    else if ((itemClassTSID.equals("wood_tree")) || (itemClassTSID.equals("wood_tree_enchanted")) || (itemClassTSID.equals("npc_mailbox")) || (itemClassTSID.equals("dirt_pile")))
                     {
                         itemInfo = readJSONString(instanceProps, "variant");
                     }
