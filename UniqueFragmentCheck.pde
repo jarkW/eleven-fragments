@@ -196,8 +196,7 @@ class UniqueFragmentCheck
                 completeItemImagePaths.append("sloth_tree2_complete.png");
                 completeItemImagePaths.append("sloth_tree3_complete.png");
                 break;
-            
-                
+           
             default:
                 break;
         }

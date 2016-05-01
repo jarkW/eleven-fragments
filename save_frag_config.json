@@ -10,6 +10,7 @@
   "QA_tool_path": "C:/Users/Donna/My Documents/Processing3/My Stuff/sketch_QA_tool/data",
   "data_output_file": "save_fragments.txt",
   "debug_output_file": "debug_info.txt",
+  "zutto_base_only": true,
   "all_streets": [
     {"tsid": "LHVT4C9KSIA2UMG = quoins"},
     {"tsid": "LHV1HO45PQA2QJS = rocks"},
