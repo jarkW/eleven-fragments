@@ -36,12 +36,12 @@ class ConfigInfo {
         try
         {
         // Read in stuff from the config file
-            json = loadJSONObject("config.json");
+            json = loadJSONObject("save_frag_config.json");
         }
         catch(Exception e)
         {
             println(e);
-            println("Failed to load config.json file");
+            println("Failed to load save_frag_config.json file");
             return false;
         }
    

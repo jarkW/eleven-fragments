@@ -119,6 +119,7 @@ class ItemInfo {
                 case "jellisac":
                 case "ice_knob":
                 case "dust_trap":
+                case "street_spirit_zutto":
                 
                     // Read in the instanceProps array to get the quoin type
                     instanceProps = null;
@@ -151,7 +152,11 @@ class ItemInfo {
                     else if (itemClassTSID.equals("dust_trap"))
                     {
                         itemInfo = readJSONString(instanceProps, "trap_class");
-                    }               
+                    } 
+                    else if (itemClassTSID.equals("street_spirit_zutto"))
+                    {
+                        itemInfo = readJSONString(instanceProps, "cap");
+                    }
                     else
                     {
                         printDebugToFile.printLine("Trying to read unexpected field from instanceProps for item class " + itemClassTSID, 3);

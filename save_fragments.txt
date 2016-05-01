@@ -110,8 +110,11 @@ Saving to subway_gate_left.png IXXXT8UVTZYD3LWKA9 (subway_gate (left) ) x,y=755,
 Saving to subway_gate_right.png IXXXHR7FKRX2R5CXFL (subway_gate (right) ) x,y=827,-400 has offset -9,-29 for sample width=15 for sample height=16
 Saving to bag_notice_board.png BXXXRT9UK043T79CNM (bag_notice_board) x,y=663,-550 has offset -102,-91 for sample width=203 for sample height=59
 Saving to wood_tree_enchanted_1.png IXXX6ZI7489D29HSQ0 (wood_tree_enchanted (1) ) x,y=-2570,-200 has offset -11,-66 for sample width=17 for sample height=32
-Saving to street_spirit_zutto.png IXXXHCEZ54BV1FEZ5M (street_spirit_zutto) x,y=-2850,-200 has offset -17,-84 for sample width=32 for sample height=36
-Saving to npc_gardening_vendor.png IXXXNWOMW18PQ5S714 (npc_gardening_vendor) x,y=-2300,-360 has offset -18,-99 for sample width=15 for sample height=28
+Saving to npc_gardening_vendor.png IXXXNWOMW18PQ5S714 (npc_gardening_vendor) x,y=-2350,-553 has offset -15,-62 for sample width=8 for sample height=40
 Saving to wood_tree_enchanted_3.png IXXXBS5AZPC1B5DPWR (wood_tree_enchanted (3) ) x,y=-2220,-200 has offset -9,-68 for sample width=17 for sample height=45
 Saving to wood_tree_enchanted_2.png IXXXED5JT9CPTE0442 (wood_tree_enchanted (2) ) x,y=-2390,-200 has offset -13,-50 for sample width=18 for sample height=31
 Saving to wood_tree_enchanted_4.png IXXXBTESC145P3M78P (wood_tree_enchanted (4) ) x,y=-2110,-200 has offset -11,-54 for sample width=14 for sample height=34
+Saving to street_spirit_zutto_capPurple.png IXXXHCEZ54BV1FEZ5M (street_spirit_zutto (capPurple) ) x,y=-2540,-640 has offset -15,-53 for sample width=24 for sample height=39
+Saving to street_spirit_zutto_capAqua.png IXXXHCEZ54BV1FEZ8M (street_spirit_zutto (capAqua) ) x,y=-2740,-770 has offset -14,-54 for sample width=24 for sample height=39
+Saving to street_spirit_zutto_capOrange.png IXXXHCEZ54BV1FEZ7M (street_spirit_zutto (capOrange) ) x,y=-2540,-770 has offset -14,-52 for sample width=24 for sample height=39
+Saving to street_spirit_zutto_capGreen.png IXXXHCEZ54BV1FEZ6M (street_spirit_zutto (capGreen) ) x,y=-2740,-640 has offset -14,-52 for sample width=24 for sample height=39

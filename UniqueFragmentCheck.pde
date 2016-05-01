@@ -40,7 +40,7 @@ class UniqueFragmentCheck
         uniqueReferenceY = 0;
         uniqueReferenceFile = "";
         QAFragment = QASnapFragment;
-        QAFragment.loadPixels();
+
         allFoundMatches = new ArrayList<FoundMatch>();    
     }
     
