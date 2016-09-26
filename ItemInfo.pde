@@ -293,6 +293,7 @@ class ItemInfo {
         text("Change size:", 50, 400, 200, 150); 
         text("< narrower, > wider", 50, 420, 200, 150);
         text("^ higher, -lower", 50, 440, 200, 150);
+        text("s to save, n to skip", 50, 460, 200, 150);
         
         // Display any error messages that might have come from the image validation
         text(uniqueTestResultMsg, 50, 500, 300, 150);

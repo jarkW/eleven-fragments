@@ -1,13 +1,13 @@
 {
   "streets": [
-    {"tsid": "LDORIA62TLQ2HOH"}
+    {"tsid": "LHV4U509S9B2MRV"}
   ],
   "json_path": "C:/Glitch/Work/ItemCompareTool/JSONs",
   "eleven_path": "C:/Glitch/eleven",
   "snap_path": "C:/Glitch/Work/ItemCompareTool/Snaps",
   "png_path": "C:/Glitch/Work/ItemCompareTool/GeneratedItems",
   "complete_item_png_path": "C:/Glitch/Work/ItemCompareTool/Items",
-  "QA_tool_path": "C:/Users/Donna/My Documents/Processing3/My Stuff/sketch_QA_tool/data",
+  "QA_tool_path": "C:/Users/Donna/My Documents/Processing3/My Stuff/QABot/data",
   "data_output_file": "save_fragments.txt",
   "debug_output_file": "debug_info.txt",
   "zutto_base_only": true,
