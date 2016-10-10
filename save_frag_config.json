@@ -1,6 +1,6 @@
 {
   "streets": [
-    {"tsid": "LHVMK86NP7B26E6"}
+    {"tsid": "LDORIA62TLQ2HOH"}
   ],
   "json_path": "C:/Glitch/Work/ItemCompareTool/JSONs",
   "eleven_path": "C:/Glitch/eleven",
@@ -11,7 +11,6 @@
   "QA_tool_path": "C:/Users/Donna/My Documents/Processing3/My Stuff/QABot/data",
   "data_output_file": "save_fragments.txt",
   "debug_output_file": "debug_info.txt",
-  "zutto_base_only": true,
   "all_streets": [
     {"tsid": "LHVT4C9KSIA2UMG = quoins"},
     {"tsid": "LHV1HO45PQA2QJS = rocks"},
