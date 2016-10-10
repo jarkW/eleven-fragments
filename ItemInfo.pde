@@ -83,6 +83,63 @@ class ItemInfo {
             return false;
         }
         
+        // Now set up the offset/sample sizes if present - saves user resetting them if just using different background image
+        if (!defaultFragmentSettings())
+        {
+            // Error opening JSON file
+            failNow = true;
+            return false;
+        }        
+        
+        return true;
+    }
+    
+    boolean defaultFragmentSettings()
+    {
+        // Now set up the offset/sample sizes if present - saves user resetting them if just using different background image
+        SampleJSON sampleJSON = new SampleJSON();
+        if (!sampleJSON.readOkFlag())
+        {
+            printDebugToFile.printLine("Error opening sampleJSON object", 3);
+            failNow = true;
+            return false;
+        }
+        if (sampleJSON.readFragmentInfo(itemClassTSID, itemInfo))
+        {
+            // Entry exists for this tsid/info - so read in values
+            offsetX = sampleJSON.readSavedOffsetX();
+            offsetY = sampleJSON.readSavedOffsetY();
+            
+            // Work out the sample sizes from any existing saved fragments
+            String save_fname = itemClassTSID;
+            if (itemInfo.length() > 0)
+            {
+               save_fname = save_fname+ "_" + itemInfo;
+            }
+            String sample_fname = save_fname + ".png";
+            File file = new File(configInfo.readPngPath() + "/" + sample_fname);
+            if (file.exists())
+            {  
+                // Load up image file and use width/height
+                PImage fragImage = loadImage(configInfo.readPngPath() + "/" + sample_fname, "png");
+                sampleWidth = fragImage.width;
+                sampleHeight = fragImage.height;
+            }
+           else
+            {
+                sampleWidth = 10;
+                sampleHeight = 10;
+            }
+        }
+        else
+        {
+            // Not found - so default
+            offsetX = 0;
+            offsetY = 0;
+            sampleWidth = 10;
+            sampleHeight = 10;
+        }
+        
         return true;
     }
     
@@ -281,7 +338,7 @@ class ItemInfo {
         image(qaSnapFragment, 50, 50); 
         String s = "Offset is " + str(offsetX) + ", " + str(offsetY) + " width " + str(sampleWidth) + " height " + str(sampleHeight); 
         fill(50);
-        text(s, 50, 350, 200, 150);  // Text wraps within text box
+        text(s, 50, 350, 400, 150);  // Text wraps within text box
         s = "Arrow keys to move fragment " + itemClassTSID;
         if (itemInfo.length() > 0)
         {
@@ -342,8 +399,8 @@ class ItemInfo {
        save_fname = save_fname + "_full.png";
        
        // write to file
-       // Save image of screen to Data directory under Processing
-       save(dataPath(save_fname));
+       // Save image of screen to Work directory
+       save(configInfo.readScreenCapturePath() + "/" + save_fname);
        // Save the actual png file to be used later in Work directory and QA tool directory
        qaSnapFragment.save(configInfo.readPngPath() + "/" + sample_fname);
        qaSnapFragment.save(configInfo.readQAToolPath() + "/" + sample_fname);

@@ -5,9 +5,10 @@ class ConfigInfo {
     String jsonPath;
     String snapPath;
     String pngPath;
-    String completeItemPngPath;
-    String QAToolPath;
     String elevenPath;
+    String completeItemPngPath;
+    String screenCapturePath;
+    String QAToolPath;
     String streetTSID;
     int totalStreetCount;  
     StringList streetTSIDArray = new StringList();
@@ -53,6 +54,7 @@ class ConfigInfo {
         completeItemPngPath = readJSONString(json, "complete_item_png_path");
         dataOutputFile = readJSONString(json, "data_output_file");
         debugOutputFile = readJSONString(json, "debug_output_file");
+        screenCapturePath = readJSONString(json, "screen_capture_path");
         QAToolPath = readJSONString(json, "QA_tool_path");
         
         // Check still got right path for QA tool
@@ -184,9 +186,13 @@ class ConfigInfo {
         return QAToolPath;
     }
     
+    public String readScreenCapturePath()
+    {
+        return screenCapturePath;
+    }
+    
     public String readElevenPath()
     {
         return elevenPath;
     }
-
 }

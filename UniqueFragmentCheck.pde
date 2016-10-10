@@ -18,6 +18,7 @@ class UniqueFragmentCheck
     int uniqueReferenceX = 0;
     int uniqueReferenceY = 0;
     String uniqueReferenceFile = "";
+    String errorMsg = "";
     
     ArrayList<FoundMatch> allFoundMatches;
     StringList completeItemImagePaths = new StringList();
@@ -404,10 +405,43 @@ class UniqueFragmentCheck
         PImage matchImage;
         int displayX = 550;
         int displayY = 500;    
-        int numMatches = 0;
+        int numMatches = 0;     
         
+        // First search to see if the fragment contains the default background - r = g = b = 128
+        int i;
+        int j;
+        int locItem;
+        float r;
+        float g;
+        float b;
+        int nosBackgroundPixels = 0;
+                                    
+        // Check each pixel in the fragment
+        for (i = 0; i < QAFragment.height; i++) 
+        {
+            for (j = 0; j < QAFragment.width; j++)
+            {
+                //int loc = pixelXPosition + (pixelYPosition * streetItemInfo[streetItemCount].sampleWidth);
+                locItem = j + (i * QAFragment.width);
+                r = red(QAFragment.pixels[locItem]);
+                g = green(QAFragment.pixels[locItem]);
+                b = blue(QAFragment.pixels[locItem]);
+                
+                if ((r == 128) && (g == 128) && (b == 128))
+                {
+                    nosBackgroundPixels++;
+                }
+            }
+        }
+        if (nosBackgroundPixels > 0)
+        {
+            printDebugToFile.printLine("Found " + nosBackgroundPixels + " occurrences of grey background pixels in this reference snap", 2);
+            errorMsg = "Found " + nosBackgroundPixels + " occurrences of grey background pixels in fragment";
+            return false;
+        }
+
         
-        for (int i = 0; i < completeItemImagePaths.size(); i++)
+        for (i = 0; i < completeItemImagePaths.size(); i++)
         {
             targetImage = loadImage(configInfo.readCompleteItemPngPath()+"/"+completeItemImagePaths.get(i), "png");
             printDebugToFile.printLine("Using reference file " + configInfo.readCompleteItemPngPath()+"/"+completeItemImagePaths.get(i), 2);
@@ -424,7 +458,7 @@ class UniqueFragmentCheck
         }
              
        // Now dump out contents of the array list to see how many exact/good enough matches found
-       for (int j = 0; j < allFoundMatches.size(); j++)
+       for (j = 0; j < allFoundMatches.size(); j++)
        {
            saveAndDisplayFoundMatch(allFoundMatches.get(j), displayX, displayY);
            displayY += QAFragment.height + 60;
@@ -463,10 +497,15 @@ class UniqueFragmentCheck
         else  
         {
             printDebugToFile.printLine("Found " + str(allFoundMatches.size()) + " multiple matching point in this reference snap", 2);
+            errorMsg = "Fragment is NOT unique - move it or resize it before re-saving";
             return false;
         }
     }
 
+    public String readErrorMsg()
+    {
+        return errorMsg;
+    }
     
     public boolean readOkFlag()
     {

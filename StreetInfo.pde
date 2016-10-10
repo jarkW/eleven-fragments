@@ -360,7 +360,7 @@ class StreetInfo {
         else
         {
             // Show warning message to user
-            itemData.setUniqueTestResultMsg("Fragment is NOT unique - move it or resize it before re-saving");
+            itemData.setUniqueTestResultMsg(uniqueFragmentCheck.readErrorMsg());
             showDupes = true;
             return false;
         }

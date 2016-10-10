@@ -5,7 +5,7 @@
 //
 // A config.json contains the street TSID and all items on that street are treated
 // the same way. 's' to save the image on screen in a file 'class_tsid'_'info'_full.png
-// in the data directory. e.g. rock_metal_1_full.png or quoin_currants_full.png. 
+// in the Work directory. e.g. rock_metal_1_full.png or quoin_currants_full.png. 
 // Or do 'n' to skip saving an item and move on to the next street item.
 // The results for an entire street are also recorded in an output file with the name
 // specified in the config.json.  
@@ -168,6 +168,7 @@ void keyPressed() {
            if (streetBeingProcessed >= streetInfoArray.size()) 
            {
                // Done all the streets so finish
+               
                failNow = true;
            }
         }

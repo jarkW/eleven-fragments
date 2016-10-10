@@ -4,11 +4,14 @@ class SampleJSON
     boolean okFlag;
     JSONObject json;
     JSONArray values;
+    int numberReadInEntries;
+    SampleEntry savedEntry = new SampleEntry();
     
     // constructor/initialise fields
     public SampleJSON()
     {
         okFlag = true;
+        numberReadInEntries = 0;
         
         File file = new File(configInfo.readPngPath() + "/samples.json");
         if (!file.exists())
@@ -47,6 +50,10 @@ class SampleJSON
                 return;
             }
             values = json.getJSONArray("fragments");  
+            
+            // save length of this structure - so don't inadvertenly wipe out if encounter an error
+            numberReadInEntries = values.size();
+            printDebugToFile.printLine("Read in " + numberReadInEntries + " from samples.json", 2);
         }
     }
     
@@ -98,8 +105,56 @@ class SampleJSON
 
     }
     
+    // Returns the value if item found in sample.json
+    public boolean readFragmentInfo(String classTSID, String info)
+    {
+        // Need to see if the item already exists 
+        JSONObject sample = null;
+               
+        for (int i = 0; i < values.size(); i++) 
+        {
+    
+            sample = values.getJSONObject(i);
+            
+            if ((sample.getString("class_tsid").equals(classTSID)) && (sample.getString("info").equals(info)))
+            {
+                // Found sample item - so populate the saved sample entry structure
+                savedEntry.TSIDInfo = classTSID;
+                savedEntry.infoStr = info;
+                savedEntry.offsetX = sample.getInt("offset_x");
+                savedEntry.offsetY = sample.getInt("offset_y");
+                return true;
+            }
+        }
+        
+        // If reach here, then item not found
+        savedEntry.TSIDInfo = classTSID;
+        savedEntry.infoStr = info;
+        savedEntry.offsetX = 0;
+        savedEntry.offsetY = 0;
+        return false;
+    }
+
     public boolean readOkFlag()
     {
         return okFlag;
+    }
+    
+    public int readSavedOffsetX()
+    {
+        return savedEntry.offsetX;
+    }
+    
+    public int readSavedOffsetY()
+    {
+        return savedEntry.offsetY;
+    }
+    
+    class SampleEntry
+    {
+        String TSIDInfo;
+        String infoStr;
+        int offsetX;
+        int offsetY;
     }
 }

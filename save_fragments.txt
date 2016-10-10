@@ -1,20 +1,20 @@
-Saving to marker_qurazy.png IXXXCWIBTFVPCVJZ6W (marker_qurazy) x,y=301,-400 has offset -4,-17 for sample width=15 for sample height=16
-Saving to quoin_currants.png IHVF3462LNA26GU (quoin (currants) ) x,y=423,-400 has offset -5,-16 for sample width=12 for sample height=12
-Saving to quoin_energy.png IHVEBL7TKNA20A4 (quoin (energy) ) x,y=744,-400 has offset -4,-14 for sample width=10 for sample height=11
-Saving to quoin_favor.png IHV9Q320KNA29F9 (quoin (favor) ) x,y=835,-400 has offset -3,-22 for sample width=10 for sample height=10
-Saving to quoin_mood.png IHVEUM61LNA2MP3 (quoin (mood) ) x,y=537,-400 has offset -5,-16 for sample width=12 for sample height=12
-Saving to quoin_xp.png IHVEU631LNA2SJQ (quoin (xp) ) x,y=646,-400 has offset -4,-20 for sample width=12 for sample height=14
-Saving to quoin_time.png IHV8TGKPJNA2584 (quoin (time) ) x,y=929,-400 has offset -4,-16 for sample width=11 for sample height=11
-Saving to quoin_mystery.png IHV93BOQJNA2GRU (quoin (mystery) ) x,y=1014,-400 has offset -3,-17 for sample width=10 for sample height=12
+Saving to marker_qurazy.png IXXXCWIBTFVPCVJZ6W (marker_qurazy) x,y=680,-350 has offset -4,-19 for sample width=15 for sample height=16
+Saving to quoin_currants.png IHVF3462LNA26GU (quoin (currants) ) x,y=300,-350 has offset -5,-13 for sample width=12 for sample height=12
+Saving to quoin_energy.png IHVEBL7TKNA20A4 (quoin (energy) ) x,y=420,-350 has offset -4,-14 for sample width=10 for sample height=11
+Saving to quoin_favor.png IHV9Q320KNA29F9 (quoin (favor) ) x,y=480,-350 has offset -3,-16 for sample width=10 for sample height=10
+Saving to quoin_mood.png IHVEUM61LNA2MP3 (quoin (mood) ) x,y=240,-350 has offset -5,-18 for sample width=12 for sample height=12
+Saving to quoin_xp.png IHVEU631LNA2SJQ (quoin (xp) ) x,y=360,-350 has offset -4,-19 for sample width=12 for sample height=14
+Saving to quoin_time.png IHV8TGKPJNA2584 (quoin (time) ) x,y=540,-350 has offset -4,-20 for sample width=11 for sample height=11
+Saving to quoin_mystery.png IHV93BOQJNA2GRU (quoin (mystery) ) x,y=600,-350 has offset -4,-21 for sample width=10 for sample height=12
 Saving to trant_bean.png IXXXB5AXM0HFP34EIP (trant_bean) x,y=1100,-300 has offset -27,-103 for sample width=32 for sample height=27
 Saving to trant_egg.png IXXXAXFXELNNGU7Q4C (trant_egg) x,y=1500,-300 has offset -34,-121 for sample width=30 for sample height=40
-Saving to trant_bubble.png IXXXYTHRDV78SOEWB3 (trant_bubble) x,y=1900,-300 has offset -9,-85 for sample width=10 for sample height=21
+Saving to trant_bubble.png IXXXYTHRDV78SOEWB3 (trant_bubble) x,y=2195,-300 has offset -9,-85 for sample width=10 for sample height=21
 Saving to wood_tree_1.png IXXXB0A0CF4S34CDTE (wood_tree (1) ) x,y=-1204,-300 has offset -10,-98 for sample width=16 for sample height=41
 Saving to wood_tree_2.png IXXXJNYH1NN2OFTRO1 (wood_tree (2) ) x,y=-1078,-300 has offset -11,-72 for sample width=14 for sample height=34
 Saving to wood_tree_3.png IXXX3QK2X0ZVE19EJY (wood_tree (3) ) x,y=-953,-300 has offset -9,-93 for sample width=9 for sample height=54
 Saving to wood_tree_4.png IXXX3OHGQ3WVAPNQXG (wood_tree (4) ) x,y=-826,-300 has offset -2,-84 for sample width=12 for sample height=38
-Saving to trant_gas.png IXXXRJCE7PUUCN154S (trant_gas) x,y=750,-300 has offset -7,-53 for sample width=33 for sample height=25
-Saving to trant_spice.png IXXXRVL8EU1L4L3RQK (trant_spice) x,y=400,-300 has offset -36,-63 for sample width=40 for sample height=29
+Saving to trant_gas.png IXXXRJCE7PUUCN154S (trant_gas) x,y=750,-300 has offset -12,-49 for sample width=33 for sample height=35
+Saving to trant_spice.png IXXXRVL8EU1L4L3RQK (trant_spice) x,y=400,-300 has offset -26,-65 for sample width=50 for sample height=29
 Saving to paper_tree.png IXXXOTX3BPMIEGL4YG (paper_tree) x,y=-187,-300 has offset 1,-99 for sample width=14 for sample height=44
 Saving to trant_fruit.png IXXXXA91ES5DNOOB6G (trant_fruit) x,y=100,-300 has offset 0,-55 for sample width=14 for sample height=41
 Saving to rock_beryl_1.png IXXXXB0N19MD337SYV (rock_beryl_1) x,y=2116,-300 has offset -21,-67 for sample width=21 for sample height=20
@@ -33,56 +33,56 @@ Saving to visiting_stone_right.png IXXXF0JHW0PB1E3A0P (visiting_stone (right) ) 
 Saving to visiting_stone_left.png IXXXXT7KF0HBC3Y58K (visiting_stone (left) ) x,y=2911,-300 has offset -42,-140 for sample width=31 for sample height=35
 Saving to npc_mailbox_mailboxRight.png IXXX1L6QYGRWOCKAWC (npc_mailbox (mailboxRight) ) x,y=-1100,-300 has offset -11,-120 for sample width=17 for sample height=11
 Saving to npc_mailbox_mailboxLeft.png IXXX7A2UMIEBKXN1M7 (npc_mailbox (mailboxLeft) ) x,y=-1268,-300 has offset -6,-120 for sample width=18 for sample height=10
-Saving to npc_shrine_alph_right.png IHV42IAS2AB2R4V (npc_shrine_alph (right) ) x,y=-521,-430 has offset -10,-41 for sample width=21 for sample height=18
+Saving to npc_shrine_alph_right.png IHV42IAS2AB2R4V (npc_shrine_alph (right) ) x,y=-520,-430 has offset -10,-41 for sample width=21 for sample height=18
 Saving to npc_shrine_cosma_right.png IXXXD3BEC7N41C7N9U (npc_shrine_cosma (right) ) x,y=-280,-430 has offset -8,-39 for sample width=24 for sample height=14
 Saving to npc_shrine_friendly_right.png IXXXMO5S9UMSOE09T3 (npc_shrine_friendly (right) ) x,y=5,-430 has offset -3,-36 for sample width=16 for sample height=15
-Saving to npc_shrine_grendaline_right.png IXXXLBE4EZ46FVWJYV (npc_shrine_grendaline (right) ) x,y=228,-430 has offset -7,-40 for sample width=20 for sample height=17
-Saving to npc_shrine_humbaba_right.png IXXXLJXHVQL0QWK4KJ (npc_shrine_humbaba (right) ) x,y=471,-430 has offset -10,-38 for sample width=26 for sample height=18
-Saving to npc_shrine_lem_right.png IXXXQJED79P2BU5QXG (npc_shrine_lem (right) ) x,y=692,-430 has offset -12,-40 for sample width=24 for sample height=17
-Saving to npc_shrine_mab_right.png IXXXXC7A8GNRMP3KRZ (npc_shrine_mab (right) ) x,y=942,-430 has offset -5,-41 for sample width=24 for sample height=19
+Saving to npc_shrine_grendaline_right.png IXXXLBE4EZ46FVWJYV (npc_shrine_grendaline (right) ) x,y=230,-430 has offset -7,-40 for sample width=20 for sample height=17
+Saving to npc_shrine_humbaba_right.png IXXXLJXHVQL0QWK4KJ (npc_shrine_humbaba (right) ) x,y=470,-430 has offset -10,-38 for sample width=26 for sample height=18
+Saving to npc_shrine_lem_right.png IXXXQJED79P2BU5QXG (npc_shrine_lem (right) ) x,y=690,-430 has offset -12,-40 for sample width=24 for sample height=17
+Saving to npc_shrine_mab_right.png IXXXXC7A8GNRMP3KRZ (npc_shrine_mab (right) ) x,y=940,-430 has offset -5,-41 for sample width=24 for sample height=19
 Saving to npc_shrine_pot_right.png IXXXEXAFLIXVGBB4VX (npc_shrine_pot (right) ) x,y=1200,-430 has offset -6,-44 for sample width=18 for sample height=19
-Saving to npc_shrine_spriggan_right.png IXXXB7LWODEMXHFFLX (npc_shrine_spriggan (right) ) x,y=1462,-430 has offset -9,-44 for sample width=24 for sample height=22
-Saving to npc_shrine_ti_right.png IXXXAIZV2RSXVWJYVI (npc_shrine_ti (right) ) x,y=1691,-430 has offset -9,-38 for sample width=29 for sample height=15
-Saving to npc_shrine_zille_right.png IXXXNQQEDJLRCFFRMS (npc_shrine_zille (right) ) x,y=1939,-430 has offset -10,-38 for sample width=29 for sample height=17
+Saving to npc_shrine_spriggan_right.png IXXXB7LWODEMXHFFLX (npc_shrine_spriggan (right) ) x,y=1460,-430 has offset -9,-44 for sample width=24 for sample height=22
+Saving to npc_shrine_ti_right.png IXXXAIZV2RSXVWJYVI (npc_shrine_ti (right) ) x,y=1690,-430 has offset -9,-38 for sample width=29 for sample height=15
+Saving to npc_shrine_zille_right.png IXXXNQQEDJLRCFFRMS (npc_shrine_zille (right) ) x,y=1940,-430 has offset -10,-38 for sample width=29 for sample height=17
 Saving to npc_sloth_left.png IXXX93G7LD1ZCL3DI (npc_sloth (left) ) x,y=-1127,-296 has offset -24,-106 for sample width=21 for sample height=8
 Saving to npc_sloth_right.png IDO9AJ38P3S2RDC (npc_sloth (right) ) x,y=-930,-291 has offset 9,-103 for sample width=23 for sample height=7
 Saving to sloth_knocker.png IDO99QO7P3S296O (sloth_knocker) x,y=-1011,-532 has offset -9,-37 for sample width=14 for sample height=13
 Saving to npc_shrine_firebog_alph_right.png IXXXST4M6S8OIIESIF (npc_shrine_firebog_alph (right) ) x,y=-520,-600 has offset -14,-183 for sample width=24 for sample height=26
-Saving to npc_shrine_ix_alph_right.png IXXXZOEKFRZI8P8PVI (npc_shrine_ix_alph (right) ) x,y=-520,-800 has offset -11,-171 for sample width=19 for sample height=26
-Saving to npc_shrine_uralia_alph_right.png IXXXRABIWR6GC8F1DC (npc_shrine_uralia_alph (right) ) x,y=-520,-1000 has offset -9,-66 for sample width=18 for sample height=27
+Saving to npc_shrine_ix_alph_right.png IXXXZOEKFRZI8P8PVI (npc_shrine_ix_alph (right) ) x,y=-520,-900 has offset -11,-171 for sample width=19 for sample height=26
+Saving to npc_shrine_uralia_alph_right.png IXXXRABIWR6GC8F1DC (npc_shrine_uralia_alph (right) ) x,y=-520,-1200 has offset -9,-66 for sample width=18 for sample height=27
 Saving to npc_shrine_firebog_cosma_right.png IXXXZHPZF8HO8T7TA9 (npc_shrine_firebog_cosma (right) ) x,y=-280,-600 has offset -13,-178 for sample width=28 for sample height=20
-Saving to npc_shrine_uralia_cosma_right.png IXXXH9IY7RIQA6F205 (npc_shrine_uralia_cosma (right) ) x,y=-280,-1000 has offset -12,-65 for sample width=27 for sample height=20
-Saving to npc_shrine_ix_cosma_right.png IXXXREYV59JMV3N5EW (npc_shrine_ix_cosma (right) ) x,y=-280,-800 has offset -12,-172 for sample width=25 for sample height=21
+Saving to npc_shrine_uralia_cosma_right.png IXXXH9IY7RIQA6F205 (npc_shrine_uralia_cosma (right) ) x,y=-280,-1200 has offset -12,-65 for sample width=27 for sample height=20
+Saving to npc_shrine_ix_cosma_right.png IXXXREYV59JMV3N5EW (npc_shrine_ix_cosma (right) ) x,y=-280,-900 has offset -12,-172 for sample width=25 for sample height=21
 Saving to npc_shrine_firebog_friendly_right.png IXXXFPUBSMWPB3AYVI (npc_shrine_firebog_friendly (right) ) x,y=16,-600 has offset -14,-177 for sample width=28 for sample height=23
-Saving to npc_shrine_ix_friendly_right.png IXXXT5IVMXBHZQQTO6 (npc_shrine_ix_friendly (right) ) x,y=5,-800 has offset -9,-169 for sample width=19 for sample height=22
-Saving to npc_shrine_uralia_friendly_right.png IXXXWH7L2GR2J4I (npc_shrine_uralia_friendly (right) ) x,y=5,-1000 has offset -12,-63 for sample width=25 for sample height=21
-Saving to npc_shrine_ix_grendaline_right.png IXXXOJ377X9IH8LZYQ (npc_shrine_ix_grendaline (right) ) x,y=230,-800 has offset -9,-172 for sample width=18 for sample height=23
+Saving to npc_shrine_ix_friendly_right.png IXXXT5IVMXBHZQQTO6 (npc_shrine_ix_friendly (right) ) x,y=5,-900 has offset -9,-169 for sample width=19 for sample height=22
+Saving to npc_shrine_uralia_friendly_right.png IXXXWH7L2GR2J4I (npc_shrine_uralia_friendly (right) ) x,y=5,-1200 has offset -12,-63 for sample width=25 for sample height=21
+Saving to npc_shrine_ix_grendaline_right.png IXXXOJ377X9IH8LZYQ (npc_shrine_ix_grendaline (right) ) x,y=230,-900 has offset -9,-172 for sample width=18 for sample height=23
 Saving to npc_shrine_firebog_grendaline_right.png IXXX54ZODWP5VW5QAO (npc_shrine_firebog_grendaline (right) ) x,y=230,-600 has offset -11,-183 for sample width=21 for sample height=25
-Saving to npc_shrine_uralia_grendaline_right.png IXXX128Z4RL6457E3I (npc_shrine_uralia_grendaline (right) ) x,y=230,-1000 has offset -11,-69 for sample width=22 for sample height=25
+Saving to npc_shrine_uralia_grendaline_right.png IXXX128Z4RL6457E3I (npc_shrine_uralia_grendaline (right) ) x,y=230,-1200 has offset -11,-69 for sample width=22 for sample height=25
 Saving to npc_shrine_firebog_humbaba_right.png IXXXL653JSOZ9JA46L (npc_shrine_firebog_humbaba (right) ) x,y=470,-600 has offset -12,-174 for sample width=28 for sample height=18
-Saving to npc_shrine_uralia_humbaba_right.png IXXX8N7GK0Y7BZVHOL (npc_shrine_uralia_humbaba (right) ) x,y=470,-1000 has offset -11,-60 for sample width=24 for sample height=19
-Saving to npc_shrine_ix_humbaba_right.png IXXX1ENQJ1R2KZRXJE (npc_shrine_ix_humbaba (right) ) x,y=470,-800 has offset -13,-169 for sample width=24 for sample height=17
+Saving to npc_shrine_uralia_humbaba_right.png IXXX8N7GK0Y7BZVHOL (npc_shrine_uralia_humbaba (right) ) x,y=470,-1200 has offset -11,-60 for sample width=24 for sample height=19
+Saving to npc_shrine_ix_humbaba_right.png IXXX1ENQJ1R2KZRXJE (npc_shrine_ix_humbaba (right) ) x,y=470,-900 has offset -13,-169 for sample width=24 for sample height=17
 Saving to npc_shrine_firebog_lem_right.png IXXXKS32RNFRGJVE7B (npc_shrine_firebog_lem (right) ) x,y=690,-600 has offset -15,-179 for sample width=25 for sample height=23
-Saving to npc_shrine_ix_lem_right.png IXXXAVC0UTXQQ600Y6 (npc_shrine_ix_lem (right) ) x,y=690,-800 has offset -12,-167 for sample width=22 for sample height=19
-Saving to npc_shrine_uralia_lem_right.png IXXXZY2N098ZIQHYQF (npc_shrine_uralia_lem (right) ) x,y=690,-1000 has offset -14,-65 for sample width=23 for sample height=21
-Saving to npc_shrine_ix_mab_right.png IXXXVBKFLEE0HZUAYV (npc_shrine_ix_mab (right) ) x,y=940,-800 has offset -11,-169 for sample width=20 for sample height=22
-Saving to npc_shrine_uralia_mab_right.png IXXXFQL1IUZSI6N7B9 (npc_shrine_uralia_mab (right) ) x,y=940,-1000 has offset -10,-67 for sample width=23 for sample height=20
+Saving to npc_shrine_ix_lem_right.png IXXXAVC0UTXQQ600Y6 (npc_shrine_ix_lem (right) ) x,y=690,-900 has offset -12,-167 for sample width=22 for sample height=19
+Saving to npc_shrine_uralia_lem_right.png IXXXZY2N098ZIQHYQF (npc_shrine_uralia_lem (right) ) x,y=690,-1200 has offset -14,-65 for sample width=23 for sample height=21
+Saving to npc_shrine_ix_mab_right.png IXXXVBKFLEE0HZUAYV (npc_shrine_ix_mab (right) ) x,y=940,-900 has offset -11,-169 for sample width=20 for sample height=22
+Saving to npc_shrine_uralia_mab_right.png IXXXFQL1IUZSI6N7B9 (npc_shrine_uralia_mab (right) ) x,y=940,-1200 has offset -10,-67 for sample width=23 for sample height=20
 Saving to npc_shrine_firebog_mab_right.png IXXXBIVFVSTOX82P4X (npc_shrine_firebog_mab (right) ) x,y=940,-600 has offset -12,-181 for sample width=26 for sample height=17
-Saving to npc_shrine_uralia_pot_right.png IXXXJTSQFIL6LRIQW7 (npc_shrine_uralia_pot (right) ) x,y=1200,-1000 has offset -12,-67 for sample width=23 for sample height=26
+Saving to npc_shrine_uralia_pot_right.png IXXXJTSQFIL6LRIQW7 (npc_shrine_uralia_pot (right) ) x,y=1200,-1200 has offset -12,-67 for sample width=23 for sample height=26
 Saving to npc_shrine_firebog_pot_right.png IXXXRDF5O5O80X2BJ4 (npc_shrine_firebog_pot (right) ) x,y=1200,-600 has offset -13,-180 for sample width=22 for sample height=22
-Saving to npc_shrine_ix_pot_right.png IXXXKH5J31VC00TWEW (npc_shrine_ix_pot (right) ) x,y=1200,-800 has offset -9,-168 for sample width=17 for sample height=21
-Saving to npc_shrine_ix_spriggan_right.png IXXXNTXPGQDHLW86KO (npc_shrine_ix_spriggan (right) ) x,y=1460,-800 has offset -10,-173 for sample width=17 for sample height=22
+Saving to npc_shrine_ix_pot_right.png IXXXKH5J31VC00TWEW (npc_shrine_ix_pot (right) ) x,y=1200,-900 has offset -9,-168 for sample width=17 for sample height=21
+Saving to npc_shrine_ix_spriggan_right.png IXXXNTXPGQDHLW86KO (npc_shrine_ix_spriggan (right) ) x,y=1460,-900 has offset -10,-173 for sample width=17 for sample height=22
 Saving to npc_shrine_firebog_spriggan_right.png IXXXVGG2OTYF0R418A (npc_shrine_firebog_spriggan (right) ) x,y=1460,-600 has offset -13,-182 for sample width=22 for sample height=25
-Saving to npc_shrine_uralia_spriggan_right.png IXXXV444CBGLF3NXW2 (npc_shrine_uralia_spriggan (right) ) x,y=1460,-1000 has offset -9,-69 for sample width=19 for sample height=20
+Saving to npc_shrine_uralia_spriggan_right.png IXXXV444CBGLF3NXW2 (npc_shrine_uralia_spriggan (right) ) x,y=1460,-1200 has offset -9,-69 for sample width=19 for sample height=20
 Saving to npc_shrine_firebog_tii_right.png IXXXSPZZC46XSMQDUN (npc_shrine_firebog_tii (right) ) x,y=1690,-600 has offset -17,-178 for sample width=32 for sample height=19
-Saving to npc_shrine_uralia_ti_right.png IXXXQ5GME294AZ3BX1 (npc_shrine_uralia_ti (right) ) x,y=1690,-1000 has offset -15,-62 for sample width=27 for sample height=15
-Saving to npc_shrine_ix_ti_right.png IXXXZQDDVO4T2CZ3ER (npc_shrine_ix_ti (right) ) x,y=1690,-800 has offset -13,-171 for sample width=24 for sample height=11
-Saving to npc_shrine_uralia_zille_right.png IXXXWCJ7OB8GUTM7K3 (npc_shrine_uralia_zille (right) ) x,y=1940,-1000 has offset -14,-64 for sample width=25 for sample height=18
+Saving to npc_shrine_uralia_ti_right.png IXXXQ5GME294AZ3BX1 (npc_shrine_uralia_ti (right) ) x,y=1690,-1200 has offset -15,-62 for sample width=27 for sample height=15
+Saving to npc_shrine_ix_ti_right.png IXXXZQDDVO4T2CZ3ER (npc_shrine_ix_ti (right) ) x,y=1690,-900 has offset -13,-171 for sample width=24 for sample height=11
+Saving to npc_shrine_uralia_zille_right.png IXXXWCJ7OB8GUTM7K3 (npc_shrine_uralia_zille (right) ) x,y=1940,-1200 has offset -14,-64 for sample width=25 for sample height=18
 Saving to npc_shrine_firebog_zille_right.png IXXXK27U87IC95WV1J (npc_shrine_firebog_zille (right) ) x,y=1940,-600 has offset -17,-178 for sample width=30 for sample height=18
-Saving to npc_shrine_ix_zille_right.png IXXXZ9CXXI7PK2IHPV (npc_shrine_ix_zille (right) ) x,y=1940,-800 has offset -13,-173 for sample width=23 for sample height=18
+Saving to npc_shrine_ix_zille_right.png IXXXZ9CXXI7PK2IHPV (npc_shrine_ix_zille (right) ) x,y=1940,-900 has offset -13,-173 for sample width=23 for sample height=18
 Saving to peat_1.png IXXX90VVB5T88MW019 (peat_1) x,y=-1588,-350 has offset 3,-25 for sample width=64 for sample height=10
 Saving to peat_2.png IXXXIABMEN6F3ALCJT (peat_2) x,y=-1271,-350 has offset -41,-29 for sample width=39 for sample height=15
-Saving to peat_3.png IXXX9MLXMNB6RGQA1Y (peat_3) x,y=-947,-350 has offset 25,-35 for sample width=38 for sample height=19
+Saving to peat_3.png IXXX9MLXMNB6RGQA1Y (peat_3) x,y=-947,-350 has offset 26,-35 for sample width=38 for sample height=19
 Saving to jellisac_1.png IXXXA2F9ZBO0BXTG9Z (jellisac (1) ) x,y=-1795,-550 has offset -6,-35 for sample width=17 for sample height=21
 Saving to jellisac_2.png IXXXOU4CDC7QN6I27Q (jellisac (2) ) x,y=-1704,-550 has offset -14,-27 for sample width=19 for sample height=16
 Saving to jellisac_3.png IXXXYYL5FTC3PQHVVX (jellisac (3) ) x,y=-1630,-550 has offset -14,-31 for sample width=20 for sample height=15
@@ -101,16 +101,18 @@ Saving to dirt_pile_dirt1.png IXXXKJ2XNU9FJNIV0A (dirt_pile (dirt1) ) x,y=-613,-
 Saving to dirt_pile_dirt2.png IXXX425V2IN0OUIPY1 (dirt_pile (dirt2) ) x,y=-327,-300 has offset -17,-49 for sample width=37 for sample height=23
 Saving to patch_dark.png IXXXWF3TESV3SW1P2E (patch_dark) x,y=-105,-300 has offset -18,-21 for sample width=33 for sample height=15
 Saving to patch.png IXXXA35SF0JJMKIEVC (patch) x,y=32,-300 has offset -18,-22 for sample width=32 for sample height=10
-Saving to dust_trap_A.png IXXXZ21V759PK3RCC8 (dust_trap (A) ) x,y=-155,-500 has offset -2,-100 for sample width=15 for sample height=18
+Saving to dust_trap_A.png IXXXZ21V759PK3RCC8 (dust_trap (A) ) x,y=-141,-395 has offset -2,-100 for sample width=15 for sample height=18
 Saving to party_atm.png IXXXH9E628J10E3LER (party_atm) x,y=250,-300 has offset -7,-95 for sample width=35 for sample height=24
 Saving to race_ticket_dispenser.png IXXX3NBGBL0ZKWT57B (race_ticket_dispenser) x,y=425,-300 has offset -15,-33 for sample width=18 for sample height=27
-Saving to wall_button.png IXXXM8RUTE6T328X5H (wall_button) x,y=343,-500 has offset -7,-27 for sample width=16 for sample height=16
-Saving to subway_map.png IXXXJ9NBK9MIPPUE4S (subway_map) x,y=610,-300 has offset -13,-145 for sample width=27 for sample height=37
+Saving to wall_button.png IXXXM8RUTE6T328X5H (wall_button) x,y=619,-384 has offset -7,-27 for sample width=16 for sample height=16
+Saving to subway_map.png IXXXJ9NBK9MIPPUE4S (subway_map) x,y=894,-544 has offset -13,-145 for sample width=27 for sample height=37
 Saving to subway_gate_left.png IXXXT8UVTZYD3LWKA9 (subway_gate (left) ) x,y=755,-400 has offset -8,-35 for sample width=15 for sample height=22
 Saving to subway_gate_right.png IXXXHR7FKRX2R5CXFL (subway_gate (right) ) x,y=827,-400 has offset -9,-29 for sample width=15 for sample height=16
-Saving to bag_notice_board.png BXXXRT9UK043T79CNM (bag_notice_board) x,y=663,-550 has offset -102,-91 for sample width=203 for sample height=59
-Saving to wood_tree_enchanted_1.png IXXX6ZI7489D29HSQ0 (wood_tree_enchanted (1) ) x,y=-2570,-200 has offset -11,-66 for sample width=17 for sample height=32
-Saving to npc_gardening_vendor.png IXXXNWOMW18PQ5S714 (npc_gardening_vendor) x,y=-2350,-553 has offset -15,-62 for sample width=8 for sample height=40
-Saving to wood_tree_enchanted_3.png IXXXBS5AZPC1B5DPWR (wood_tree_enchanted (3) ) x,y=-2220,-200 has offset -9,-68 for sample width=17 for sample height=45
-Saving to wood_tree_enchanted_2.png IXXXED5JT9CPTE0442 (wood_tree_enchanted (2) ) x,y=-2390,-200 has offset -13,-50 for sample width=18 for sample height=31
-Saving to wood_tree_enchanted_4.png IXXXBTESC145P3M78P (wood_tree_enchanted (4) ) x,y=-2110,-200 has offset -11,-54 for sample width=14 for sample height=34
+Saving to bag_notice_board.png BXXXRT9UK043T79CNM (bag_notice_board) x,y=663,-550 has offset -102,-91 for sample width=203 for sample height=60
+Saving to wood_tree_enchanted_1.png IXXX6ZI7489D29HSQ0 (wood_tree_enchanted (1) ) x,y=-2210,-780 has offset -11,-66 for sample width=17 for sample height=32
+Saving to npc_gardening_vendor.png IXXXNWOMW18PQ5S714 (npc_gardening_vendor) x,y=-2350,-553 has offset -13,-70 for sample width=8 for sample height=40
+Saving to wood_tree_enchanted_3.png IXXXBS5AZPC1B5DPWR (wood_tree_enchanted (3) ) x,y=-1980,-780 has offset -9,-68 for sample width=17 for sample height=45
+Saving to wood_tree_enchanted_2.png IXXXED5JT9CPTE0442 (wood_tree_enchanted (2) ) x,y=-2100,-780 has offset -13,-50 for sample width=18 for sample height=31
+Saving to wood_tree_enchanted_4.png IXXXBTESC145P3M78P (wood_tree_enchanted (4) ) x,y=-1880,-780 has offset -11,-54 for sample width=14 for sample height=34
+Saving to subway_gate_left.png IXXX72K1Y3JWY6DVAE (subway_gate (left) ) x,y=835,-379 has offset -8,-35 for sample width=15 for sample height=22
+Saving to subway_gate_right.png IXXX6WV6RYXCCOZME7 (subway_gate (right) ) x,y=979,-378 has offset -9,-29 for sample width=15 for sample height=16
