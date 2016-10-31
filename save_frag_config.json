@@ -1,6 +1,6 @@
 {
   "streets": [
-    {"tsid": "LDORIA62TLQ2HOH"}
+    {"tsid": "LHV4U509S9B2MRV"}
   ],
   "json_path": "C:/Glitch/Work/ItemCompareTool/JSONs",
   "eleven_path": "C:/Glitch/eleven",
@@ -17,6 +17,8 @@
 	{"tsid": "LHV2547JP9B2AG0 = shrines"},
 	{"tsid": "LDORIA62TLQ2HOH = sloths and stuff"},
 	{"tsid": "LHVMK86NP7B26E6 = barnacles etc"},
+	{"tsid": "LHV1HKHRSKA2CR9 = bean tree stages"},
+	{"tsid": "LHV1KT9J0LA2IIA = barnacle, jellisac, ice stages"},
     {"tsid": "LHV4U509S9B2MRV = trees"}
   ],
   "use_vagrant": false
