@@ -312,7 +312,7 @@ class StreetInfo {
         ItemInfo itemData = streetItemInfoArray.get(itemBeingProcessed);
         
         // Confirm that this is a unique fragment before we save it
-        UniqueFragmentCheck uniqueFragmentCheck = new UniqueFragmentCheck(itemData.itemClassTSID, itemData.itemInfo, itemData.qaSnapFragment);       
+        UniqueFragmentCheck uniqueFragmentCheck = new UniqueFragmentCheck(itemData.itemClassTSID, itemData.itemInfo, itemData.itemState, itemData.qaSnapFragment);       
         if (!uniqueFragmentCheck.readOkFlag())
         {
             printDebugToFile.printLine("Failed to create uniqueFragmentCheck object", 3);

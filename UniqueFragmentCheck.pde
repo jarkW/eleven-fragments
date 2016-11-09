@@ -11,7 +11,10 @@ class UniqueFragmentCheck
     String itemClassTSID;
     String itemInfo;
     String itemRootName;
+    String itemState;
+    String itemRootName2;
     float lowest_total_rgb_diff;
+    float lowest_avg_rgb_diff;
     int lowest_total_rgb_diff_x;
     int lowest_total_rgb_diff_y;
         
@@ -28,15 +31,18 @@ class UniqueFragmentCheck
     // easily construct the file name. Unless it is easy for me to access
     // using the read functions.
     
-    public UniqueFragmentCheck(String classTsid, String info, PImage QASnapFragment)
+    public UniqueFragmentCheck(String classTsid, String info, String state, PImage QASnapFragment)
     {
         okFlag = true;
         itemClassTSID = classTsid;
         itemInfo = info;
+        itemState = state;
         itemRootName = "";
+        itemRootName2 = "";
         lowest_total_rgb_diff_x = 0;
         lowest_total_rgb_diff_y = 0;
         lowest_total_rgb_diff = 0;
+        lowest_avg_rgb_diff = 0;
         uniqueReferenceX = 0;
         uniqueReferenceY = 0;
         uniqueReferenceFile = "";
@@ -62,6 +68,12 @@ class UniqueFragmentCheck
             case "trant_bubble":
             case "trant_fruit":
             case "trant_gas":
+            case "trant_spice_dead":
+            case "trant_bean_dead":
+            case "trant_egg_dead":
+            case "trant_bubble_dead":
+            case "trant_fruit_dead":
+            case "trant_gas_dead":
                 itemRootName = "trant";
                 break;
             case "rock_beryl_1":
@@ -136,10 +148,35 @@ class UniqueFragmentCheck
   
         return folder.list(filenameFilter);
     }
+    
+    // Loads up a list of png files with the right street name - uses the secondary root name
+    String[] loadFilenames2(String path) 
+    {
+        File folder = new File(path);
+ 
+        FilenameFilter filenameFilter = new FilenameFilter() 
+        {
+            public boolean accept(File dir, String name) 
+            {
+                if (name.startsWith(itemRootName2))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        };
+  
+        return folder.list(filenameFilter);
+    }
 
     boolean readListReferenceFileNames(String pathName)
-    {      
+    {     
+        // Load up images for primary root
         String [] itemImageFiles = loadFilenames(pathName);
+        int i;
 
         if (itemImageFiles.length == 0)
         {
@@ -147,11 +184,11 @@ class UniqueFragmentCheck
             return false;
         }
         
-        printDebugToFile.printLine("Number of intitial item reference images is " + str(itemImageFiles.length), 1);
+        printDebugToFile.printLine("Number of intitial item reference images for this root " + itemRootName + " is " + str(itemImageFiles.length), 1);
         
         // Now need to handle the special cases
         // First copy across these images to our global copy of the paths
-        for (int i = 0; i < itemImageFiles.length; i++)
+        for (i = 0; i < itemImageFiles.length; i++)
         {
             completeItemImagePaths.append(itemImageFiles[i]);
             printDebugToFile.printLine("Initial reference item " + str(i) + " is " + itemImageFiles[i], 1);
@@ -169,21 +206,27 @@ class UniqueFragmentCheck
             case "trant_bubble":
             case "trant_fruit":
             case "trant_gas":
-                completeItemImagePaths.append("wood_tree_1_complete.png");
-                completeItemImagePaths.append("wood_tree_2_complete.png");
-                completeItemImagePaths.append("wood_tree_3_complete.png");
-                completeItemImagePaths.append("wood_tree_4_complete.png");
+            case "trant_spice_dead":
+            case "trant_bean_dead":
+            case "trant_egg_dead":
+            case "trant_bubble_dead":
+            case "trant_fruit_dead":
+            case "trant_gas_dead":
+                // Load up additional trees
+                if (!loadUpAdditionalImages(pathName, "wood_tree"))
+                {
+                    return false;
+                } 
                 completeItemImagePaths.append("paper_tree_complete.png");
                 break;
                 
             case "wood_tree":
             case "paper_tree":
-                completeItemImagePaths.append("trant_spice_complete.png");
-                completeItemImagePaths.append("trant_bean_complete.png");
-                completeItemImagePaths.append("trant_egg_complete.png");
-                completeItemImagePaths.append("trant_bubble_complete.png");
-                completeItemImagePaths.append("trant_fruit_complete.png");
-                completeItemImagePaths.append("trant_gas_complete.png");
+                 // Load up additional trees
+                if (!loadUpAdditionalImages(pathName, "trant"))
+                {
+                    return false;
+                }            
                 break;
                 
             case "npc_sloth":
@@ -202,11 +245,34 @@ class UniqueFragmentCheck
                 break;
         }
  
-        for (int i = 0; i < completeItemImagePaths.size(); i++)
+        for (i = 0; i < completeItemImagePaths.size(); i++)
         {
             printDebugToFile.printLine("Final list reference item " + str(i) + " is " + completeItemImagePaths.get(i), 1);
         }
             
+        return true;
+    }
+    
+    boolean loadUpAdditionalImages(String pathName, String itemRoot)
+    {
+        itemRootName2 = itemRoot;
+        String [] itemImageFiles2 = loadFilenames2(pathName);
+        
+        if (itemImageFiles2.length == 0)
+        {
+            printDebugToFile.printLine("No reference image files found  for item starting "  + itemRootName2, 3);
+            return false;
+        }
+
+        printDebugToFile.printLine("Number of intitial item reference images for this root " + itemRootName2 + " is " + str(itemImageFiles2.length), 1);
+
+        // Now need to handle the special cases
+        // First copy across these images to our global copy of the paths
+        for (int i = 0; i < itemImageFiles2.length; i++)
+        {
+            completeItemImagePaths.append(itemImageFiles2[i]);
+            printDebugToFile.printLine("Initial reference item " + str(i) + " is " + itemImageFiles2[i], 1);
+        }
         return true;
     }
     
@@ -226,18 +292,22 @@ class UniqueFragmentCheck
         int numMatchesFound = 0;
         int locSample;
         int locReference;
-        
+               
         float rSample;
         float gSample;
         float bSample;
+        float aSample;
         float rReference;
         float gReference;
         float bReference;
+        float aReference;
         
         int pixelYPosReference;
         int pixelXPosReference;
         int pixelYPosition;
         int pixelXPosition;
+        
+        int numberTransparentPixels = 0;
                 
         boolean debugInfo = false;
         String outputStr;
@@ -261,15 +331,60 @@ class UniqueFragmentCheck
                         rReference = red(referenceImage.pixels[locReference]);
                         gReference = green(referenceImage.pixels[locReference]);
                         bReference = blue(referenceImage.pixels[locReference]);
+                        aReference = alpha(referenceImage.pixels[locReference]);
             
                         // for sample snap
                         locSample = pixelXPosition + (pixelYPosition * sampleImage.width);
                         rSample = red(sampleImage.pixels[locSample]);
                         gSample = green(sampleImage.pixels[locSample]);
                         bSample = blue(sampleImage.pixels[locSample]);
-     
-                        rgb_diff = abs(rReference-rSample) + abs (bReference-bSample) + abs(gReference-gSample);
-                        total_rgb_diff += abs(rReference-rSample) + abs (bReference-bSample) + abs(gReference-gSample);
+                        aSample = alpha(sampleImage.pixels[locSample]);  
+                        
+                        if (aSample == 255)
+                        {
+                             // transparency is not present in in the fragment, so carry out a diff   
+                            rgb_diff = abs(rReference-rSample) + abs (bReference-bSample) + abs(gReference-gSample) + abs(aReference-aSample);
+                            total_rgb_diff += rgb_diff;
+                        }
+                        else
+                        {
+                            // Transparent pixel, so nothing to compare
+                            numberTransparentPixels++;
+                        }
+                        
+                        /*
+                        if ((aSample == 255) && (aReference == 255))
+                        {
+                             // transparency is not present in either of the 2 pixels, so OK to do comparison       
+                            rgb_diff = abs(rReference-rSample) + abs (bReference-bSample) + abs(gReference-gSample);
+                            total_rgb_diff += rgb_diff;
+                        }
+                        else
+                        {
+                            rgb_diff = abs(rReference-rSample) + abs (bReference-bSample) + abs(gReference-gSample) + abs(aReference-aSample);
+                            total_rgb_diff += rgb_diff;
+                        }
+                        */
+                        /*
+                        else if ((aSample != 255) && (aReference != 255))
+                        {
+                            // both pixels are transparent
+                            numberTransparentPixels++;
+                        }
+                        else if (aSample != 255)
+                        {
+                            // sample has transparent pixel, street does not - so skip test
+                            numberTransparentPixels++;
+                        }
+                        else if (aReference != 255)
+                        {
+                            // street image is transparent, sample is not
+                            // Treat as mismatch
+                            //rgb_diff = abs(rReference-rSample) + abs (bReference-bSample) + abs(gReference-gSample) + abs(aReference-aSample);
+                            //total_rgb_diff += rgb_diff; 
+                            numberTransparentPixels++;
+                        }
+                        */
             /*
                         if (debugInfo)
                         {
@@ -287,14 +402,15 @@ class UniqueFragmentCheck
                     outputStr = "Reference snap - total_rgb_diff for " + pixelXPosReference + "," + pixelYPosReference + ": " +  int(total_rgb_diff);
                     printDebugToFile.printLine(outputStr, 1);
                 }
-             
+                
+                float avgRGBDiff = total_rgb_diff/((sampleImage.width*sampleImage.height) - numberTransparentPixels);
                 //  finished checking this sample sized piece of reference. So check to see if we have a match
                 if (total_rgb_diff == 0)
                 {
                     // perfect match                  
                     // add to the array
-                    snapFoundMatches.add(new FoundMatch(pixelXPosReference, pixelYPosReference, true, referenceFileName, total_rgb_diff));
-                    allFoundMatches.add(new FoundMatch(pixelXPosReference, pixelYPosReference, true, referenceFileName, total_rgb_diff));
+                    snapFoundMatches.add(new FoundMatch(pixelXPosReference, pixelYPosReference, true, referenceFileName, total_rgb_diff, avgRGBDiff));
+                    allFoundMatches.add(new FoundMatch(pixelXPosReference, pixelYPosReference, true, referenceFileName, total_rgb_diff, avgRGBDiff));
                     outputStr = "Perfect match found for item at x,y=" + pixelXPosReference + "," + pixelYPosReference;
                     printDebugToFile.printLine(outputStr, 1);
                 }
@@ -302,20 +418,20 @@ class UniqueFragmentCheck
                 {
                     // good enough (but need looser check for QQ next)
                     // add to the array
-                    snapFoundMatches.add(new FoundMatch(pixelXPosReference, pixelYPosReference, false, referenceFileName, total_rgb_diff)); 
-                    allFoundMatches.add(new FoundMatch(pixelXPosReference, pixelYPosReference, false, referenceFileName, total_rgb_diff));
+                    snapFoundMatches.add(new FoundMatch(pixelXPosReference, pixelYPosReference, false, referenceFileName, total_rgb_diff, avgRGBDiff)); 
+                    allFoundMatches.add(new FoundMatch(pixelXPosReference, pixelYPosReference, false, referenceFileName, total_rgb_diff, avgRGBDiff));
                     sum_total_rgb_diff += total_rgb_diff;
-                    outputStr = "OK match found for item at x,y="  + pixelXPosReference + "," + pixelYPosReference + "with rgb diff " + int(total_rgb_diff);
+                    outputStr = "OK match found for item at x,y="  + pixelXPosReference + "," + pixelYPosReference + " with rgb diff " + int(total_rgb_diff) + " avg rgb = " + int(avgRGBDiff);
                     printDebugToFile.printLine(outputStr, 1);
                  }
                 else if (itemClassTSID.equals("marker_qurazy") && (total_rgb_diff < good_enough_QQ_total_rgb))
                 {
                     // good enough match
                     // add to the array
-                    snapFoundMatches.add(new FoundMatch(pixelXPosReference, pixelYPosReference, false, referenceFileName, total_rgb_diff)); 
-                    allFoundMatches.add(new FoundMatch(pixelXPosReference, pixelYPosReference, false, referenceFileName, total_rgb_diff));
+                    snapFoundMatches.add(new FoundMatch(pixelXPosReference, pixelYPosReference, false, referenceFileName, total_rgb_diff, avgRGBDiff)); 
+                    allFoundMatches.add(new FoundMatch(pixelXPosReference, pixelYPosReference, false, referenceFileName, total_rgb_diff, avgRGBDiff));
                     sum_total_rgb_diff += total_rgb_diff;
-                    outputStr = "OK match found for QQ item at x,y="  + pixelXPosReference + "," + pixelYPosReference + "with rgb diff " + int(total_rgb_diff);
+                    outputStr = "OK match found for QQ item at x,y="  + pixelXPosReference + "," + pixelYPosReference + " with rgb diff " + int(total_rgb_diff) + " avg rgb = " + int(avgRGBDiff);
                     printDebugToFile.printLine(outputStr, 1);
                 }
                 else
@@ -327,9 +443,10 @@ class UniqueFragmentCheck
                         lowest_total_rgb_diff = total_rgb_diff;
                         lowest_total_rgb_diff_x = pixelXPosReference;
                         lowest_total_rgb_diff_y = pixelYPosReference;
+                        lowest_avg_rgb_diff = avgRGBDiff;
                         if (debugInfo)
                         {
-                            outputStr = "No match, but first one, so saved x,y=" + lowest_total_rgb_diff_x + "," + lowest_total_rgb_diff_y + "(lowest_total_rgb_diff = " + str(int(lowest_total_rgb_diff));
+                            outputStr = "No match, but first one, so saved x,y=" + lowest_total_rgb_diff_x + "," + lowest_total_rgb_diff_y + "(lowest_total_rgb_diff = " + str(int(lowest_total_rgb_diff)) + " avg rgb = " + int(avgRGBDiff);
                             printDebugToFile.printLine(outputStr, 1);
                         }
                     }
@@ -339,9 +456,10 @@ class UniqueFragmentCheck
                         lowest_total_rgb_diff = total_rgb_diff;
                         lowest_total_rgb_diff_x = pixelXPosReference;
                         lowest_total_rgb_diff_y = pixelYPosReference;
+                        lowest_avg_rgb_diff = avgRGBDiff;
                         if (debugInfo)
                         {
-                            outputStr = "No match, but lowest so far so saved x,y=" + lowest_total_rgb_diff_x + "," + lowest_total_rgb_diff_y + "(lowest_total_rgb_diff = " + str(int(lowest_total_rgb_diff));
+                            outputStr = "No match, but lowest so far so saved x,y=" + lowest_total_rgb_diff_x + "," + lowest_total_rgb_diff_y + "(lowest_total_rgb_diff = " + str(int(lowest_total_rgb_diff)) + " avg rgb = " + int(avgRGBDiff);
                             printDebugToFile.printLine(outputStr, 1);
                         }
                     }        
@@ -350,6 +468,7 @@ class UniqueFragmentCheck
                 
                 // reset the counts ready for the next pass
                 total_rgb_diff = 0;
+                numberTransparentPixels = 0;
                 
             } // end for pixelXPosReference
         } // end for pixelYPosReference
@@ -383,11 +502,13 @@ class UniqueFragmentCheck
         {
             s = "Perfect at " + str(foundMatch.matchX) + "," + str(foundMatch.matchY);
             matchFname = foundMatch.refFname.replace(".png", "") + "_perfect_" + str(foundMatch.matchX) + "_" + str(foundMatch.matchY) + ".png";
+            s = s + " " + foundMatch.refFname.replace(".png", "");
         }
         else
         {
-            s = "OK at " + str(foundMatch.matchX) + "," + str(foundMatch.matchY)+ " total RGB diff =" + str(int(foundMatch.totalRGBDiff));
+            s = "OK at " + str(foundMatch.matchX) + "," + str(foundMatch.matchY)+ " total RGB diff =" + str(int(foundMatch.totalRGBDiff)) + " avgRGB diff = " + int(foundMatch.avgRGBDiff);
             matchFname = foundMatch.refFname.replace(".png", "") + "_OK_" + str(foundMatch.matchX) + "_" + str(foundMatch.matchY) + ".png";
+            s = s + " " + foundMatch.refFname.replace(".png", "");
         }
         text(s, screenX, screenY + 30, screenX + 50, screenY + 50);  // Text wraps within text box
         printDebugToFile.printLine(s, 2);
@@ -414,6 +535,8 @@ class UniqueFragmentCheck
         float r;
         float g;
         float b;
+        float a;
+        
         int nosBackgroundPixels = 0;
                                     
         // Check each pixel in the fragment
@@ -426,8 +549,9 @@ class UniqueFragmentCheck
                 r = red(QAFragment.pixels[locItem]);
                 g = green(QAFragment.pixels[locItem]);
                 b = blue(QAFragment.pixels[locItem]);
+                a = alpha(QAFragment.pixels[locItem]);
                 
-                if ((r == 128) && (g == 128) && (b == 128))
+                if (QAFragment.pixels[locItem] == configInfo.readBackGroundColor())
                 {
                     nosBackgroundPixels++;
                 }
@@ -435,8 +559,8 @@ class UniqueFragmentCheck
         }
         if (nosBackgroundPixels > 0)
         {
-            printDebugToFile.printLine("Found " + nosBackgroundPixels + " occurrences of grey background pixels in this reference snap", 2);
-            errorMsg = "Found " + nosBackgroundPixels + " occurrences of grey background pixels in fragment";
+            printDebugToFile.printLine("Found " + nosBackgroundPixels + " background pixels in this reference snap", 2);
+            errorMsg = "Found " + nosBackgroundPixels + " background pixels in reference snap";
             return false;
         }
 
@@ -458,7 +582,13 @@ class UniqueFragmentCheck
         }
              
        // Now dump out contents of the array list to see how many exact/good enough matches found
-       for (j = 0; j < allFoundMatches.size(); j++)
+       // Only print out the mismatches if a small number - otherwise might be listing 1000s!
+       int maxCount = allFoundMatches.size();
+       if (maxCount > 10)
+       {
+           maxCount = 10;
+       }
+       for (j = 0; j < maxCount; j++)
        {
            saveAndDisplayFoundMatch(allFoundMatches.get(j), displayX, displayY);
            displayY += QAFragment.height + 60;
@@ -469,6 +599,7 @@ class UniqueFragmentCheck
            int y = allFoundMatches.get(j).matchY;
            String fname = allFoundMatches.get(j).refFname;
            float rgbDiff = allFoundMatches.get(j).totalRGBDiff;
+           float avgRGBDiff = allFoundMatches.get(j).avgRGBDiff;
            
            
            targetImage = loadImage(configInfo.readCompleteItemPngPath()+"/"+fname, "png");
@@ -477,11 +608,11 @@ class UniqueFragmentCheck
            // Now output the images found so can see them on the screen
            if (allFoundMatches.get(j).isPerfect)
            {
-               printDebugToFile.printLine("Perfect match found for x,y " + str(x) + "," + str(y) + "in file " + fname, 2);
+               printDebugToFile.printLine("Perfect match found for x,y " + str(x) + "," + str(y) + " (" + int(avgRGBDiff) + ") in file " + fname, 2);
            }
            else
            {
-               printDebugToFile.printLine("OK match found (total RGB diff = " + str(int(rgbDiff)) + ") for x,y " + str(x) + "," + str(y) + " in file " + fname, 2);
+               printDebugToFile.printLine("OK match found (total RGB diff = " + str(int(rgbDiff)) + ", avg RGB Diff = " + int(avgRGBDiff) + ") for x,y " + str(x) + "," + str(y) + " in file " + fname, 2);
            }
 
        }
@@ -497,7 +628,12 @@ class UniqueFragmentCheck
         else  
         {
             printDebugToFile.printLine("Found " + str(allFoundMatches.size()) + " multiple matching point in this reference snap", 2);
-            errorMsg = "Fragment is NOT unique - move it or resize it before re-saving";
+            errorMsg = "Fragment is NOT unique - ";
+            for (j = 0; j < allFoundMatches.size(); j++)
+            {
+                errorMsg = errorMsg + " :" + allFoundMatches.get(j).refFname + " " + allFoundMatches.get(j).matchX + "," + allFoundMatches.get(j).matchY + " (" + int(allFoundMatches.get(j).avgRGBDiff) + ")";
+            }
+            //errorMsg = "Fragment is NOT unique - move it or resize it before re-saving";
             return false;
         }
     }
@@ -519,14 +655,16 @@ class UniqueFragmentCheck
         boolean isPerfect;
         String refFname;
         float totalRGBDiff;
+        float avgRGBDiff;
         
-        FoundMatch(int x, int y, boolean perfectFlag, String referenceFile, float rgbDiff)
+        FoundMatch(int x, int y, boolean perfectFlag, String referenceFile, float rgbDiff, float avgRGBDiffPerPixel)
         {
             matchX = x;
             matchY = y;
             isPerfect = perfectFlag;
             refFname = referenceFile;
             totalRGBDiff = rgbDiff;
+            avgRGBDiff = avgRGBDiffPerPixel;
         }
     }
 }

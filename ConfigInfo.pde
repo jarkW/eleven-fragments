@@ -14,6 +14,7 @@ class ConfigInfo {
     StringList streetTSIDArray = new StringList();
     String dataOutputFile;
     String debugOutputFile;
+    color backGroundColor;
     
     // constructor/initialise fields
     public ConfigInfo()
@@ -56,6 +57,8 @@ class ConfigInfo {
         debugOutputFile = readJSONString(json, "debug_output_file");
         screenCapturePath = readJSONString(json, "screen_capture_path");
         QAToolPath = readJSONString(json, "QA_tool_path");
+        String colorHex = readJSONString(json, "background_color");
+        backGroundColor = unhex(colorHex);
         
         // Check still got right path for QA tool
         File dir = new File(QAToolPath);
@@ -194,5 +197,10 @@ class ConfigInfo {
     public String readElevenPath()
     {
         return elevenPath;
+    }
+    
+    public color readBackGroundColor()
+    {
+        return backGroundColor;
     }
 }

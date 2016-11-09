@@ -1,6 +1,6 @@
 {
   "streets": [
-    {"tsid": "LHV4U509S9B2MRV"}
+    {"tsid": "LHVII3H61QA2C21"}
   ],
   "json_path": "C:/Glitch/Work/ItemCompareTool/JSONs",
   "eleven_path": "C:/Glitch/eleven",
@@ -11,14 +11,20 @@
   "QA_tool_path": "C:/Users/Donna/My Documents/Processing3/My Stuff/QABot/data",
   "data_output_file": "save_fragments.txt",
   "debug_output_file": "debug_info.txt",
+  "background_color_red": "CF0000",
+  "background_color_blue": "0000E1",
+  "background_color_grey": "808080",
+  "background_color": "0000E1",
   "all_streets": [
     {"tsid": "LHVT4C9KSIA2UMG = quoins"},
     {"tsid": "LHV1HO45PQA2QJS = rocks"},
 	{"tsid": "LHV2547JP9B2AG0 = shrines"},
 	{"tsid": "LDORIA62TLQ2HOH = sloths and stuff"},
 	{"tsid": "LHVMK86NP7B26E6 = barnacles etc"},
-	{"tsid": "LHV1HKHRSKA2CR9 = bean tree stages"},
-	{"tsid": "LHV1KT9J0LA2IIA = barnacle, jellisac, ice stages"},
+	{"tsid": "LHV1HKHRSKA2CR9 = bean tree, fruit tree, wood tree stages"},
+	{"tsid": "LHV1KT9J0LA2IIA = barnacle, jellisac, egg tree (removed ice as not good)"},
+	{"tsid": "LHVII3H61QA2C21 = spice tree, bubble tree, gas tree"},
+	{"tsid": "LHVRJLV2UOA3EMR = ice nubs on natural background"},
     {"tsid": "LHV4U509S9B2MRV = trees"}
   ],
   "use_vagrant": false

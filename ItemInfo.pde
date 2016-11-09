@@ -3,6 +3,7 @@ class ItemInfo {
     String itemTSID;
     String itemClassTSID;
     String itemInfo;  // additional info needed for some items
+    String itemState; // Used for barnacles etc so can differentiate empty/used/full items
     int    itemX;
     int    itemY;
     // offset to use from given x,y which matches the sample to actually be matched (to avoid comparing background)
@@ -28,6 +29,7 @@ class ItemInfo {
         // initialise values
         okFlag = true;
         itemInfo = "";
+        itemState = "";
         offsetX = 0;
         offsetY = 0;
         sampleWidth = 10;
@@ -104,7 +106,7 @@ class ItemInfo {
             failNow = true;
             return false;
         }
-        if (sampleJSON.readFragmentInfo(itemClassTSID, itemInfo))
+        if (sampleJSON.readFragmentInfo(itemClassTSID, itemInfo, itemState))
         {
             // Entry exists for this tsid/info - so read in values
             offsetX = sampleJSON.readSavedOffsetX();
@@ -115,6 +117,10 @@ class ItemInfo {
             if (itemInfo.length() > 0)
             {
                save_fname = save_fname+ "_" + itemInfo;
+            }
+            if (itemState.length() > 0)
+            {
+               save_fname = save_fname+ "_" + itemState;
             }
             String sample_fname = save_fname + ".png";
             File file = new File(configInfo.readPngPath() + "/" + sample_fname);
@@ -146,6 +152,7 @@ class ItemInfo {
     boolean extractItemInfoFromJson(JSONObject itemJson)
     {
         JSONObject instanceProps;
+        boolean zeroInfoIsError = true;
         
         // Avoids entering all the shrine TSIDs separately
         if (itemClassTSID.startsWith("npc_shrine_"))
@@ -177,6 +184,12 @@ class ItemInfo {
                 case "ice_knob":
                 case "dust_trap":
                 case "street_spirit_zutto":
+                case "trant_bean":
+                case "trant_fruit":
+                case "trant_egg":
+                case "trant_bubble":
+                case "trant_spice":
+                case "trant_gas":
                 
                     // Read in the instanceProps array to get the quoin type
                     instanceProps = null;
@@ -194,17 +207,24 @@ class ItemInfo {
                     {
                         itemInfo = readJSONString(instanceProps, "type");
                     }
-                    else if ((itemClassTSID.equals("wood_tree")) || (itemClassTSID.equals("wood_tree_enchanted")) || (itemClassTSID.equals("npc_mailbox")) || (itemClassTSID.equals("dirt_pile")))
+                    else if ((itemClassTSID.equals("wood_tree_enchanted")) || (itemClassTSID.equals("npc_mailbox")) || (itemClassTSID.equals("dirt_pile")))
                     {
                         itemInfo = readJSONString(instanceProps, "variant");
                     }
-                    else if ((itemClassTSID.equals("mortar_barnacle")) || (itemClassTSID.equals("jellisac")))
+                    else if (itemClassTSID.equals("mortar_barnacle"))
                     {
                         itemInfo = readJSONString(instanceProps, "blister");
+                        itemState = str(instanceProps.getInt("scrape_state")); 
+                    }
+                    else if (itemClassTSID.equals("jellisac"))
+                    {
+                        itemInfo = readJSONString(instanceProps, "blister");
+                        itemState = str(instanceProps.getInt("scoop_state")); 
                     }
                     else if (itemClassTSID.equals("ice_knob"))
                     {
                         itemInfo = readJSONString(instanceProps, "knob");
+                        //itemState = str(instanceProps.getInt("scrape_state"));  NOT GOOD ENOUGH TO BE USEFUL 
                     }
                     else if (itemClassTSID.equals("dust_trap"))
                     {
@@ -214,12 +234,25 @@ class ItemInfo {
                     {
                         itemInfo = readJSONString(instanceProps, "cap");
                     } 
+                    else if (itemClassTSID.startsWith("trant_"))
+                    {
+                        // So we can differentiate different states of trees
+                        itemState = str(instanceProps.getInt("maturity"));
+                        // We don't expect an info field, so zero length info is valid in this case
+                        zeroInfoIsError = false;
+                    }
+                    else if (itemClassTSID.equals("wood_tree"))
+                    {
+                        itemInfo = readJSONString(instanceProps, "variant");
+                        // So we can differentiate different states of trees
+                        itemState = str(instanceProps.getInt("maturity"));
+                    }
                     else
                     {
                         printDebugToFile.printLine("Trying to read unexpected field from instanceProps for item class " + itemClassTSID, 3);
                         return false;
                     }
-                    if (itemInfo.length() == 0)
+                    if (zeroInfoIsError && itemInfo.length() == 0)
                     {
                         return false;
                     }
@@ -349,6 +382,10 @@ class ItemInfo {
         {
             s = s + " (" + itemInfo + ")";
         }
+        if (itemState.length() > 0)
+        {
+            s = s + " (" + itemState + ")";
+        }
         text(s, 50, 380, 400, 150);  // Text wraps within text box
         //s = "Change size: < narrower, > wider, ^ higher, -lower";
         //text(s, 50, 400, 200, 150);  // Text wraps within text box
@@ -361,9 +398,19 @@ class ItemInfo {
         text(uniqueTestResultMsg, 50, 500, 300, 150);
         
         // Also display a larger area of the snap - just for reference purposes
-        int displacement = (sampleWidth + 100) / 2;      
-        qaSnapLargeFragment = qaSnap.get(start_x-displacement , start_y-displacement, sampleWidth+100, sampleHeight+100); 
-        image(qaSnapLargeFragment, 400 + displacement, 0 + displacement); 
+        int expansionHeight = 250;
+        int expansionWidth = 150;
+        int displacementWidth = (sampleWidth + expansionWidth) / 2;
+        int displacementHeight = (sampleHeight + expansionHeight) / 2;
+        qaSnapLargeFragment = qaSnap.get(start_x-displacementWidth , start_y-displacementHeight, sampleWidth+expansionWidth, sampleHeight+expansionHeight-50); 
+        image(qaSnapLargeFragment, 400, 50);
+        noFill();
+        // draw rectangle which is centred on the stat_x/start_y
+        rect(400 + displacementWidth, 50 + displacementHeight, sampleWidth, sampleHeight);
+        
+        // Also need to draw a line to show where pigs might obscure the item - for info only i.e. 55px above the y value
+        float pigLine = 50 + displacementHeight - offsetY - 55;
+        line(400, pigLine, 400 + displacementWidth*2, pigLine);
         
         // Display the last save results
         // Show the saved and reference images
@@ -399,6 +446,10 @@ class ItemInfo {
        if (itemInfo.length() > 0)
        {
            save_fname = save_fname+ "_" + itemInfo;
+       }
+       if (itemState.length() > 0)
+       {
+           save_fname = save_fname+ "_" + itemState;
        }
        String sample_fname = save_fname + ".png";
        save_fname = save_fname + "_full.png";
@@ -449,8 +500,8 @@ class ItemInfo {
            failNow = true;
            return false;
        }
-       //sampleJSON.saveFragmentInfo(itemClassTSID, itemInfo, offsetX, offsetY, sampleHeight, sampleWidth);
-       sampleJSON.saveFragmentInfo(itemClassTSID, itemInfo, offsetX, offsetY);
+       sampleJSON.saveFragmentInfo(itemClassTSID, itemInfo, itemState, offsetX, offsetY, sampleHeight, sampleWidth);
+       //sampleJSON.saveFragmentInfo(itemClassTSID, itemInfo, itemState, offsetX, offsetY);
        
        // Also log
        printDebugToFile.printLine(outputStr, 2);
