@@ -288,7 +288,6 @@ class UniqueFragmentCheck
         
         float total_rgb_diff = 0;
         float rgb_diff = 0;
-        float sum_total_rgb_diff = 0;
         int numMatchesFound = 0;
         int locSample;
         int locReference;
@@ -417,10 +416,9 @@ class UniqueFragmentCheck
                 else if  (total_rgb_diff < good_enough_total_rgb)
                 {
                     // good enough (but need looser check for QQ next)
-                    // add to the array
+                    // add to the array            
                     snapFoundMatches.add(new FoundMatch(pixelXPosReference, pixelYPosReference, false, referenceFileName, total_rgb_diff, avgRGBDiff)); 
                     allFoundMatches.add(new FoundMatch(pixelXPosReference, pixelYPosReference, false, referenceFileName, total_rgb_diff, avgRGBDiff));
-                    sum_total_rgb_diff += total_rgb_diff;
                     outputStr = "OK match found for item at x,y="  + pixelXPosReference + "," + pixelYPosReference + " with rgb diff " + int(total_rgb_diff) + " avg rgb = " + int(avgRGBDiff);
                     printDebugToFile.printLine(outputStr, 1);
                  }
@@ -430,7 +428,6 @@ class UniqueFragmentCheck
                     // add to the array
                     snapFoundMatches.add(new FoundMatch(pixelXPosReference, pixelYPosReference, false, referenceFileName, total_rgb_diff, avgRGBDiff)); 
                     allFoundMatches.add(new FoundMatch(pixelXPosReference, pixelYPosReference, false, referenceFileName, total_rgb_diff, avgRGBDiff));
-                    sum_total_rgb_diff += total_rgb_diff;
                     outputStr = "OK match found for QQ item at x,y="  + pixelXPosReference + "," + pixelYPosReference + " with rgb diff " + int(total_rgb_diff) + " avg rgb = " + int(avgRGBDiff);
                     printDebugToFile.printLine(outputStr, 1);
                 }
@@ -463,7 +460,6 @@ class UniqueFragmentCheck
                             printDebugToFile.printLine(outputStr, 1);
                         }
                     }        
-                    sum_total_rgb_diff += total_rgb_diff;
                 }
                 
                 // reset the counts ready for the next pass
@@ -528,14 +524,10 @@ class UniqueFragmentCheck
         int displayY = 500;    
         int numMatches = 0;     
         
-        // First search to see if the fragment contains the default background - r = g = b = 128
+        // First search to see if the fragment contains the default background - r = g = b = 128 i.e. #808080
         int i;
         int j;
         int locItem;
-        float r;
-        float g;
-        float b;
-        float a;
         
         int nosBackgroundPixels = 0;
                                     
@@ -545,13 +537,8 @@ class UniqueFragmentCheck
             for (j = 0; j < QAFragment.width; j++)
             {
                 //int loc = pixelXPosition + (pixelYPosition * streetItemInfo[streetItemCount].sampleWidth);
-                locItem = j + (i * QAFragment.width);
-                r = red(QAFragment.pixels[locItem]);
-                g = green(QAFragment.pixels[locItem]);
-                b = blue(QAFragment.pixels[locItem]);
-                a = alpha(QAFragment.pixels[locItem]);
-                
-                if (QAFragment.pixels[locItem] == configInfo.readBackGroundColor())
+                locItem = j + (i * QAFragment.width);               
+                if (QAFragment.pixels[locItem] == #808080)
                 {
                     nosBackgroundPixels++;
                 }
@@ -563,8 +550,7 @@ class UniqueFragmentCheck
             errorMsg = "Found " + nosBackgroundPixels + " background pixels in reference snap";
             return false;
         }
-
-        
+         
         for (i = 0; i < completeItemImagePaths.size(); i++)
         {
             targetImage = loadImage(configInfo.readCompleteItemPngPath()+"/"+completeItemImagePaths.get(i), "png");
@@ -588,6 +574,13 @@ class UniqueFragmentCheck
        {
            maxCount = 10;
        }
+
+       int x;
+       int y;
+       String fname;
+       float rgbDiff;
+       float avgRGBDiff;
+       
        for (j = 0; j < maxCount; j++)
        {
            saveAndDisplayFoundMatch(allFoundMatches.get(j), displayX, displayY);
@@ -595,11 +588,11 @@ class UniqueFragmentCheck
            
            
            // only need these vars to make string simpler
-           int x = allFoundMatches.get(j).matchX;
-           int y = allFoundMatches.get(j).matchY;
-           String fname = allFoundMatches.get(j).refFname;
-           float rgbDiff = allFoundMatches.get(j).totalRGBDiff;
-           float avgRGBDiff = allFoundMatches.get(j).avgRGBDiff;
+           x = allFoundMatches.get(j).matchX;
+           y = allFoundMatches.get(j).matchY;
+           fname = allFoundMatches.get(j).refFname;
+           rgbDiff = allFoundMatches.get(j).totalRGBDiff;
+           avgRGBDiff = allFoundMatches.get(j).avgRGBDiff;
            
            
            targetImage = loadImage(configInfo.readCompleteItemPngPath()+"/"+fname, "png");
@@ -616,10 +609,29 @@ class UniqueFragmentCheck
            }
 
        }
+       
+       // Need to adjust the count of matches for wood trees - is OK to find a match on a less mature tree of the same variant
+       // i.e. for a wood tree image which is older than the tree being searched for
+       // So need to remove these matches - work from bottom
+       for (j = allFoundMatches.size(); j > 0; j--)
+       {
+           if (itemClassTSID.equals("wood_tree") || itemClassTSID.equals("wood_tree_enchanted"))
+           {
+               char imageVariant = allFoundMatches.get(j-1).refFname.charAt(10);
+               char imageState = allFoundMatches.get(j-1).refFname.charAt(12);
+               if ((itemInfo.charAt(0) == imageVariant) && (imageState > itemState.charAt(0)))
+               {
+                   // 'Remove this from the count
+                   printDebugToFile.printLine("Allowed match in wood tree of older state in " + allFoundMatches.get(j-1).refFname + " - older than Wood tree (variant " + itemInfo + ", state " + itemState + ") so removed from match list", 2);
+                   allFoundMatches.remove(j-1);
+               }
+           }       
+                   
+        }
         
         if (allFoundMatches.size() == 1)
         {
-            printDebugToFile.printLine("Found single matching point in this reference snap", 2);
+            printDebugToFile.printLine("Found single matching point in this reference snap in " + allFoundMatches.get(0).refFname, 2);
             uniqueReferenceX = allFoundMatches.get(0).matchX;
             uniqueReferenceY = allFoundMatches.get(0).matchY;
             uniqueReferenceFile = configInfo.readCompleteItemPngPath()+"/"+allFoundMatches.get(0).refFname;
@@ -637,7 +649,7 @@ class UniqueFragmentCheck
             return false;
         }
     }
-
+    
     public String readErrorMsg()
     {
         return errorMsg;

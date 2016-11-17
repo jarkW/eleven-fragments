@@ -18,6 +18,7 @@ ArrayList<StreetInfo> streetInfoArray = new ArrayList<StreetInfo>();
 int streetBeingProcessed;
 
 boolean failNow = false;
+boolean allDone = false;
 PImage qaSnap;
  
  
@@ -33,7 +34,7 @@ public void setup() {
     // Set size of Processing window
     //size(250,250);
     //size(750,550);
-    size(950,950);
+    size(950,850);
         
     // Set up config data
     configInfo = new ConfigInfo();
@@ -111,7 +112,12 @@ public void draw() {
     {
         println("failNow flag set - exiting");
         exit();
-    }    
+    }
+    else if (allDone)
+    {
+        println("All done!");
+        exit();
+    }  
     else
     {
         streetInfoArray.get(streetBeingProcessed).processFragment();
@@ -169,7 +175,7 @@ void keyPressed() {
            {
                // Done all the streets so finish
                
-               failNow = true;
+               allDone = true;
            }
         }
     }       
@@ -185,7 +191,7 @@ void keyPressed() {
            if (streetBeingProcessed >= streetInfoArray.size()) 
            {
                // Done all the streets so finish
-               failNow = true;
+               allDone = true;
            }
         }
     }

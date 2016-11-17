@@ -1,11 +1,11 @@
-Saving to marker_qurazy.png IXXXCWIBTFVPCVJZ6W (marker_qurazy) x,y=680,-350 has offset -4,-19 for sample width=15 for sample height=16
-Saving to quoin_currants.png IHVF3462LNA26GU (quoin (currants) ) x,y=300,-350 has offset -5,-13 for sample width=12 for sample height=12
-Saving to quoin_energy.png IHVEBL7TKNA20A4 (quoin (energy) ) x,y=420,-350 has offset -4,-14 for sample width=10 for sample height=11
-Saving to quoin_favor.png IHV9Q320KNA29F9 (quoin (favor) ) x,y=480,-350 has offset -3,-16 for sample width=10 for sample height=10
-Saving to quoin_mood.png IHVEUM61LNA2MP3 (quoin (mood) ) x,y=240,-350 has offset -5,-18 for sample width=12 for sample height=12
-Saving to quoin_xp.png IHVEU631LNA2SJQ (quoin (xp) ) x,y=360,-350 has offset -4,-19 for sample width=12 for sample height=14
-Saving to quoin_time.png IHV8TGKPJNA2584 (quoin (time) ) x,y=540,-350 has offset -4,-20 for sample width=11 for sample height=11
-Saving to quoin_mystery.png IHV93BOQJNA2GRU (quoin (mystery) ) x,y=600,-350 has offset -4,-21 for sample width=10 for sample height=12
+Saving to marker_qurazy.png IXXXCWIBTFVPCVJZ6W (marker_qurazy) x,y=680,-350 has offset -5,-15 for sample width=15 for sample height=16
+Saving to quoin_currants.png IHVF3462LNA26GU (quoin (currants) ) x,y=300,-350 has offset -5,-18 for sample width=12 for sample height=12
+Saving to quoin_energy.png IHVEBL7TKNA20A4 (quoin (energy) ) x,y=420,-350 has offset -4,-13 for sample width=10 for sample height=11
+Saving to quoin_favor.png IHV9Q320KNA29F9 (quoin (favor) ) x,y=480,-350 has offset -4,-14 for sample width=10 for sample height=10
+Saving to quoin_mood.png IHVEUM61LNA2MP3 (quoin (mood) ) x,y=240,-350 has offset -5,-17 for sample width=12 for sample height=12
+Saving to quoin_xp.png IHVEU631LNA2SJQ (quoin (xp) ) x,y=360,-350 has offset -5,-13 for sample width=12 for sample height=14
+Saving to quoin_time.png IHV8TGKPJNA2584 (quoin (time) ) x,y=540,-350 has offset -5,-19 for sample width=11 for sample height=11
+Saving to quoin_mystery.png IHV93BOQJNA2GRU (quoin (mystery) ) x,y=600,-350 has offset -4,-20 for sample width=10 for sample height=12
 Saving to trant_bean.png IXXXB5AXM0HFP34EIP (trant_bean) x,y=1100,-300 has offset -26,-104 for sample width=31 for sample height=35
 Saving to trant_egg.png IXXXAXFXELNNGU7Q4C (trant_egg) x,y=1500,-300 has offset -34,-121 for sample width=30 for sample height=40
 Saving to trant_bubble.png IXXXYTHRDV78SOEWB3 (trant_bubble) x,y=2195,-300 has offset -9,-85 for sample width=10 for sample height=21
@@ -127,48 +127,48 @@ Saving to trant_bean_10.png IXXXL5VYNLKBQDLEG6 (trant_bean) x,y=-2600,-100 has o
 Saving to trant_bean_9.png IXXXDXYMOV26J9ZWU3 (trant_bean) x,y=-2400,-100 has offset -22,-100 for sample width=23 for sample height=45
 Saving to trant_bean_8.png IXXX4DE0RQHRMJRCZ0 (trant_bean) x,y=-2200,-100 has offset -22,-89 for sample width=23 for sample height=34
 Saving to trant_bean_7.png IXXX2345WF8TW8ODE7 (trant_bean) x,y=-2000,-100 has offset -21,-87 for sample width=25 for sample height=33
-Saving to trant_bean_6.png IXXX1465RGUV1GU8FR (trant_bean) x,y=-1800,-100 has offset -19,-78 for sample width=23 for sample height=27
-Saving to trant_bean_5.png IXXXW0E9OH6WK9QC9P (trant_bean) x,y=-1600,-100 has offset -16,-78 for sample width=19 for sample height=36
-Saving to trant_bean_4.png IXXXOJF6YGCGY6N4GQ (trant_bean) x,y=-1400,-100 has offset -16,-61 for sample width=16 for sample height=16
-Saving to trant_bean_3.png IXXXX0PF1GC9B2O6R (trant_bean) x,y=-1200,-100 has offset -15,-70 for sample width=16 for sample height=31
-Saving to trant_bean_2.png IXXXQQN6YQ8H05U0IZ (trant_bean) x,y=-1000,-100 has offset -15,-59 for sample width=17 for sample height=42
-Saving to trant_bean_1.png IXXXSILKVD5UBTUCV7 (trant_bean) x,y=-800,-100 has offset -19,-57 for sample width=25 for sample height=41
+Saving to trant_bean_6.png IXXX1465RGUV1GU8FR (trant_bean) x,y=-1800,-100 has offset -20,-78 for sample width=25 for sample height=27
+Saving to trant_bean_5.png IXXXW0E9OH6WK9QC9P (trant_bean) x,y=-1600,-100 has offset -20,-78 for sample width=26 for sample height=28
+Saving to trant_bean_4.png IXXXOJF6YGCGY6N4GQ (trant_bean) x,y=-1400,-100 has offset -21,-64 for sample width=26 for sample height=13
+Saving to trant_bean_3.png IXXXX0PF1GC9B2O6R (trant_bean) x,y=-1200,-100 has offset -16,-72 for sample width=18 for sample height=32
+Saving to trant_bean_2.png IXXXQQN6YQ8H05U0IZ (trant_bean) x,y=-1000,-100 has offset -17,-61 for sample width=20 for sample height=40
+Saving to trant_bean_1.png IXXXSILKVD5UBTUCV7 (trant_bean) x,y=-800,-100 has offset -17,-56 for sample width=20 for sample height=41
 Saving to trant_bean_dead.png IXXX33ZW23MJ579TQP (trant_bean_dead) x,y=-600,-100 has offset 0,-89 for sample width=16 for sample height=40
-Saving to trant_fruit_9.png IXXXGKA5U9Z0N6PW4S (trant_fruit) x,y=-2300,-400 has offset -4,-72 for sample width=18 for sample height=22
-Saving to trant_fruit_8.png IXXXT70G7FODGYMHD7 (trant_fruit) x,y=-2000,-400 has offset -5,-71 for sample width=18 for sample height=23
+Saving to trant_fruit_9.png IXXXGKA5U9Z0N6PW4S (trant_fruit) x,y=-2300,-400 has offset -6,-70 for sample width=20 for sample height=22
+Saving to trant_fruit_8.png IXXXT70G7FODGYMHD7 (trant_fruit) x,y=-2000,-400 has offset -7,-73 for sample width=23 for sample height=23
 Saving to trant_fruit_7.png IXXX4FY6VSLJ6WBI6B (trant_fruit) x,y=-1700,-400 has offset -3,-79 for sample width=13 for sample height=23
 Saving to trant_fruit_6.png IXXXSNE9STARNDU6JE (trant_fruit) x,y=-1500,-400 has offset -8,-68 for sample width=10 for sample height=22
 Saving to trant_fruit_5.png IXXXFPFNKTCRGASMJ9 (trant_fruit) x,y=-1300,-400 has offset -10,-63 for sample width=20 for sample height=18
-Saving to trant_fruit_4.png IXXXH526BC7VSZN9IZ (trant_fruit) x,y=-1100,-400 has offset -12,-65 for sample width=23 for sample height=23
+Saving to trant_fruit_4.png IXXXH526BC7VSZN9IZ (trant_fruit) x,y=-1100,-400 has offset -12,-65 for sample width=20 for sample height=23
 Saving to trant_fruit_3.png IXXXVFCEK22AYM2F0F (trant_fruit) x,y=-900,-400 has offset -5,-61 for sample width=15 for sample height=29
 Saving to trant_fruit_2.png IXXXPKOWS5JEX38A1Y (trant_fruit) x,y=-700,-400 has offset -5,-62 for sample width=20 for sample height=35
-Saving to trant_fruit_1.png IXXXTVZBCBNVTCTEDN (trant_fruit) x,y=-500,-400 has offset -5,-58 for sample width=11 for sample height=38
+Saving to trant_fruit_1.png IXXXTVZBCBNVTCTEDN (trant_fruit) x,y=-500,-400 has offset -3,-56 for sample width=9 for sample height=38
 Saving to trant_fruit_dead.png IXXXBXMZ5XLH4BOWDN (trant_fruit_dead) x,y=-300,-400 has offset 0,-82 for sample width=19 for sample height=27
-Saving to trant_fruit_10.png IXXXMD78607EMTQVKJ (trant_fruit) x,y=-2600,-400 has offset -3,-57 for sample width=20 for sample height=24
+Saving to trant_fruit_10.png IXXXMD78607EMTQVKJ (trant_fruit) x,y=-2600,-400 has offset -3,-54 for sample width=23 for sample height=26
 Saving to wood_tree_1_1.png IXXX01ZV48V3G14I (wood_tree (1) ) x,y=200,-800 has offset -12,-69 for sample width=23 for sample height=14
 Saving to wood_tree_1_2.png IXXX3KFBQJWYHLIVN2 (wood_tree (1) ) x,y=400,-800 has offset -12,-70 for sample width=27 for sample height=15
-Saving to wood_tree_1_3.png IXXX1NXVO5S8ADJCER (wood_tree (1) ) x,y=600,-800 has offset -16,-112 for sample width=27 for sample height=62
-Saving to wood_tree_1_4.png IXXXEYMD5T4CS0D7K3 (wood_tree (1) ) x,y=800,-800 has offset -16,-81 for sample width=27 for sample height=46
-Saving to wood_tree_1_5.png IXXX7NDOX79W2EVFS9 (wood_tree (1) ) x,y=1000,-800 has offset -16,-97 for sample width=21 for sample height=55
+Saving to wood_tree_1_3.png IXXX1NXVO5S8ADJCER (wood_tree (1) ) x,y=600,-800 has offset -16,-117 for sample width=25 for sample height=62
+Saving to wood_tree_1_4.png IXXXEYMD5T4CS0D7K3 (wood_tree (1) ) x,y=800,-800 has offset -19,-100 for sample width=30 for sample height=61
+Saving to wood_tree_1_5.png IXXX7NDOX79W2EVFS9 (wood_tree (1) ) x,y=1000,-800 has offset -18,-99 for sample width=26 for sample height=59
 Saving to wood_tree_1_6.png IXXXUUW3ONLQC2RFI5 (wood_tree (1) ) x,y=1200,-800 has offset -11,-95 for sample width=15 for sample height=40
 Saving to wood_tree_2_1.png IXXXAR6RWOFD7SNHFR (wood_tree (2) ) x,y=200,-600 has offset -13,-71 for sample width=20 for sample height=34
-Saving to wood_tree_2_2.png IXXX2L0XRZCJ9P8EHF (wood_tree (2) ) x,y=400,-600 has offset -15,-69 for sample width=36 for sample height=31
+Saving to wood_tree_2_2.png IXXX2L0XRZCJ9P8EHF (wood_tree (2) ) x,y=400,-600 has offset -15,-69 for sample width=25 for sample height=31
 Saving to wood_tree_2_3.png IXXXWE4DI5UQK1HH0K (wood_tree (2) ) x,y=600,-600 has offset -17,-67 for sample width=31 for sample height=26
 Saving to wood_tree_2_4.png IXXXTRX9ZTO2CF5STT (wood_tree (2) ) x,y=800,-600 has offset -5,-138 for sample width=15 for sample height=87
-Saving to wood_tree_2_5.png IXXXUAVSS55ZH25WXW (wood_tree (2) ) x,y=1000,-600 has offset -11,-138 for sample width=22 for sample height=47
+Saving to wood_tree_2_5.png IXXXUAVSS55ZH25WXW (wood_tree (2) ) x,y=1000,-600 has offset -14,-138 for sample width=26 for sample height=47
 Saving to wood_tree_2_6.png IXXXX7KWPG8FSAGAAT (wood_tree (2) ) x,y=1200,-600 has offset -3,-140 for sample width=10 for sample height=60
 Saving to wood_tree_3_1.png IXXX5KBN2LMRGQMVAE (wood_tree (3) ) x,y=200,-400 has offset -10,-70 for sample width=20 for sample height=36
-Saving to wood_tree_3_2.png IXXXM5OA53L7999VYG (wood_tree (3) ) x,y=400,-400 has offset -11,-114 for sample width=10 for sample height=59
-Saving to wood_tree_3_3.png IXXXY6CINQCAEXW29 (wood_tree (3) ) x,y=600,-400 has offset -16,-115 for sample width=22 for sample height=71
-Saving to wood_tree_3_4.png IXXX3KISVPVMWZZIWW (wood_tree (3) ) x,y=800,-400 has offset -22,-131 for sample width=32 for sample height=95
-Saving to wood_tree_3_5.png IXXX3BS2V3NPFPW4S4 (wood_tree (3) ) x,y=1000,-400 has offset -18,-109 for sample width=28 for sample height=57
-Saving to wood_tree_3_6.png IXXXZ0I9WHAJW03EG6 (wood_tree (3) ) x,y=1200,-400 has offset -13,-117 for sample width=24 for sample height=84
-Saving to wood_tree_4_1.png IXXX073TAJZH19VN29 (wood_tree (4) ) x,y=200,-200 has offset -9,-66 for sample width=19 for sample height=22
-Saving to wood_tree_4_2.png IXXXQUMDOJZKY8EHFR (wood_tree (4) ) x,y=400,-200 has offset -7,-120 for sample width=19 for sample height=82
-Saving to wood_tree_4_3.png IXXXHLPQDENSTI1CER (wood_tree (4) ) x,y=600,-200 has offset -6,-110 for sample width=18 for sample height=48
-Saving to wood_tree_4_4.png IXXXCXBROJB2CSOR (wood_tree (4) ) x,y=800,-200 has offset -8,-107 for sample width=22 for sample height=64
-Saving to wood_tree_4_5.png IXXXJN3YDFQPZZS62Y (wood_tree (4) ) x,y=1000,-200 has offset -11,-114 for sample width=29 for sample height=72
-Saving to wood_tree_4_6.png IXXX27JXYQFBVSAWNR (wood_tree (4) ) x,y=1200,-200 has offset 3,-101 for sample width=10 for sample height=54
+Saving to wood_tree_3_2.png IXXXM5OA53L7999VYG (wood_tree (3) ) x,y=400,-400 has offset -16,-104 for sample width=34 for sample height=68
+Saving to wood_tree_3_3.png IXXXY6CINQCAEXW29 (wood_tree (3) ) x,y=600,-400 has offset -16,-104 for sample width=30 for sample height=71
+Saving to wood_tree_3_4.png IXXX3KISVPVMWZZIWW (wood_tree (3) ) x,y=800,-400 has offset -18,-115 for sample width=32 for sample height=82
+Saving to wood_tree_3_5.png IXXX3BS2V3NPFPW4S4 (wood_tree (3) ) x,y=1000,-400 has offset -17,-109 for sample width=28 for sample height=75
+Saving to wood_tree_3_6.png IXXXZ0I9WHAJW03EG6 (wood_tree (3) ) x,y=1200,-400 has offset -15,-109 for sample width=26 for sample height=78
+Saving to wood_tree_4_1.png IXXX073TAJZH19VN29 (wood_tree (4) ) x,y=200,-200 has offset -9,-65 for sample width=19 for sample height=22
+Saving to wood_tree_4_2.png IXXXQUMDOJZKY8EHFR (wood_tree (4) ) x,y=400,-200 has offset -11,-87 for sample width=24 for sample height=46
+Saving to wood_tree_4_3.png IXXXHLPQDENSTI1CER (wood_tree (4) ) x,y=600,-200 has offset -10,-108 for sample width=22 for sample height=71
+Saving to wood_tree_4_4.png IXXXCXBROJB2CSOR (wood_tree (4) ) x,y=800,-200 has offset -13,-107 for sample width=29 for sample height=70
+Saving to wood_tree_4_5.png IXXXJN3YDFQPZZS62Y (wood_tree (4) ) x,y=1000,-200 has offset -13,-110 for sample width=29 for sample height=72
+Saving to wood_tree_4_6.png IXXX27JXYQFBVSAWNR (wood_tree (4) ) x,y=1200,-200 has offset -10,-108 for sample width=26 for sample height=70
 Saving to ice_knob_1.png IHVPB5H9SMC3VKJ (ice_knob (1) ) x,y=126,-185 has offset -3,-30 for sample width=15 for sample height=24
 Saving to ice_knob_2.png IHVPAKE9SMC3N1P (ice_knob (2) ) x,y=332,-246 has offset -15,-29 for sample width=16 for sample height=14
 Saving to ice_knob_3.png IHVPC3L9SMC3JJA (ice_knob (3) ) x,y=396,-270 has offset -11,-20 for sample width=15 for sample height=13
@@ -241,12 +241,13 @@ Saving to trant_bubble_dead.png IXXXCFPA5W4HGV8171 (trant_bubble_dead) x,y=-800,
 Saving to trant_spice_dead.png IXXXTJA3U6AUKSINQA (trant_spice_dead) x,y=-200,-600 has offset -12,-79 for sample width=27 for sample height=24
 Saving to trant_gas_9.png IXXX7GLVJLZLRIE2VS (trant_gas) x,y=300,-200 has offset -24,-61 for sample width=44 for sample height=10
 Saving to trant_gas_8.png IXXX0SGTRWAH00O7DS (trant_gas) x,y=600,-200 has offset -21,-61 for sample width=43 for sample height=14
-Saving to trant_gas_7.png IXXXA9RFT9NGR3LKGL (trant_gas) x,y=900,-200 has offset -17,-57 for sample width=36 for sample height=10
+Saving to trant_gas_7.png IXXXA9RFT9NGR3LKGL (trant_gas) x,y=900,-200 has offset -20,-57 for sample width=39 for sample height=10
 Saving to trant_gas_6.png IXXX7D2OQUVN449XJE (trant_gas) x,y=1200,-200 has offset -26,-62 for sample width=44 for sample height=10
 Saving to trant_gas_5.png IXXX5LSANW884C1PP6 (trant_gas) x,y=1400,-200 has offset -25,-57 for sample width=25 for sample height=15
 Saving to trant_gas_3.png IXXXYYN5DGN37PEQAO (trant_gas) x,y=1800,-200 has offset -12,-45 for sample width=16 for sample height=15
 Saving to trant_gas_dead.png IXXX891X5CVKC07LDI (trant_gas_dead) x,y=2400,-200 has offset -16,-71 for sample width=29 for sample height=37
 Saving to trant_gas_10.png IXXXMP69CEXHW2ONU3 (trant_gas) x,y=0,-200 has offset -36,-66 for sample width=66 for sample height=10
 Saving to trant_gas_4.png IXXX4OK3XP6OCIITQP (trant_gas) x,y=1600,-200 has offset -19,-45 for sample width=24 for sample height=10
-Saving to trant_gas_2.png IXXX3LQ7QD9F9GPKFB (trant_gas) x,y=2000,-200 has offset -11,-32 for sample width=17 for sample height=12
-Saving to trant_gas_1.png IXXXB5BTKZOQ7IUDI (trant_gas) x,y=2200,-200 has offset -8,-30 for sample width=13 for sample height=13
+Saving to trant_gas_2.png IXXX3LQ7QD9F9GPKFB (trant_gas) x,y=2000,-200 has offset -11,-33 for sample width=19 for sample height=16
+Saving to trant_gas_1.png IXXXB5BTKZOQ7IUDI (trant_gas) x,y=2200,-200 has offset -9,-30 for sample width=15 for sample height=16
+Saving to paper_tree.png IXXXHH4BYCOJ6XDY4X (paper_tree) x,y=-500,-200 has offset 1,-99 for sample width=14 for sample height=44

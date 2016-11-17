@@ -207,7 +207,7 @@ class ItemInfo {
                     {
                         itemInfo = readJSONString(instanceProps, "type");
                     }
-                    else if ((itemClassTSID.equals("wood_tree_enchanted")) || (itemClassTSID.equals("npc_mailbox")) || (itemClassTSID.equals("dirt_pile")))
+                    else if ((itemClassTSID.equals("npc_mailbox")) || (itemClassTSID.equals("dirt_pile")))
                     {
                         itemInfo = readJSONString(instanceProps, "variant");
                     }
@@ -241,7 +241,7 @@ class ItemInfo {
                         // We don't expect an info field, so zero length info is valid in this case
                         zeroInfoIsError = false;
                     }
-                    else if (itemClassTSID.equals("wood_tree"))
+                    else if (itemClassTSID.equals("wood_tree") || itemClassTSID.equals("wood_tree_enchanted"))
                     {
                         itemInfo = readJSONString(instanceProps, "variant");
                         // So we can differentiate different states of trees
@@ -371,8 +371,7 @@ class ItemInfo {
         int start_y = itemY + qaSnap.height + offsetY;
  
         // Replaced with sampleWidth/Height in item field  
-        qaSnapFragment = qaSnap.get(start_x, start_y, sampleWidth, sampleHeight); 
-
+        qaSnapFragment = qaSnap.get(start_x, start_y, sampleWidth, sampleHeight);    
         image(qaSnapFragment, 50, 50); 
         String s = "Offset is " + str(offsetX) + ", " + str(offsetY) + " width " + str(sampleWidth) + " height " + str(sampleHeight); 
         fill(50);
@@ -425,6 +424,11 @@ class ItemInfo {
             image(referenceFragment, 400, 350);
             text("Unique Reference fragment", 400, 550, 100, 100);  // Text wraps within text box
 
+        }
+        
+        if (itemClassTSID.equals("wood_tree") || itemClassTSID.equals("wood_tree_enchanted"))
+        {
+            text("Includes pixel for future branches on older trees", 50, 20, 300, 50);  // Text wraps within text box
         }
     }
     
