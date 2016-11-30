@@ -50,7 +50,7 @@ class PrintDataToFile {
                 if (line == null) 
                 {
                     // Stop reading because of an error or file is empty
-                    printDebugToFile.printLine("outputfile is empty", 1);
+                    //printDebugToFile.printLine("outputfile is empty", 1);
                     eof = true;  
                 } 
                 else 

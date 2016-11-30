@@ -1,6 +1,6 @@
 {
   "streets": [
-    {"tsid": "LHVT4C9KSIA2UMG"}
+    {"tsid": "LHV1HKHRSKA2CR9"}
   ],
   "json_path": "C:/Glitch/Work/ItemCompareTool/JSONs",
   "eleven_path": "C:/Glitch/eleven",
@@ -11,6 +11,7 @@
   "QA_tool_path": "C:/Users/Donna/My Documents/Processing3/My Stuff/QABot/data",
   "data_output_file": "save_fragments.txt",
   "debug_output_file": "debug_info.txt",
+  "quoin_heights_only": false,
   "all_streets": [
     {"tsid": "LHVT4C9KSIA2UMG = Meera Dhala = quoins"},	
 	{"tsid": "LHV1HO45PQA2QJS = Mina Misses = rocks"},
@@ -18,8 +19,9 @@
 	{"tsid": "LDORIA62TLQ2HOH = Haqiq Cedony  = sloths, enchanted wood trees, gardening vendor"},
 	{"tsid": "LHVMK86NP7B26E6 = Kerivepa Vili = odd items"},	
 	{"tsid": "LHV1HKHRSKA2CR9 = Senaga Siren = bean tree, fruit tree, wood tree stages"},
-	{"tsid": "LHV1KT9J0LA2IIA = Tamota Trill = barnacle, jellisac, egg tree stages (removed ice as not good)"},
+	{"tsid": "LHV1KT9J0LA2IIA = Tamota Trill = barnacle, jellisac, egg tree stages (removed ice as not good, now done on Lacier Landere)"},
 	{"tsid": "LHVII3H61QA2C21 = Pendala Pax = spice tree, bubble tree, gas tree stages"},
+	{"tsid": "LHVRJLV2UOA3EMR = Lacier Landere = ice (mature stages only, on natural snow background as are transparent)"},
     {"tsid": "LHV4U509S9B2MRV = trees - no longer used"}
   ],
   "use_vagrant": false

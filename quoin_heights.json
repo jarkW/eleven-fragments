@@ -1,0 +1,50 @@
+{"heights": [
+  {
+    "class_tsid": "quoin",
+    "lowest_y": -13,
+    "highest_y": -24,
+    "info": "mood"
+  },
+  {
+    "class_tsid": "quoin",
+    "lowest_y": -12,
+    "highest_y": -22,
+    "info": "xp"
+  },
+  {
+    "class_tsid": "quoin",
+    "lowest_y": -10,
+    "highest_y": -21,
+    "info": "energy"
+  },
+  {
+    "class_tsid": "quoin",
+    "lowest_y": -12,
+    "highest_y": -24,
+    "info": "favor"
+  },
+  {
+    "class_tsid": "quoin",
+    "lowest_y": -13,
+    "highest_y": -24,
+    "info": "time"
+  },
+  {
+    "class_tsid": "quoin",
+    "lowest_y": -12,
+    "highest_y": -23,
+    "info": "mystery"
+  },
+  {
+    "class_tsid": "marker_qurazy",
+    "lowest_y": -16,
+    "highest_y": -22,
+    "info": ""
+  },
+  {
+    "class_tsid": "quoin",
+    "lowest_y": -12,
+    "highest_y": -23,
+    "info": "currants"
+  }
+]}

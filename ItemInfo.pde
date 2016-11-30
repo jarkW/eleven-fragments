@@ -443,6 +443,28 @@ class ItemInfo {
         // Save this so can be displayed next time around the draw loop
         savedFragment = qaSnapFragment;
         
+       // For quoins need to save the y-offset so can keep track of min/max heights of these
+       // moving items
+       if (itemClassTSID.equals("quoin") || itemClassTSID.equals("marker_qurazy"))
+       {
+           QuoinHeightJSON quoinHeightsJSON = new QuoinHeightJSON();
+           if (!quoinHeightsJSON.readOkFlag())
+           {
+               printDebugToFile.printLine("Error opening quoinHeightsJSON object", 3);
+               failNow = true;
+               return false;
+           }
+           int temp = quoinHeightsJSON.saveHeightInfo(itemClassTSID, itemInfo, offsetY);
+           printDebugToFile.printLine(itemClassTSID + " (" + itemInfo + ") has y offset " + offsetY + " reset to " + temp + ")", 2);
+           offsetY = temp;
+       }
+       
+       if (configInfo.readQuoinHeightsOnly())
+       {
+           // Don't want to save anything to the samples.json file if this flag is set - or change any of the fragment samples
+           return true;
+       }
+        
        // build file name manually
        
        // Change this to use configInfo.readPngPath instead of Datapath?  

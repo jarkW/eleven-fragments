@@ -14,6 +14,7 @@ class ConfigInfo {
     StringList streetTSIDArray = new StringList();
     String dataOutputFile;
     String debugOutputFile;
+    boolean quoinHeightsOnly;
     
     // constructor/initialise fields
     public ConfigInfo()
@@ -56,6 +57,8 @@ class ConfigInfo {
         debugOutputFile = readJSONString(json, "debug_output_file");
         screenCapturePath = readJSONString(json, "screen_capture_path");
         QAToolPath = readJSONString(json, "QA_tool_path");
+        quoinHeightsOnly = json.getBoolean("quoin_heights_only");
+
         
         // Check still got right path for QA tool
         File dir = new File(QAToolPath);
@@ -84,6 +87,12 @@ class ConfigInfo {
                 }
                 //streetTSIDArray.add(new String(tsid)); 
                 streetTSIDArray.append(tsid);
+                        
+                if (quoinHeightsOnly && !tsid.equals("LHVT4C9KSIA2UMG"))
+                {
+                    println("quoin_heights_only should be set to false for this street");
+                    return false;
+                }
             }
             totalStreetCount = streetTSIDArray.size();
         }
@@ -194,5 +203,10 @@ class ConfigInfo {
     public String readElevenPath()
     {
         return elevenPath;
+    }
+    
+    public boolean readQuoinHeightsOnly()
+    {
+        return quoinHeightsOnly;
     }
 }

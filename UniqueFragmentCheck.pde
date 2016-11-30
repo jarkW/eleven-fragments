@@ -23,6 +23,8 @@ class UniqueFragmentCheck
     String uniqueReferenceFile = "";
     String errorMsg = "";
     
+    String rootItemImagePath;
+    
     ArrayList<FoundMatch> allFoundMatches;
     StringList completeItemImagePaths = new StringList();
     
@@ -47,7 +49,15 @@ class UniqueFragmentCheck
         uniqueReferenceY = 0;
         uniqueReferenceFile = "";
         QAFragment = QASnapFragment;
-
+        
+        if (configInfo.readQuoinHeightsOnly())
+        {
+            rootItemImagePath = configInfo.readPngPath();
+        }
+        else
+        {
+            rootItemImagePath = configInfo.readCompleteItemPngPath();
+        }
         allFoundMatches = new ArrayList<FoundMatch>();    
     }
     
@@ -108,10 +118,46 @@ class UniqueFragmentCheck
 
         // NB This function also handles the special cases for trees where items 
         // have to be manually added in
-        if (!readListReferenceFileNames(configInfo.readCompleteItemPngPath()))
+        if (!readListReferenceFileNames(rootItemImagePath))
         {
             printDebugToFile.printLine("Failed to load up the reference images for the item " + itemClassTSID, 3);
             return false;
+        }
+        
+        printDebugToFile.printLine("Final number of reference image snaps is " + str(completeItemImagePaths.size()), 2);
+        
+        for (int i = 0; i < completeItemImagePaths.size(); i++)
+        {
+            printDebugToFile.printLine("Reference snap " + str(i) + " is " + completeItemImagePaths.get(i), 1);
+        }
+        
+        return true;
+                
+    }
+    
+    boolean loadExistingQuoinFragmentFile()
+    {
+       
+        // This function loads up the image of the quoin fragment that has already been saved - so can check it exactly matches the one
+        // the user has chosen when doing y-offset only
+        switch (itemClassTSID)
+        {
+            case "quoin":
+                completeItemImagePaths.append(itemClassTSID + "_" + itemInfo + ".png");
+                break;
+                
+            case "marker_qurazy":
+                // Can't use these ones below - as then real use of this tool fails because the image doesn't match the street snap
+                // Easier just to use a single image of a quoin
+                completeItemImagePaths.append("marker_qurazy.png");
+                //completeItemImagePaths.append("marker_qurazy_lge.png");
+                //completeItemImagePaths.append("marker_qurazy_med.png");
+                //completeItemImagePaths.append("marker_qurazy_sml.png");
+                break;                
+
+            default:
+                printDebugToFile.printLine("Unexpected item passed to loadExistingQuoinFragmentFile " + itemClassTSID, 3);
+                return false;
         }
         
         printDebugToFile.printLine("Final number of reference image snaps is " + str(completeItemImagePaths.size()), 2);
@@ -230,6 +276,7 @@ class UniqueFragmentCheck
                 break;
                 
             case "npc_sloth":
+                // NB These are images of trees taken from streets which are searched - to check we haven't accidentally matched up pixels on a background branch
                 completeItemImagePaths.append("sloth_tree1_complete.png");
                 completeItemImagePaths.append("sloth_tree2_complete.png");
                 completeItemImagePaths.append("sloth_tree3_complete.png");
@@ -480,6 +527,173 @@ class UniqueFragmentCheck
        
        return(snapFoundMatches.size());
     }
+    
+    int checkQuoinFragmentsMatchExactly(PImage sampleImage, PImage referenceImage, String referenceFileName)
+    {
+            
+        float good_enough_total_rgb = 5000;
+        //float good_enough_total_rgb = 1000;
+
+        //float good_enough_QQ_total_rgb = 3 * good_enough_total_rgb;
+        //float good_enough_QQ_total_rgb = 5 * good_enough_total_rgb;
+        float good_enough_QQ_total_rgb = good_enough_total_rgb;
+        
+        float total_rgb_diff = 0;
+        float rgb_diff = 0;
+        int numMatchesFound = 0;
+        int loc;
+               
+        float rSample;
+        float gSample;
+        float bSample;
+        float aSample;
+        float rReference;
+        float gReference;
+        float bReference;
+        float aReference;
+        
+        int pixelYPosition;
+        int pixelXPosition;
+        
+        int numberTransparentPixels = 0;
+                
+        boolean debugInfo = true;
+        String outputStr;
+        
+        ArrayList<FoundMatch> snapFoundMatches = new ArrayList<FoundMatch>();
+        
+        if ((referenceImage.height != sampleImage.height) || (referenceImage.width != sampleImage.width))
+        {
+            printDebugToFile.printLine("Mismatch in wxh - reference Image = " + referenceImage.width + "x" + referenceImage.height + " sample image = " + sampleImage.width + "x" + sampleImage.height, 3);
+            return 0;
+        }
+
+        // Now need to compare the sample with a same-size fragment 
+        for (pixelYPosition = 0; pixelYPosition < sampleImage.height; pixelYPosition++) 
+        {
+            for (pixelXPosition = 0; pixelXPosition < sampleImage.width; pixelXPosition++) 
+            {
+   
+                //int loc = pixelXPosition + (pixelYPosition * streetItemInfo[streetItemCount].sampleWidth);
+                
+                // For reference snap
+                loc = pixelXPosition + (pixelYPosition * sampleImage.width);
+                rReference = red(referenceImage.pixels[loc]);
+                gReference = green(referenceImage.pixels[loc]);
+                bReference = blue(referenceImage.pixels[loc]);
+                aReference = alpha(referenceImage.pixels[loc]);
+    
+                // for sample snap
+                rSample = red(sampleImage.pixels[loc]);
+                gSample = green(sampleImage.pixels[loc]);
+                bSample = blue(sampleImage.pixels[loc]);
+                aSample = alpha(sampleImage.pixels[loc]);  
+                
+                if (aSample == 255)
+                {
+                     // transparency is not present in in the fragment, so carry out a diff   
+                    rgb_diff = abs(rReference-rSample) + abs (bReference-bSample) + abs(gReference-gSample) + abs(aReference-aSample);
+                    total_rgb_diff += rgb_diff;
+                }
+                else
+                {
+                    // Transparent pixel, so nothing to compare
+                    numberTransparentPixels++;
+                }
+ 
+            } // end for pixelXPosition
+        } // end for pixelYPosition
+                
+        if (debugInfo)
+        {
+            outputStr = "Reference snap - total_rgb_diff for 0,0 : " +  int(total_rgb_diff);
+            printDebugToFile.printLine(outputStr, 1);
+        }
+                
+        float avgRGBDiff = total_rgb_diff/((sampleImage.width*sampleImage.height) - numberTransparentPixels);
+        //  finished checking this sample sized piece of reference. So check to see if we have a match
+        if (total_rgb_diff == 0)
+        {
+            // perfect match                  
+            // add to the array
+            snapFoundMatches.add(new FoundMatch(0, 0, true, referenceFileName, total_rgb_diff, avgRGBDiff));
+            allFoundMatches.add(new FoundMatch(0, 0, true, referenceFileName, total_rgb_diff, avgRGBDiff));
+            outputStr = "Perfect match found for item at x,y=" + 0 + "," + 0;
+            printDebugToFile.printLine(outputStr, 1);
+        }
+        else if (itemClassTSID.equals("marker_qurazy"))
+        {
+            // Now that we can only use the single QQ image, this will need to be increased substantially as 1500 is unlikely to work unless just happen to 
+            // have the same size central image. Might be nearer 5000 as before. 
+            if (total_rgb_diff < 1500) //1500 for perfect match. Alter as necessary to get the additional y_offset data (find threshold from debug file)
+            {
+                // good enough match
+                // add to the array
+                snapFoundMatches.add(new FoundMatch(0, 0, false, referenceFileName, total_rgb_diff, avgRGBDiff)); 
+                allFoundMatches.add(new FoundMatch(0, 0, false, referenceFileName, total_rgb_diff, avgRGBDiff));
+                outputStr = "OK match found for QQ item at x,y="  + 0 + "," + 0 + " with rgb diff " + int(total_rgb_diff) + " avg rgb = " + int(avgRGBDiff);
+            }
+            else
+            {
+                outputStr = "IGNORED OK match found for QQ item at x,y="  + 0 + "," + 0 + " with rgb diff " + int(total_rgb_diff) + " avg rgb = " + int(avgRGBDiff);
+            }
+            printDebugToFile.printLine(outputStr, 2);
+        }
+        /*
+        else if (itemClassTSID.equals("marker_qurazy") && (total_rgb_diff < good_enough_QQ_total_rgb))
+        {
+            // good enough match
+            // add to the array
+            snapFoundMatches.add(new FoundMatch(0, 0, false, referenceFileName, total_rgb_diff, avgRGBDiff)); 
+            allFoundMatches.add(new FoundMatch(0, 0, false, referenceFileName, total_rgb_diff, avgRGBDiff));
+            outputStr = "OK match found for QQ item at x,y="  + 0 + "," + 0 + " with rgb diff " + int(total_rgb_diff) + " avg rgb = " + int(avgRGBDiff);
+            printDebugToFile.printLine(outputStr, 1);
+        }
+        */
+        /*
+                else
+                {
+                    // Not found a match - but save this value in case the lowest
+                    if ((pixelXPosReference == 0) && (pixelYPosReference == 0))
+                    {
+                        // Save this one always - so overwrite initilised value
+                        lowest_total_rgb_diff = total_rgb_diff;
+                        lowest_total_rgb_diff_x = pixelXPosReference;
+                        lowest_total_rgb_diff_y = pixelYPosReference;
+                        lowest_avg_rgb_diff = avgRGBDiff;
+                        if (debugInfo)
+                        {
+                            outputStr = "No match, but first one, so saved x,y=" + lowest_total_rgb_diff_x + "," + lowest_total_rgb_diff_y + "(lowest_total_rgb_diff = " + str(int(lowest_total_rgb_diff)) + " avg rgb = " + int(avgRGBDiff);
+                            printDebugToFile.printLine(outputStr, 1);
+                        }
+                    }
+                    else if (total_rgb_diff < lowest_total_rgb_diff)
+                    {
+                        // save this if the lowest one so far
+                        lowest_total_rgb_diff = total_rgb_diff;
+                        lowest_total_rgb_diff_x = pixelXPosReference;
+                        lowest_total_rgb_diff_y = pixelYPosReference;
+                        lowest_avg_rgb_diff = avgRGBDiff;
+                        if (debugInfo)
+                        {
+                            outputStr = "No match, but lowest so far so saved x,y=" + lowest_total_rgb_diff_x + "," + lowest_total_rgb_diff_y + "(lowest_total_rgb_diff = " + str(int(lowest_total_rgb_diff)) + " avg rgb = " + int(avgRGBDiff);
+                            printDebugToFile.printLine(outputStr, 1);
+                        }
+                        
+                    }        
+                } */
+  
+       if (snapFoundMatches.size() > 0)
+       {
+           printDebugToFile.printLine("Number of OK/perfect matches found is " + snapFoundMatches.size() + " for this snap " + referenceFileName, 2);
+       }
+       else
+       {
+           printDebugToFile.printLine("No matches found for this snap " + referenceFileName, 2);
+       }
+       
+       return(snapFoundMatches.size());
+    }
             
     void saveAndDisplayFoundMatch (FoundMatch foundMatch, int screenX, int screenY)
     {
@@ -488,7 +702,7 @@ class UniqueFragmentCheck
         String s;
         PImage refImage;          
            
-        refImage = loadImage(configInfo.readCompleteItemPngPath()+"/"+foundMatch.refFname, "png");
+        refImage = loadImage(rootItemImagePath+"/"+foundMatch.refFname, "png");
         refImage.loadPixels();
         matchImage = refImage.get(foundMatch.matchX, foundMatch.matchY, QAFragment.width, QAFragment.height); 
         image(matchImage, screenX, screenY); 
@@ -553,16 +767,23 @@ class UniqueFragmentCheck
          
         for (i = 0; i < completeItemImagePaths.size(); i++)
         {
-            targetImage = loadImage(configInfo.readCompleteItemPngPath()+"/"+completeItemImagePaths.get(i), "png");
-            printDebugToFile.printLine("Using reference file " + configInfo.readCompleteItemPngPath()+"/"+completeItemImagePaths.get(i), 2);
+            targetImage = loadImage(rootItemImagePath+"/"+completeItemImagePaths.get(i), "png");
+            printDebugToFile.printLine("Using reference file " + rootItemImagePath+"/"+completeItemImagePaths.get(i), 2);
             targetImage.loadPixels();
             
             // Search for item image in this larger file
-            numMatches = checkFragmentsMatch(QAFragment, targetImage, completeItemImagePaths.get(i));
+            if (configInfo.readQuoinHeightsOnly())
+            {
+                numMatches = checkQuoinFragmentsMatchExactly(QAFragment, targetImage, completeItemImagePaths.get(i));
+            }
+            else
+            {
+                numMatches = checkFragmentsMatch(QAFragment, targetImage, completeItemImagePaths.get(i));
+            }
             
             if (numMatches > 0)
             {
-                outputStr = "Reference " + completeItemImagePaths.get(i) + "has size allFoundMatches " + allFoundMatches.size();
+                outputStr = "Reference " + completeItemImagePaths.get(i) + " has size allFoundMatches " + allFoundMatches.size();
                 printDebugToFile.printLine(outputStr, 2);
             }
         }
@@ -595,7 +816,7 @@ class UniqueFragmentCheck
            avgRGBDiff = allFoundMatches.get(j).avgRGBDiff;
            
            
-           targetImage = loadImage(configInfo.readCompleteItemPngPath()+"/"+fname, "png");
+           targetImage = loadImage(rootItemImagePath+"/"+fname, "png");
            targetImage.loadPixels();
                       
            // Now output the images found so can see them on the screen
@@ -617,8 +838,8 @@ class UniqueFragmentCheck
        {
            if (itemClassTSID.equals("wood_tree") || itemClassTSID.equals("wood_tree_enchanted"))
            {
-               char imageVariant = allFoundMatches.get(j-1).refFname.charAt(10);
-               char imageState = allFoundMatches.get(j-1).refFname.charAt(12);
+               char imageVariant = allFoundMatches.get(j-1).refFname.charAt(itemClassTSID.length()+1);
+               char imageState = allFoundMatches.get(j-1).refFname.charAt(itemClassTSID.length()+3);
                if ((itemInfo.charAt(0) == imageVariant) && (imageState > itemState.charAt(0)))
                {
                    // 'Remove this from the count
@@ -634,7 +855,7 @@ class UniqueFragmentCheck
             printDebugToFile.printLine("Found single matching point in this reference snap in " + allFoundMatches.get(0).refFname, 2);
             uniqueReferenceX = allFoundMatches.get(0).matchX;
             uniqueReferenceY = allFoundMatches.get(0).matchY;
-            uniqueReferenceFile = configInfo.readCompleteItemPngPath()+"/"+allFoundMatches.get(0).refFname;
+            uniqueReferenceFile = rootItemImagePath+"/"+allFoundMatches.get(0).refFname;
             return true;
         }
         else  

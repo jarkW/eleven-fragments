@@ -321,11 +321,23 @@ class StreetInfo {
         }
         
         // Now populate the fields in this object
-        if (!uniqueFragmentCheck.loadComparisonFiles())
+        if (configInfo.readQuoinHeightsOnly())
         {
-            printDebugToFile.printLine("Failed to populate fields in uniqueFragmentCheck object", 2);
-            failNow = true;
-            return false;
+            if (!uniqueFragmentCheck.loadExistingQuoinFragmentFile())
+            {
+                printDebugToFile.printLine("Failed to populate fields in uniqueFragmentCheck object 2", 2);
+                failNow = true;
+                return false;
+            }
+        }
+        else
+        {      
+            if (!uniqueFragmentCheck.loadComparisonFiles())
+            {
+                printDebugToFile.printLine("Failed to populate fields in uniqueFragmentCheck object", 2);
+                failNow = true;
+                return false;
+            }
         }
         
         // Now check the fragment image against all the saved reference image.
