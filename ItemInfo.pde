@@ -391,7 +391,7 @@ class ItemInfo {
         text("Change size:", 50, 400, 200, 150); 
         text("< narrower, > wider", 50, 420, 200, 150);
         text("^ higher, -lower", 50, 440, 200, 150);
-        text("s to save, n to skip", 50, 460, 200, 150);
+        text("s to save, S to force save, ? to see matches, n to skip", 50, 460, 200, 150);
         
         // Display any error messages that might have come from the image validation
         text(uniqueTestResultMsg, 50, 500, 300, 150);
@@ -428,7 +428,10 @@ class ItemInfo {
         
         if (itemClassTSID.equals("wood_tree") || itemClassTSID.equals("wood_tree_enchanted"))
         {
-            text("Includes pixel for future branches on older trees", 50, 20, 300, 50);  // Text wraps within text box
+            String s2;
+            s2 = "Wood trees - remove from sample.json, use ? to test, S to save images for multiple same-variant trees if one good match (<20, perfect) ";
+            s2 = s2 + "per variant, in numerical order. Use same offset/size for all states which 'match' - useful if next mature state includes extra branch. Overwrite less subsequent good matches with own unique match";
+            text(s2, 50, 20, 850, 50);  // Text wraps within text box
         }
     }
     
