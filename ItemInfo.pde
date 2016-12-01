@@ -429,8 +429,8 @@ class ItemInfo {
         if (itemClassTSID.equals("wood_tree") || itemClassTSID.equals("wood_tree_enchanted"))
         {
             String s2;
-            s2 = "Wood trees - remove from sample.json, use ? to test, S to save images for multiple same-variant trees if one good match (<20, perfect) ";
-            s2 = s2 + "per variant, in numerical order. Use same offset/size for all states which 'match' - useful if next mature state includes extra branch. Overwrite less subsequent good matches with own unique match";
+            s2 = "Wood trees - remove from sample.json, use ? to test, S to save images for multiple same-variant trees all perfect (<10)) ";
+            s2 = s2 + "in numerical order. Use same offset/size for 'matching' states - useful if next mature state includes extra branch. Overwrite less subsequent good matches with own unique match";
             text(s2, 50, 20, 850, 50);  // Text wraps within text box
         }
     }
