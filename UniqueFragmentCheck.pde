@@ -720,7 +720,7 @@ class UniqueFragmentCheck
             matchFname = foundMatch.refFname.replace(".png", "") + "_OK_" + str(foundMatch.matchX) + "_" + str(foundMatch.matchY) + ".png";
             s = s + " " + foundMatch.refFname.replace(".png", "");
         }
-        text(s, screenX, screenY + 30, screenX + 50, screenY + 50);  // Text wraps within text box
+        text(s, screenX, screenY + 30, screenX + 150, screenY + 30);  // Text wraps within text box
         printDebugToFile.printLine(s, 2);
         
         // Also save image to file
@@ -734,8 +734,8 @@ class UniqueFragmentCheck
         PImage targetImage;
         String outputStr;
         PImage matchImage;
-        int displayX = 550;
-        int displayY = 500;    
+        int displayX = 350;
+        int displayY = 400;    
         int numMatches = 0;     
         
         // First search to see if the fragment contains the default background - r = g = b = 128 i.e. #808080
@@ -805,8 +805,7 @@ class UniqueFragmentCheck
        for (j = 0; j < maxCount; j++)
        {
            saveAndDisplayFoundMatch(allFoundMatches.get(j), displayX, displayY);
-           displayY += QAFragment.height + 60;
-           
+           displayY += QAFragment.height + 30;          
            
            // only need these vars to make string simpler
            x = allFoundMatches.get(j).matchX;
@@ -831,7 +830,7 @@ class UniqueFragmentCheck
 
        }
        
-       // Need to adjust the count of matches for wood trees - is OK to find a match on a less mature tree of the same variant
+       // Need to adjust the count of matches for wood trees - as some of the tree is common to all forms of
        // i.e. for a wood tree image which is older than the tree being searched for
        // So need to remove these matches - work from bottom
        for (j = allFoundMatches.size(); j > 0; j--)
@@ -843,8 +842,8 @@ class UniqueFragmentCheck
                if ((itemInfo.charAt(0) == imageVariant) && (imageState > itemState.charAt(0)))
                {
                    // 'Remove this from the count
-                   printDebugToFile.printLine("Allowed match in wood tree of older state in " + allFoundMatches.get(j-1).refFname + " - older than Wood tree (variant " + itemInfo + ", state " + itemState + ") so removed from match list", 2);
-                   allFoundMatches.remove(j-1);
+                   //printDebugToFile.printLine("Allowed match in wood tree of older state in " + allFoundMatches.get(j-1).refFname + " - older than Wood tree (variant " + itemInfo + ", state " + itemState + ") so removed from match list", 2);
+                   //allFoundMatches.remove(j-1);
                }
            }       
                    

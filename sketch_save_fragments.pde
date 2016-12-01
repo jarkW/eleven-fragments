@@ -167,7 +167,7 @@ void keyPressed() {
     if (key == 's') 
     {
         // save the image
-        if (streetInfoArray.get(streetBeingProcessed).saveItemImage())
+        if (streetInfoArray.get(streetBeingProcessed).saveItemImage(false))
         {
             // Done all items on street, so move to next street
             streetBeingProcessed++;
@@ -178,7 +178,33 @@ void keyPressed() {
                allDone = true;
            }
         }
-    }       
+    }  
+    
+    if (key == '?') 
+    {
+        // save the image
+        if (!streetInfoArray.get(streetBeingProcessed).queryItemImage())
+        {
+            // Error - so exit
+            failNow = true;
+        }
+    } 
+    
+    if (key == 'S') 
+    {
+        // save the image
+        if (streetInfoArray.get(streetBeingProcessed).saveItemImage(true))
+        {
+            // Done all items on street, so move to next street
+            streetBeingProcessed++;
+           if (streetBeingProcessed >= streetInfoArray.size()) 
+           {
+               // Done all the streets so finish
+               
+               allDone = true;
+           }
+        }
+    } 
     
     // skip this item - e.g. if just want to do particular item during testing
     if (key == 'n')

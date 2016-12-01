@@ -307,7 +307,7 @@ class StreetInfo {
     
     
     
-    public boolean saveItemImage()
+    public boolean saveItemImage(boolean forceSave)
     {
         ItemInfo itemData = streetItemInfoArray.get(itemBeingProcessed);
         
@@ -343,7 +343,9 @@ class StreetInfo {
         // Now check the fragment image against all the saved reference image.
         // Only save the image if this check passes
         // if the check fails, then continue processing this street item e.g. change the size, move fragment
-        if (uniqueFragmentCheck.fragmentIsUnique())
+        boolean isUnique = uniqueFragmentCheck.fragmentIsUnique();
+        
+        if (isUnique || forceSave)
         {
              showDupes = false;
              // print out the saved fragment - as have the file name and x,y
@@ -376,6 +378,57 @@ class StreetInfo {
             showDupes = true;
             return false;
         }
+    }
+    
+    public boolean queryItemImage()
+    {
+        ItemInfo itemData = streetItemInfoArray.get(itemBeingProcessed);
+        
+        // Confirm that this is a unique fragment before we save it        
+        UniqueFragmentCheck uniqueFragmentCheck = new UniqueFragmentCheck(itemData.itemClassTSID, itemData.itemInfo, itemData.itemState, itemData.qaSnapFragment);       
+        if (!uniqueFragmentCheck.readOkFlag())
+        {
+            printDebugToFile.printLine("Failed to create uniqueFragmentCheck object", 3);
+            failNow = true;
+            return false;
+        }
+        
+        // Now populate the fields in this object
+        if (configInfo.readQuoinHeightsOnly())
+        {
+            if (!uniqueFragmentCheck.loadExistingQuoinFragmentFile())
+            {
+                printDebugToFile.printLine("Failed to populate fields in uniqueFragmentCheck object 2", 2);
+                failNow = true;
+                return false;
+            }
+        }
+        else
+        {      
+            if (!uniqueFragmentCheck.loadComparisonFiles())
+            {
+                printDebugToFile.printLine("Failed to populate fields in uniqueFragmentCheck object", 2);
+                failNow = true;
+                return false;
+            }
+        }
+        
+        // Now check the fragment image against all the saved reference image.
+        // Only save the image if this check passes
+        // if the check fails, then continue processing this street item e.g. change the size, move fragment
+        boolean isUnique = uniqueFragmentCheck.fragmentIsUnique();
+        showDupes = true;
+        if (isUnique)
+        {
+             // print out the saved fragment - as have the file name and x,y
+             itemData.setUniqueTestResultMsg("Fragment is unique - at " + uniqueFragmentCheck.uniqueReferenceX + "," + uniqueFragmentCheck.uniqueReferenceY);
+        }
+        else
+        {
+            // Show warning message to user
+            itemData.setUniqueTestResultMsg(uniqueFragmentCheck.readErrorMsg());
+        }
+        return true;
     }
     
     public boolean skipItemImage()
