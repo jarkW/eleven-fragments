@@ -116,7 +116,6 @@ Saving to wood_tree_enchanted_2.png IXXXED5JT9CPTE0442 (wood_tree_enchanted (2) 
 Saving to wood_tree_enchanted_4.png IXXXBTESC145P3M78P (wood_tree_enchanted (4) ) x,y=-1880,-780 has offset -11,-54 for sample width=14 for sample height=34
 Saving to subway_gate_left.png IXXX72K1Y3JWY6DVAE (subway_gate (left) ) x,y=835,-379 has offset -6,-35 for sample width=12 for sample height=23
 Saving to subway_gate_right.png IXXX6WV6RYXCCOZME7 (subway_gate (right) ) x,y=979,-378 has offset -9,-29 for sample width=15 for sample height=16
-Saving to street_spirit_zutto.png IXXXHCEZ54BV1FEZ5M (street_spirit_zutto) x,y=-2540,-640 has offset -16,-80 for sample width=36 for sample height=30
 Saving to street_spirit_zutto_capPurple.png IXXXHCEZ54BV1FEZ5M (street_spirit_zutto (capPurple) ) x,y=-2540,-640 has offset -23,-82 for sample width=43 for sample height=33
 Saving to street_spirit_zutto_capAqua.png IXXXHCEZ54BV1FEZ8M (street_spirit_zutto (capAqua) ) x,y=-2740,-770 has offset -25,-82 for sample width=43 for sample height=33
 Saving to street_spirit_zutto_capOrange.png IXXXHCEZ54BV1FEZ7M (street_spirit_zutto (capOrange) ) x,y=-2540,-770 has offset -27,-80 for sample width=43 for sample height=33
