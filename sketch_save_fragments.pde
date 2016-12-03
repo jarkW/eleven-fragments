@@ -11,9 +11,8 @@
 // specified in the config.json. 
 //
 
-// NB Whilst zutto street vendor images can be captured using this tool, they do not work
-// well when compared with streets as the bases vary dependingo on the age of the street snap
-// and the vendors bounce up and down giving poor fit. So QABot skips these items.
+// For zutto street vendors - we generate a second flipped image (about the vertical) for QABot to use
+// as some streets show a reversed street vendor image for some reason
 
 // NB MAKE SURE THAT G* FILE HAS ALL CONTRAST/TINT ETC SET TO 0 FOR THE MIDDLEGROUND LAYER
 // BEFORE SAVE ANY IMAGES

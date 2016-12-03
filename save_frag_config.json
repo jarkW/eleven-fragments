@@ -16,7 +16,7 @@
     {"tsid": "LHVT4C9KSIA2UMG = Meera Dhala = quoins"},	
 	{"tsid": "LHV1HO45PQA2QJS = Mina Misses = rocks"},
 	{"tsid": "LHV2547JP9B2AG0 = Baddam Haddam = shrines"},
-	{"tsid": "LDORIA62TLQ2HOH = Haqiq Cedony  = sloths, enchanted wood trees, gardening vendor, zutto street vendors (but don't give good result so skipped by QABot"},
+	{"tsid": "LDORIA62TLQ2HOH = Haqiq Cedony  = sloths, enchanted wood trees, gardening vendor (discarded as moves too much), zutto street vendors (but don't give good result so skipped by QABot"},
 	{"tsid": "LHVMK86NP7B26E6 = Kerivepa Vili = odd items"},	
 	{"tsid": "LHV1HKHRSKA2CR9 = Senaga Siren = bean tree, fruit tree, wood tree stages"},
 	{"tsid": "LHV1KT9J0LA2IIA = Tamota Trill = barnacle, jellisac, egg tree stages (removed ice as not good, now done on Lacier Landere)"},

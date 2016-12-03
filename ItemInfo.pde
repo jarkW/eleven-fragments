@@ -183,7 +183,7 @@ class ItemInfo {
                 case "jellisac":
                 case "ice_knob":
                 case "dust_trap":
-                case "street_spirit_zutto":
+                //case "street_spirit_zutto":
                 case "trant_bean":
                 case "trant_fruit":
                 case "trant_egg":
@@ -320,6 +320,14 @@ class ItemInfo {
                         return false;
                     } 
                     break;
+                    
+                case "street_spirit_zutto":
+                    // manually set up the state field
+                    itemState = "normal";
+                    // We don't expect an info field, so zero length info is valid in this case
+                    zeroInfoIsError = false;
+                    break;
+                    
                                     
                 default:
                     // Nothing to extract
@@ -437,7 +445,8 @@ class ItemInfo {
     
     boolean saveImage()
     {
-        
+        String outputStr;
+        SampleJSON sampleJSON;
         // Only enter this function if the item image is indeed unique to the complete/sister images
         
         // Clear error message
@@ -472,6 +481,8 @@ class ItemInfo {
        
        // Change this to use configInfo.readPngPath instead of Datapath?  
        String save_fname = itemClassTSID;
+       String sample_fname;
+
        if (itemInfo.length() > 0)
        {
            save_fname = save_fname+ "_" + itemInfo;
@@ -480,7 +491,7 @@ class ItemInfo {
        {
            save_fname = save_fname+ "_" + itemState;
        }
-       String sample_fname = save_fname + ".png";
+       sample_fname = save_fname + ".png";
        save_fname = save_fname + "_full.png";
        
        // write to file
@@ -489,6 +500,14 @@ class ItemInfo {
        // Save the actual png file to be used later in Work directory and QA tool directory
        qaSnapFragment.save(configInfo.readPngPath() + "/" + sample_fname);
        qaSnapFragment.save(configInfo.readQAToolPath() + "/" + sample_fname);
+       
+       // Manually save the flipped version of a zutto street vendor
+       if (itemClassTSID.equals("street_spirit_zutto"))
+       {     
+           PImage sampleFlipped = flipImage(qaSnapFragment);  
+           sampleFlipped.save(configInfo.readPngPath() + "/" + "street_spirit_zutto_flipped.png");
+           sampleFlipped.save(configInfo.readQAToolPath() + "/" + "street_spirit_zutto_flipped.png");
+       }
 
         // As want to update existing/append new data, just open/close print object here
        PrintDataToFile printDataToFile = new PrintDataToFile(); 
@@ -507,7 +526,7 @@ class ItemInfo {
            return false;
        }
 
-       String outputStr = "Saving to " + sample_fname + " " + itemTSID + " (" + itemClassTSID;
+       outputStr = "Saving to " + sample_fname + " " + itemTSID + " (" + itemClassTSID;
        if (itemInfo.length() > 0)
        {
            outputStr = outputStr + " (" + itemInfo + ") ";
@@ -516,13 +535,10 @@ class ItemInfo {
        outputStr = outputStr + str(offsetX) + "," + str(offsetY) + " for sample width=";
        outputStr = outputStr + str(sampleWidth) + " for sample height=" + str(sampleHeight);
        printDataToFile.printLine(outputStr);
-       
-       // flush/close stream
-       printDataToFile.flushFile();
-       printDataToFile.closeFile();
-       
+       printDebugToFile.printLine(outputStr, 2);
+             
        // Also want to write to JSON file saving relevant info for QA tool to use
-       SampleJSON sampleJSON = new SampleJSON();
+       sampleJSON = new SampleJSON();
        if (!sampleJSON.readOkFlag())
        {
            printDebugToFile.printLine("Error opening sampleJSON object", 3);
@@ -531,12 +547,58 @@ class ItemInfo {
        }
        sampleJSON.saveFragmentInfo(itemClassTSID, itemInfo, itemState, offsetX, offsetY, sampleHeight, sampleWidth);
        //sampleJSON.saveFragmentInfo(itemClassTSID, itemInfo, itemState, offsetX, offsetY);
+
        
-       // Also log
-       printDebugToFile.printLine(outputStr, 2);
+       // Manually update the JSON file for the flipped zutto vendor
+       if (itemClassTSID.equals("street_spirit_zutto"))
+       {          
+           // The new offsetX has to take account of the sample width as the offset refers to top LH corner
+           int flippedOffsetX = -(offsetX + sampleWidth);
+           outputStr = "Saving to " + "street_spirit_zutto_flipped.png" + " " + itemTSID + " (" + itemClassTSID;
+           outputStr = outputStr + ") x,y=" + str(itemX) + "," + str(itemY) + " has offset ";
+           outputStr = outputStr + str(flippedOffsetX) + "," + str(offsetY) + " for sample width=";
+           outputStr = outputStr + str(sampleWidth) + " for sample height=" + str(sampleHeight);
+           printDataToFile.printLine(outputStr);
+           printDebugToFile.printLine(outputStr, 2);
+                 
+           // Also want to write to JSON file saving relevant info for QA tool to use
+           sampleJSON = new SampleJSON();
+           if (!sampleJSON.readOkFlag())
+           {
+               printDebugToFile.printLine("Error opening sampleJSON object", 3);
+               failNow = true;
+               return false;
+           }
+           sampleJSON.saveFragmentInfo(itemClassTSID, itemInfo, "flipped", flippedOffsetX, offsetY, sampleHeight, sampleWidth);
+       }
+       
+       // flush/close stream
+       printDataToFile.flushFile();
+       printDataToFile.closeFile();
        
        return true;
 
+    }
+    
+    PImage flipImage(PImage originalImage)
+    {
+        PImage flippedImage = createImage(originalImage.width, originalImage.height, ARGB);
+        flippedImage.loadPixels();
+        
+        int locOriginal;
+        int locFlipped;
+        
+        for (int pixelYPosition = 0; pixelYPosition < originalImage.height; pixelYPosition++) 
+        {
+            for (int pixelXPosition = 0; pixelXPosition < originalImage.width; pixelXPosition++) 
+            {
+                locOriginal = pixelXPosition + (pixelYPosition * originalImage.width);
+                locFlipped = originalImage.width - pixelXPosition - 1 + (pixelYPosition * originalImage.width);
+                flippedImage.pixels[locFlipped] = originalImage.pixels[locOriginal];
+            }
+        }
+        
+        return flippedImage;
     }
     
     void skipImage()
