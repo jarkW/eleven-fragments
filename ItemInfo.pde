@@ -190,6 +190,21 @@ class ItemInfo {
                 case "trant_bubble":
                 case "trant_spice":
                 case "trant_gas":
+                case "peat_1":
+                case "peat_2":
+                case "peat_3":
+                case "rock_beryl_1":
+                case "rock_beryl_2":
+                case "rock_beryl_3":
+                case "rock_dullite_1":
+                case "rock_dullite_2":
+                case "rock_dullite_3":
+                case "rock_sparkly_1":
+                case "rock_sparkly_2":
+                case "rock_sparkly_3":
+                case "rock_metal_1":
+                case "rock_metal_2":
+                case "rock_metal_3":
                 
                     // Read in the instanceProps array to get the quoin type
                     instanceProps = null;
@@ -207,14 +222,32 @@ class ItemInfo {
                     {
                         itemInfo = readJSONString(instanceProps, "type");
                     }
-                    else if ((itemClassTSID.equals("npc_mailbox")) || (itemClassTSID.equals("dirt_pile")))
+                    else if (itemClassTSID.equals("npc_mailbox"))
                     {
                         itemInfo = readJSONString(instanceProps, "variant");
+                    }
+                    else if (itemClassTSID.equals("dirt_pile"))
+                    {
+                        itemInfo = readJSONString(instanceProps, "variant");
+                        // So we can differentiate different states of dirt pile
+                        itemState = readJSONString(instanceProps, "dirt_state"); // takes values 1-11
                     }
                     else if (itemClassTSID.equals("mortar_barnacle"))
                     {
                         itemInfo = readJSONString(instanceProps, "blister");
                         itemState = str(instanceProps.getInt("scrape_state")); 
+                    }
+                    else if (itemClassTSID.startsWith("peat_"))
+                    {
+                        itemState = readJSONString(instanceProps, "harvests_remaining"); // takes values 1-4
+                        // We don't expect an info field, so zero length info is valid in this case
+                        zeroInfoIsError = false;
+                    }
+                    else if (itemClassTSID.startsWith("rock_"))
+                    {
+                        itemState = readJSONString(instanceProps, "chunks_remaining"); // takes values 10-50 (don't seem to be any other images than these 5)
+                        // We don't expect an info field, so zero length info is valid in this case
+                        zeroInfoIsError = false;
                     }
                     else if (itemClassTSID.equals("jellisac"))
                     {
