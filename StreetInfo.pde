@@ -84,6 +84,11 @@ class StreetInfo {
         try
         {
             dynamic = json.getJSONObject("dynamic");
+            if (dynamic == null)
+            {
+                printDebugToFile.printLine("Reading geo file - dynamic is null, so set to json " + geoFileName, 2);
+                dynamic = json;
+            }
         }
         catch(Exception e)
         {
@@ -91,7 +96,7 @@ class StreetInfo {
             printDebugToFile.printLine("Reading geo file - failed to read dynamic " + geoFileName, 2);
             if (dynamic == null)
             {
-                printDebugToFile.printLine("Reading geo file - dynamic 1 is null " + geoFileName, 2);
+                printDebugToFile.printLine("Reading geo file - dynamic 1 is null, so set to json " + geoFileName, 2);
             }
             dynamic = json;
         } 
